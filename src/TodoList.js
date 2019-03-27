@@ -6,21 +6,21 @@ function TodoList({ todos }) {
   return (
     <ul>
       {todos ? (
-        todos.map(function(todo) {
+        todos.map(function (todo) {
           return (
             <li key={todo.id}>
-              <TodoItem text={todo.text} />
+              <TodoItem text={todo.text} isDone={todo.done} />
             </li>
           );
         })
       ) : (
-        <p> No todos </p>
-      )}
+          <p> No todos </p>
+        )}
     </ul>
   );
 }
 
-export default subscribe(function(state) {
+export default subscribe(function (state) {
   return {
     todos: state.todos
   };

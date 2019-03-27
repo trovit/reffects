@@ -2,13 +2,13 @@ import { registerEffectHandler, dispatch } from "./lib";
 import * as store from "./lib-store";
 
 export function registerEffects() {
-  registerEffectHandler("mutate", function(mutations) {
-    mutations.forEach(function(mutation) {
+  registerEffectHandler("mutate", function (mutations) {
+    mutations.forEach(function (mutation) {
       store.setState(mutation);
     });
   });
 
-  registerEffectHandler("get", function(requestDescription) {
+  registerEffectHandler("get", function (requestDescription) {
     const [eventId, ...rest] = requestDescription.successEvent;
     fetch(requestDescription.url)
       .then(res => res.json())
@@ -23,7 +23,8 @@ export function registerEffects() {
 
     const normalizedData = todos.results.map(item => ({
       id: item.id,
-      text: item.name
+      text: 'describe: ' + item.name,
+      done: !!item.description
     }));
 
     dispatch(eventId, normalizedData);
