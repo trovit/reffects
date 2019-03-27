@@ -17,7 +17,7 @@ function TodoList({ todos }) {
           todos.map(function (todo) {
             return (
               <li key={todo.id}>
-                <TodoItem text={todo.text} isDone={todo.done} />
+                <TodoItem id={todo.id} text={todo.text} isDone={todo.done} />
               </li>
             );
           })

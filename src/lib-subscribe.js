@@ -7,7 +7,6 @@ export function subscribe(mapStateToProps) {
       Component.call(this, props);
       let state = mapStateToProps(store.getState(), props);
       let update = () => {
-        console.log(store.getState().todos);
         let mapped = mapStateToProps(store.getState(), props);
         for (let i in mapped)
           if (mapped[i] !== state[i]) {

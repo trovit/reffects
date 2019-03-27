@@ -40,7 +40,6 @@ export function registerEffectHandler(effectId, handler) {
 }
 
 export function dispatch(eventId, payload) {
-  console.log(eventId);
   const eventHandler = eventHandlers[eventId];
 
   if (!eventHandler) {

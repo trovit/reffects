@@ -18,7 +18,15 @@ export function registerEvents() {
 
   registerEventHandler(
     "loadTodosSucceeded",
-    function normalizeTodos(coeffects, response) {
+    function loadTodosSucceeded(coeffects, response) {
+      function extractTodos(payload) {
+        return payload.results.map(item => ({
+          id: item.id,
+          text: 'Describe: ' + item.name,
+          done: !!item.description
+        }));
+      }
+
       const todos = extractTodos(response);
 
       return {
@@ -29,22 +37,38 @@ export function registerEvents() {
     []
   );
 
-  function extractTodos(payload) {
-    return payload.results.map(item => ({
-      id: item.id,
-      text: 'Describe: ' + item.name,
-      done: !!item.description
-    }));
-  }
 
 
   registerEventHandler(
     "filterTodos",
-    function loadTodosSucceeded(coeffects, activeFilter) {
+    function filterTodos(coeffects, activeFilter) {
       return {
         mutate: [{ path: ["visibilityFilter"], newValue: activeFilter }]
       };
     },
     []
+  );
+
+  registerEventHandler(
+    "toggleTodo",
+    function loadTodosSucceeded(coeffects, idTodo) {
+      const { state: { todos } } = coeffects;
+      function toggleTodo(idTodo, todos) {
+        return todos.map(todo => {
+          if (todo.id === idTodo) {
+            return Object.assign({}, todo, { done: !todo.done });
+          }
+
+          return todo;
+        })
+      }
+
+      const newTodos = toggleTodo(idTodo, todos);
+
+      return {
+        mutate: [{ path: ["todos"], newValue: newTodos }]
+      };
+    },
+    [['state', [{ path: ['todos'], key: 'todos' }]]]
   );
 }
