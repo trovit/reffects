@@ -6,7 +6,7 @@ export function getState() {
 }
 
 export function setState({ path, newValue }) {
-  state[path[0]] = newValue;
+  state = Object.assign({}, state, { [path[0]]: newValue })
   let currentListeners = listeners;
   for (let i = 0; i < currentListeners.length; i++) currentListeners[i](state);
 }

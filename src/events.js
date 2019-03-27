@@ -39,4 +39,14 @@ export function registerEvents() {
     },
     []
   );
+
+  registerEventHandler(
+    "filterTodos",
+    function loadTodosSucceeded(coeffects, activeFilter) {
+      return {
+        mutate: [{ path: ["visibilityFilter"], newValue: activeFilter }]
+      };
+    },
+    []
+  );
 }

@@ -11,7 +11,8 @@ import { dispatch } from "./lib";
 import { initializeStore } from "./lib-store";
 
 initializeStore({
-  todos: [{ text: "blabla", id: "ñaña" }, { text: "blabla2", id: "ñaña2" }]
+  todos: [],
+  visibilityFilter: 'all'
 });
 
 registerCoeffects();
