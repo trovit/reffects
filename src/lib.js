@@ -3,7 +3,7 @@ const effectHandlers = {};
 const coeffectHandlers = {};
 
 function extractCoeffectsValues(coeffectDescriptions) {
-  return coeffectDescriptions.reduce(function(acc, coeffects) {
+  return coeffectDescriptions.reduce(function (acc, coeffects) {
     const coeffectId = coeffects[0],
       coeffectArguments = coeffects[1],
       coeffectHandler = coeffectHandlers[coeffectId];
@@ -16,7 +16,7 @@ function extractCoeffectsValues(coeffectDescriptions) {
 
 function applyEffects(effects) {
   const effectIds = Object.keys(effects);
-  effectIds.forEach(function(effectId) {
+  effectIds.forEach(function (effectId) {
     const effectData = effects[effectId],
       effectHandler = effectHandlers[effectId];
     effectHandler(effectData);
@@ -24,7 +24,7 @@ function applyEffects(effects) {
 }
 
 export function registerEventHandler(eventId, handler, coeffectDescriptions) {
-  eventHandlers[eventId] = function(payload) {
+  eventHandlers[eventId] = function (payload) {
     const coeffects = extractCoeffectsValues(coeffectDescriptions);
     const effects = handler(coeffects, payload);
     applyEffects(effects);
@@ -40,28 +40,34 @@ export function registerEffectHandler(effectId, handler) {
 }
 
 export function dispatch(eventId, payload) {
+  console.log(eventId);
   const eventHandler = eventHandlers[eventId];
+
+  if (!eventHandler) {
+    throw new Error(`There is no event handler called '${eventId}'.`);
+  }
+
   return Promise.resolve(eventHandler(payload));
 }
 
 function dispatchMany(events) {
-  events.forEach(function(event) {
+  events.forEach(function (event) {
     const [eventId, payload] = event;
     dispatch(eventId, payload);
   });
 }
 
-registerEffectHandler("dispatch", function(event) {
+registerEffectHandler("dispatch", function (event) {
   const { id, payload, milliseconds } = event;
   dispatch(id, payload);
 });
 
 registerEffectHandler("dispatchMany", dispatchMany);
 
-registerEffectHandler("dispatchLater1", function(event) {
+registerEffectHandler("dispatchLater1", function (event) {
   const { id, payload, milliseconds } = event;
 
-  setTimeout(function() {
+  setTimeout(function () {
     dispatch(id, payload);
   }, milliseconds);
 });

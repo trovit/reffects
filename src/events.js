@@ -4,13 +4,12 @@ export function registerEvents() {
   registerEventHandler(
     "loadTodos",
     function loadTodos(coeffects, payload) {
-      var url = coeffects["apiUrl"],
-        state = coeffects["state"];
+      const url = coeffects["apiUrl"];
 
       return {
         get: {
           url,
-          successEvent: ["normalizeTodos"]
+          successEvent: ["loadTodosSucceeded"]
         }
       };
     },
@@ -18,27 +17,26 @@ export function registerEvents() {
   );
 
   registerEventHandler(
-    "normalizeTodos",
-    function normalizeTodos(coeffects, payload) {
+    "loadTodosSucceeded",
+    function normalizeTodos(coeffects, response) {
+      const todos = extractTodos(response);
+
       return {
-        normalizeTodos: {
-          todos: payload,
-          successEvent: ["loadTodosSucceeded"]
-        }
+        mutate:
+          [{ path: ["todos"], newValue: todos }]
       };
     },
     []
   );
 
-  registerEventHandler(
-    "loadTodosSucceeded",
-    function loadTodosSucceeded(coeffects, responseData) {
-      return {
-        mutate: [{ path: ["todos"], newValue: responseData }]
-      };
-    },
-    []
-  );
+  function extractTodos(payload) {
+    return payload.results.map(item => ({
+      id: item.id,
+      text: 'Describe: ' + item.name,
+      done: !!item.description
+    }));
+  }
+
 
   registerEventHandler(
     "filterTodos",

@@ -14,19 +14,4 @@ export function registerEffects() {
       .then(res => res.json())
       .then(response => dispatch(eventId, response.data));
   });
-
-  registerEffectHandler("normalizeTodos", function normalizeTodos(description) {
-    const {
-      todos,
-      successEvent: [eventId, ...rest]
-    } = description;
-
-    const normalizedData = todos.results.map(item => ({
-      id: item.id,
-      text: 'describe: ' + item.name,
-      done: !!item.description
-    }));
-
-    dispatch(eventId, normalizedData);
-  });
 }
