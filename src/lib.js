@@ -23,7 +23,7 @@ function applyEffects(effects) {
   });
 }
 
-export function registerEventHandler(eventId, handler, coeffectDescriptions) {
+export function registerEventHandler(eventId, handler, coeffectDescriptions = []) {
   eventHandlers[eventId] = function (payload) {
     const coeffects = extractCoeffectsValues(coeffectDescriptions);
     const effects = handler(coeffects, payload);
