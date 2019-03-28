@@ -49,24 +49,9 @@ export function dispatch(eventId, payload) {
   return Promise.resolve(eventHandler(payload));
 }
 
-function dispatchMany(events) {
+export function dispatchMany(events) {
   events.forEach(function (event) {
     const [eventId, payload] = event;
     dispatch(eventId, payload);
   });
 }
-
-registerEffectHandler("dispatch", function (event) {
-  const { id, payload, milliseconds } = event;
-  dispatch(id, payload);
-});
-
-registerEffectHandler("dispatchMany", dispatchMany);
-
-registerEffectHandler("dispatchLater1", function (event) {
-  const { id, payload, milliseconds } = event;
-
-  setTimeout(function () {
-    dispatch(id, payload);
-  }, milliseconds);
-});

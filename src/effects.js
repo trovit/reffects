@@ -1,4 +1,4 @@
-import { registerEffectHandler, dispatch } from "./lib";
+import { registerEffectHandler, dispatch, dispatchMany } from "./lib";
 import * as store from "./lib-store";
 
 export function registerEffects() {
@@ -14,4 +14,20 @@ export function registerEffects() {
       .then(res => res.json())
       .then(response => dispatch(eventId, response.data));
   });
+
+  registerEffectHandler("dispatch", function (event) {
+    const { eventId, payload, milliseconds } = event;
+    dispatch(eventId, payload);
+  });
+
+  registerEffectHandler("dispatchMany", dispatchMany);
+
+  registerEffectHandler("dispatchLater", function (event) {
+    const { eventId, payload, milliseconds } = event;
+
+    setTimeout(function () {
+      dispatch(eventId, payload);
+    }, milliseconds);
+  });
+
 }

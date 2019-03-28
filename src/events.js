@@ -51,7 +51,7 @@ export function registerEvents() {
 
   registerEventHandler(
     "toggleTodo",
-    function loadTodosSucceeded(coeffects, idTodo) {
+    function toggleTodo(coeffects, idTodo) {
       const { state: { todos } } = coeffects;
       function toggleTodo(idTodo, todos) {
         return todos.map(todo => {
@@ -66,9 +66,34 @@ export function registerEvents() {
       const newTodos = toggleTodo(idTodo, todos);
 
       return {
-        mutate: [{ path: ["todos"], newValue: newTodos }]
+        mutate: [
+          { path: ["todos"], newValue: newTodos },
+        ]
       };
     },
     [['state', [{ path: ['todos'], key: 'todos' }]]]
+  );
+
+  registerEventHandler(
+    "toggleToast",
+    function toggleToast(coeffects, text) {
+      const { state: { isToastShown } } = coeffects;
+      const newValue = !isToastShown;
+      const effects = {
+        mutate: [
+          { path: ["isToastShown"], newValue: newValue },
+          { path: ["toastText"], newValue: text },
+        ]
+      };
+
+      if (newValue) {
+        effects.dispatchLater = {
+          eventId: 'toggleToast', payload: text, milliseconds: 3000
+        };
+      }
+
+      return effects;
+    },
+    [['state', [{ path: ['isToastShown'], key: 'isToastShown' }]]]
   );
 }
