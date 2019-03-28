@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { subscribe } from './lib-subscribe';
+import { getIn } from './lib-utils';
 
 function Toast({ text, shown }) {
 
@@ -8,18 +9,18 @@ function Toast({ text, shown }) {
   )
 }
 
-function isToastShownSelector(state) {
-  return state.isToastShown;
+function selectToastVisible(state) {
+  return getIn(state, ['toast', 'visible']);
 }
 
-function toastTextSelector(state) {
-  return state.toastText;
+function selectToastText(state) {
+  return getIn(state, ['toast', 'text']);
 }
 
 export default subscribe(function (state) {
   return {
-    text: toastTextSelector(state),
-    shown: isToastShownSelector(state),
+    text: selectToastText(state),
+    shown: selectToastVisible(state),
   };
 })(Toast);
 

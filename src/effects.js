@@ -31,25 +31,30 @@ export function registerEffects() {
   });
 
 
-  registerEffectHandler("toast", function ({text, milliseconds}) {
-    const {isToastShown : alreadyShown, toastTimeoutId}  = store.getState();
+  registerEffectHandler("toast", function ({ text, milliseconds }) {
+    const { toast: { visible: alreadyShown, timeoutId: toastTimeoutId } } = store.getState();
 
-    if(alreadyShown) {
+    if (alreadyShown) {
       clearTimeout(toastTimeoutId);
     }
 
-    store.setState({path: ["isToastShown"], newValue: true});
-    store.setState({path: ["toastText"], newValue: text});
+    store.setState({
+      path: ['toast'], newValue: {
+        text, visible: true
+      }
+    });
 
-    var timeoutId = setTimeout(
-      function() {
-        store.setState({path: ["isToastShown"], newValue: false});
-        store.setState({path: ["toastText"], newValue: ""});
-        store.setState({path: ["toastTimeoutId"], newValue: null});
+    const timeoutId = setTimeout(
+      function () {
+        store.setState({
+          path: ['toast'], newValue: {
+            text: '', visible: false, timeoutId: null
+          }
+        });
       },
       milliseconds
     );
 
-    store.setState({path: ["toastTimeoutId"], newValue: timeoutId});
+    store.setState({ path: ['toast', 'timeoutId'], newValue: timeoutId });
   });
 }

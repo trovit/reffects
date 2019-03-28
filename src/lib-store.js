@@ -1,3 +1,5 @@
+import { setIn } from "./lib-utils";
+
 let state = {};
 let listeners = [];
 
@@ -6,7 +8,13 @@ export function getState() {
 }
 
 export function setState({ path, newValue }) {
-  state = Object.assign({}, state, { [path[0]]: newValue })
+
+  if (!path.length) {
+    return;
+  }
+
+  state = setIn(state, path, newValue);
+
   let currentListeners = listeners;
   for (let i = 0; i < currentListeners.length; i++) currentListeners[i](state);
 }

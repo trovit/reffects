@@ -17,6 +17,11 @@ initializeStore({
   toastText: '',
   toastTimeoutId: null,
   isToastShown: false,
+  toast: {
+    text: '',
+    timeoutId: null,
+    visible: false,
+  }
 });
 
 registerCoeffects();
