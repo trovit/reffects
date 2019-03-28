@@ -15,6 +15,7 @@ initializeStore({
   todos: [],
   visibilityFilter: 'all',
   toastText: '',
+  toastTimeoutId: null,
   isToastShown: false,
 });
 

@@ -74,32 +74,22 @@ export function registerEvents() {
     [['state', [{ path: ['todos'], key: 'todos' }]]]
   );
 
+  function createToastEffect(text) {
+    return {
+      toast: {
+        text: text,
+        milliseconds: 3000
+      }
+    };
+  }
+
   registerEventHandler(
-    "showToast",
-    function showToast(coeffects, text) {
-      return {
-        mutate: [
-          { path: ["isToastShown"], newValue: true },
-          { path: ["toastText"], newValue: text },
-        ],
-        dispatchLater: {
-          eventId: 'hideToast', payload: text, milliseconds: 3000
-        }
-      };
+    "todoActivationChanged",
+    function (coeffects, { isDone, text }) {
+      var toastText = `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`;
+      return createToastEffect(toastText);
     },
     []
-  );
+  )
 }
-registerEventHandler(
-  "hideToast",
-  function showToast(coeffects, payload) {
-    return {
-      mutate: [
-        { path: ["isToastShown"], newValue: false },
-        { path: ["toastText"], newValue: '' },
-      ],
-    };
-  },
-  []
-);
 

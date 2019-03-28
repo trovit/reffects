@@ -4,6 +4,6 @@ import { dispatch } from "./lib";
 export default function TodoItem({ id, text, isDone }) {
   return <article onClick={() => {
     dispatch('toggleTodo', id);
-    dispatch('showToast', `"${text}" was marked as ${isDone ? 'done' : 'undone'}.`);
+    dispatch('todoActivationChanged', {isDone, text});
   }}>{isDone ? <s>{text}</s> : text}</article>;
 }
