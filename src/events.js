@@ -75,25 +75,31 @@ export function registerEvents() {
   );
 
   registerEventHandler(
-    "toggleToast",
-    function toggleToast(coeffects, text) {
-      const { state: { isToastShown } } = coeffects;
-      const newValue = !isToastShown;
-      const effects = {
+    "showToast",
+    function showToast(coeffects, text) {
+      return {
         mutate: [
-          { path: ["isToastShown"], newValue: newValue },
+          { path: ["isToastShown"], newValue: true },
           { path: ["toastText"], newValue: text },
-        ]
+        ],
+        dispatchLater: {
+          eventId: 'hideToast', payload: text, milliseconds: 3000
+        }
       };
-
-      if (newValue) {
-        effects.dispatchLater = {
-          eventId: 'toggleToast', payload: text, milliseconds: 3000
-        };
-      }
-
-      return effects;
     },
-    [['state', [{ path: ['isToastShown'], key: 'isToastShown' }]]]
+    []
   );
 }
+registerEventHandler(
+  "hideToast",
+  function showToast(coeffects, payload) {
+    return {
+      mutate: [
+        { path: ["isToastShown"], newValue: false },
+        { path: ["toastText"], newValue: '' },
+      ],
+    };
+  },
+  []
+);
+
