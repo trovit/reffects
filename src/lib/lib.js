@@ -40,15 +40,13 @@ function extractCoeffectsValues(coeffectDescriptions) {
     if (isString(coeffectDescription)) {
       const coeffectId = coeffectDescription;
       const coeffectHandler = getCoeffectHandler(coeffectId);
-
-      return coeffectHandler(acc);
+      return Object.assign({}, acc,  coeffectHandler());
     }
 
     const coeffectId = coeffectDescription.id;
     const coeffectData = coeffectDescription.data;
     const coeffectHandler = getCoeffectHandler(coeffectId);
-
-    return coeffectHandler(acc, coeffectData);
+    return Object.assign({}, acc,  coeffectHandler(coeffectData));
   }, {});
 }
 

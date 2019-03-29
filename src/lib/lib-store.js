@@ -1,14 +1,13 @@
-import { setIn } from "./lib-utils";
+import { setIn, getIn } from "./lib-utils";
 
 let state = {};
 let listeners = [];
 
-export function getState() {
-  return state;
+export function getState(path = []) {
+  return getIn(state, path, state);
 }
 
-export function setState({ path, newValue }) {
-
+export function setState({ path = [], newValue }) {
   if (!path.length) {
     return;
   }
