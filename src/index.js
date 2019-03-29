@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-import TodoList from "./TodoList";
-import { registerCoeffects } from "./coeffects";
-import { registerEffects } from "./effects";
-import { registerEvents } from "./events";
-import { dispatch } from "./lib";
-import { initializeStore } from "./lib-store";
-import Toast from "./Toast";
+import TodoList from "./todos/TodoList/TodoList";
+import coeffects from "./coeffects";
+import effects from "./effects";
+import events from "./todos/TodoList/events";
+import { dispatch } from "./lib/lib";
+import { initializeStore } from "./lib/lib-store";
+import Toast from "./todos/Toast/Toast";
 
 initializeStore({
   todos: [],
@@ -24,9 +24,9 @@ initializeStore({
   }
 });
 
-registerCoeffects();
-registerEffects();
-registerEvents();
+coeffects.register();
+effects.register();
+events.register();
 
 function App() {
   dispatch("loadTodos");

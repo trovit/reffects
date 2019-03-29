@@ -1,9 +1,13 @@
-import { loadTodos, loadTodosSucceeded, filterTodos, toggleTodo, todoActivationChanged } from './events'
+import events from './events';
+import { getEventHandler, clearHandlers } from '../../lib/lib';
+import { applyLibFixture } from '../../../testHelpers/fixtures';
+
+applyLibFixture(events);
 
 describe('events', () => {
   test('loadTodos', () => {
     const givenCoeffects = { apiUrl: "sddasds" };
-
+    const loadTodos = getEventHandler('loadTodos');
     expect(loadTodos(givenCoeffects)).toEqual({
       get: {
         url: givenCoeffects.apiUrl,
@@ -13,7 +17,7 @@ describe('events', () => {
   });
   test('loadTodosSucceeded', () => {
     const givenCoeffects = {};
-
+    const loadTodosSucceeded = getEventHandler('loadTodosSucceeded');
     expect(loadTodosSucceeded(givenCoeffects, {
       results: [
         {
@@ -47,6 +51,7 @@ describe('events', () => {
   });
   test('filterTodos', () => {
     const givenCoeffects = {};
+    const filterTodos = getEventHandler('filterTodos');
 
     expect(filterTodos(givenCoeffects, 'codorniz')).toEqual({
       mutate: [{ path: ["visibilityFilter"], newValue: 'codorniz' }]
@@ -63,6 +68,7 @@ describe('events', () => {
         },]
       }
     };
+    const toggleTodo = getEventHandler('toggleTodo');
 
     expect(toggleTodo(givenCoeffects, idTodo)).toEqual({
       mutate: [
@@ -76,12 +82,13 @@ describe('events', () => {
       ]
     })
   });
-  test('todoActivationChanged', () => {
+  test('showToggledTodoToast', () => {
     const givenCoeffects = {};
+    const showToggledTodoToast = getEventHandler('showToggledTodoToast');
     const isDone = true;
     const text = 'Lorem ipsum';
 
-    expect(todoActivationChanged(givenCoeffects, { isDone, text })).toEqual({
+    expect(showToggledTodoToast(givenCoeffects, { isDone, text })).toEqual({
       toast: {
         text: '"Lorem ipsum" was marked as undone.',
         milliseconds: 3000

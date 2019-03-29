@@ -1,35 +1,47 @@
-import { registerEffectHandler, dispatch, dispatchMany } from "./lib";
-import * as store from "./lib-store";
+import { registerEffectHandler, dispatch } from "./lib/lib";
+import * as store from "./lib/lib-store";
 
-export function registerEffects() {
-  registerEffectHandler("mutate", function (mutations) {
+function dispatchMany(events) {
+  events.forEach(function (event) {
+    const [eventId, payload] = event;
+    dispatch(eventId, payload);
+  });
+}
+
+function dispatchLater(event) {
+  const { eventId, payload, milliseconds } = event;
+
+  setTimeout(function () {
+    dispatch(eventId, payload);
+  }, milliseconds);
+}
+
+export function register() {
+  registerEffectHandler("mutate", function mutateEffect(mutations) {
     mutations.forEach(function (mutation) {
       store.setState(mutation);
     });
   });
 
-  registerEffectHandler("get", function (requestDescription) {
+  registerEffectHandler("get", function getEffect(requestDescription) {
     const [eventId, ...rest] = requestDescription.successEvent;
     fetch(requestDescription.url)
       .then(res => res.json())
       .then(response => dispatch(eventId, response.data));
   });
 
-  registerEffectHandler("dispatch", function (event) {
-    const { eventId, payload, milliseconds } = event;
+  registerEffectHandler("dispatch", function dispatchEffect(event) {
+    const { eventId, payload } = event;
     dispatch(eventId, payload);
   });
 
-  registerEffectHandler("dispatchMany", dispatchMany);
-
-  registerEffectHandler("dispatchLater", function (event) {
-    const { eventId, payload, milliseconds } = event;
-
-    setTimeout(function () {
-      dispatch(eventId, payload);
-    }, milliseconds);
+  registerEffectHandler("dispatchMany", function dispatchManyEffect(events) {
+    return dispatchMany(events)
   });
 
+  registerEffectHandler("dispatchLater", function dispatchLaterEffect(event) {
+    dispatchLater(event);
+  });
 
   registerEffectHandler("toast", function ({ text, milliseconds }) {
     const { toast: { visible: alreadyShown, timeoutId: toastTimeoutId } } = store.getState();
@@ -57,4 +69,8 @@ export function registerEffects() {
 
     store.setState({ path: ['toast', 'timeoutId'], newValue: timeoutId });
   });
+}
+
+export default {
+  register,
 }

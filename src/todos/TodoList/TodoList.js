@@ -1,9 +1,9 @@
 import React from "react";
 import TodoItem from "./TodoItem";
-import { subscribe } from "./lib-subscribe";
+import { subscribe } from "../../lib/lib-subscribe";
 
 import { createSelector } from 'reselect'
-import { dispatch } from "./lib";
+import { dispatch } from "../../lib/lib";
 
 function handleFilterClick(activeFilter) {
   dispatch('filterTodos', activeFilter);

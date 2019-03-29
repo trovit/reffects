@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { subscribe } from './lib-subscribe';
-import { getIn } from './lib-utils';
+import { subscribe } from '../../lib/lib-subscribe';
+import { getIn } from '../../lib/lib-utils';
 
-function Toast({ text, shown }) {
+export function Toast({ text, shown }) {
 
   return shown && (
     <div style={{ position: 'fixed', bottom: 0, background: 'rebeccapurple', color: 'white' }}>{text}</div>
