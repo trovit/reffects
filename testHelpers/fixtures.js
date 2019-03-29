@@ -1,17 +1,30 @@
-import effects from "../src/effects";
-import coeffects from "../src/coeffects";
+import * as effects from "../src/effects";
+import * as coeffects from "../src/coeffects";
 import { clearHandlers } from "../src/lib/lib";
 
-export function applyLibFixture(events) {
+export function applyEventsFixture(events) {
   beforeAll(() => {
-    effects.register();
-    coeffects.register();
-    if (events) {
-      events.register();
-    }
+    events.register();
   });
 
   afterAll(() => {
     clearHandlers();
+    destroyAllMocks();
   })
+}
+
+export function applyCoeffectsFixture(globals) {
+  beforeAll(() => {
+    coeffects.register(globals);
+  });
+
+  afterAll(() => {
+    clearHandlers();
+    destroyAllMocks();
+  })
+}
+
+function destroyAllMocks() {
+  jest.restoreAllMocks();
+  jest.clearAllMocks();
 }

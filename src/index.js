@@ -4,19 +4,18 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 
 import TodoList from "./todos/TodoList/TodoList";
-import coeffects from "./coeffects";
-import effects from "./effects";
-import events from "./todos/TodoList/events";
+import * as coeffects from "./coeffects";
+import * as effects from "./effects";
+import * as events from "./todos/TodoList/events";
 import { dispatch } from "./lib/lib";
 import { initializeStore } from "./lib/lib-store";
 import Toast from "./todos/Toast/Toast";
 
+window.apiUrl = "https://gateway.marvel.com/v1/public/characters?ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b";
+
 initializeStore({
   todos: [],
   visibilityFilter: 'all',
-  toastText: '',
-  toastTimeoutId: null,
-  isToastShown: false,
   toast: {
     text: '',
     timeoutId: null,
@@ -24,7 +23,7 @@ initializeStore({
   }
 });
 
-coeffects.register();
+coeffects.register(window);
 effects.register();
 events.register();
 

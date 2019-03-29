@@ -70,7 +70,3 @@ export function register() {
     store.setState({ path: ['toast', 'timeoutId'], newValue: timeoutId });
   });
 }
-
-export default {
-  register,
-}

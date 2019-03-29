@@ -1,6 +1,6 @@
 import { registerEventHandler } from "../../lib/lib";
 
-function register() {
+export function register() {
   registerEventHandler("loadTodos", function loadTodos(coeffects, payload) {
     const url = coeffects["apiUrl"];
 
@@ -70,7 +70,3 @@ function register() {
     return createToastEffect(toastText);
   })
 }
-
-export default {
-  register
-};

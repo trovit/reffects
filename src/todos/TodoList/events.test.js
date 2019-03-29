@@ -1,8 +1,8 @@
-import events from './events';
+import * as events from './events';
 import { getEventHandler, clearHandlers } from '../../lib/lib';
-import { applyLibFixture } from '../../../testHelpers/fixtures';
+import { applyEventsFixture } from '../../../testHelpers/fixtures';
 
-applyLibFixture(events);
+applyEventsFixture(events);
 
 describe('events', () => {
   test('loadTodos', () => {
