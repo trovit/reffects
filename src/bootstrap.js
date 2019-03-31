@@ -1,6 +1,4 @@
-import * as todoListEvents from "./todos/TodoList/events";
-import { dispatch } from "./lib/lib";
-import * as store from "./lib/lib-store";
+import { dispatch } from "./lib/reffect";
 
 import * as httpEffects from "./effects/httpEffects";
 import * as mutateEffect from "./effects/mutate";
@@ -12,9 +10,11 @@ import * as apiUrlCoeffect from "./coeffects/apiUrl";
 
 import * as httpClient from "./infrastructure/httpClient";
 import * as timer from "./infrastructure/timer";
+import * as store from "../infrastructure/store";
 
+import * as todoListEvents from "./todos/TodoList/events";
 
-export function intializeApp(){
+export function startApp() {
   window.apiUrl = "https://gateway.marvel.com/v1/public/characters?ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b";
 
   const initialState = {

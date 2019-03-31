@@ -7,7 +7,7 @@ import TodoList from "./todos/TodoList/TodoList";
 import * as coeffects from "./coeffects";
 import * as effects from "./effects";
 import * as events from "./todos/TodoList/events";
-import { dispatch } from "./lib/lib";
+import { dispatch } from "./lib/reffect";
 import * as store from "./lib/lib-store";
 import Toast from "./todos/Toast/Toast";
 

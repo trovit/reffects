@@ -1,4 +1,4 @@
-import { registerEffectHandler, dispatch } from "../lib/lib";
+import { registerEffectHandler } from "../lib/reffect";
 
 export function register(store) {
   registerEffectHandler("mutate", function mutateEffect(mutations) {

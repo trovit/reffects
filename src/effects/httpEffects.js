@@ -1,4 +1,4 @@
-import { registerEffectHandler } from "../lib/lib";
+import { registerEffectHandler } from "../lib/reffect";
 
 export function register(httpClient, dispatch) {
   registerEffectHandler("get", function getEffect(requestDescription) {

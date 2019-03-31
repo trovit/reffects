@@ -1,4 +1,4 @@
-import { registerCoeffectHandler } from "./lib/lib";
+import { registerCoeffectHandler } from "./lib/reffect";
 import { getState } from "./lib/lib-store";
 
 export function register(globals = {}) {

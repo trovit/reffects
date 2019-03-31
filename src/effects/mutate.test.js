@@ -1,6 +1,6 @@
-import * as reffect from "../lib/lib";
+import * as reffect from "../lib/reffect";
 import * as mutateEffect from "./mutate";
-import * as storeModule from "../lib/lib-store";
+import * as storeModule from "../infrastructure/store";
 import { destroyAllMocks } from "../../testHelpers/fixtures";
 import { callsTo } from "../../testHelpers/mockHelpers";
 

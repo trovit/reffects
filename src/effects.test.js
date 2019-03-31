@@ -2,7 +2,7 @@ jest.mock("./lib/lib-store");
 import * as effects from './effects';
 import * as store from "./lib/lib-store";
 import { applyEffectsFixture } from "../testHelpers/fixtures";
-import * as effectibus from "./lib/lib";
+import * as reffect from "./lib/reffect";
 
 applyEffectsFixture();
 
@@ -10,7 +10,7 @@ describe("effects", () => {
   describe("mutate effect", () => {
     test("should mutate the state in the store", () => {
       const effectId = "mutate";
-      const mutateHandler = effectibus.getEffectHandler(effectId);
+      const mutateHandler = reffect.getEffectHandler(effectId);
       const aMutation = { path: ["visibilityFilter"], newValue: "all" };
       const anotherMutation = { path: ["toast", "isShown"], newValue: true };
       const mutations = [aMutation, anotherMutation];

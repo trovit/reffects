@@ -1,4 +1,4 @@
-import { registerEffectHandler } from "../lib/lib";
+import { registerEffectHandler } from "../lib/reffect";
 
 export function register(store, timer) {
   registerEffectHandler("toast", function ({ text, milliseconds }) {

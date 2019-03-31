@@ -1,4 +1,4 @@
-import * as reffect from "../lib/lib";
+import * as reffect from "../lib/reffect";
 import * as httpEffects from "./httpEffects";
 import * as httpClientModule from "../infrastructure/httpClient";
 import { destroyAllMocks } from "../../testHelpers/fixtures";

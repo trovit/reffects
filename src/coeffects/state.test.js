@@ -1,4 +1,4 @@
-import * as reffect from "../lib/lib";
+import * as reffect from "../lib/reffect";
 import * as stateCoeffect from "./state";
 import * as storeModule from "../lib/lib-store";
 import { destroyAllMocks } from "../../testHelpers/fixtures";

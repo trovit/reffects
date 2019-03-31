@@ -1,4 +1,4 @@
-import * as reffect from "../lib/lib";
+import * as reffect from "../lib/reffect";
 import * as datetimeCoeffect from "./datetime";
 import { destroyAllMocks } from "../../testHelpers/fixtures";
 import { callsTo } from "../../testHelpers/mockHelpers";

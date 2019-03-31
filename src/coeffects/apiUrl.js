@@ -1,4 +1,4 @@
-import { registerCoeffectHandler } from "../lib/lib";
+import { registerCoeffectHandler } from "../lib/reffect";
 
 export function register(globals) {
   registerCoeffectHandler("apiUrl", function () {
