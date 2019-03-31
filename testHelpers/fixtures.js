@@ -24,7 +24,18 @@ export function applyCoeffectsFixture(globals) {
   })
 }
 
-function destroyAllMocks() {
+export function applyEffectsFixture(globals) {
+  beforeAll(() => {
+    effects.register();
+  });
+
+  afterAll(() => {
+    clearHandlers();
+    destroyAllMocks();
+  })
+}
+
+export function destroyAllMocks() {
   jest.restoreAllMocks();
   jest.clearAllMocks();
 }

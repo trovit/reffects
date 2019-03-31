@@ -37,12 +37,12 @@ export function register() {
 
   registerEventHandler("toggleTodo", function toggleTodo(coeffects, idTodo) {
     const { state: { todos } } = coeffects;
+    
     function toggleTodo(idTodo, todos) {
       return todos.map(todo => {
         if (todo.id === idTodo) {
           return Object.assign({}, todo, { done: !todo.done });
         }
-
         return todo;
       })
     }
@@ -56,17 +56,13 @@ export function register() {
     };
   }, [{ id: 'state', data: [{ path: ['todos'], key: 'todos' }] }])
 
-  function createToastEffect(text) {
+  registerEventHandler("showToggledTodoToast", function showToggledTodoToast(coeffects, { isDone, text }) {
+    var toastText = `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`;
     return {
       toast: {
-        text: text,
+        text: toastText,
         milliseconds: 3000
       }
     };
-  }
-
-  registerEventHandler("showToggledTodoToast", function showToggledTodoToast(coeffects, { isDone, text }) {
-    var toastText = `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`;
-    return createToastEffect(toastText);
   })
 }

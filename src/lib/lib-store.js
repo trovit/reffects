@@ -34,6 +34,6 @@ export function unsubscribe(listener) {
   listeners = out;
 }
 
-export function initializeStore(initialState = {}) {
+export function initialize(initialState = {}) {
   state = initialState;
 }
