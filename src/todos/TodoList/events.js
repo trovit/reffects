@@ -1,4 +1,4 @@
-import { registerEventHandler } from "../../lib/lib";
+import { registerEventHandler } from "../../lib/reffect";
 
 export function register() {
   registerEventHandler("loadTodos", function loadTodos(coeffects, payload) {

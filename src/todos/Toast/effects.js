@@ -1,5 +1,5 @@
-import { registerEffectHandler, dispatch } from "./lib/reffect";
-import * as store from "./lib/lib-store";
+import { registerEffectHandler, dispatch } from "../../lib/reffect";
+import * as store from "../../infrastructure/store/store";
 
 export function registerEffects() {
   registerEffectHandler("toast", function ({ text, milliseconds }) {

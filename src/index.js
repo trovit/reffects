@@ -8,7 +8,7 @@ import * as coeffects from "./coeffects";
 import * as effects from "./effects";
 import * as events from "./todos/TodoList/events";
 import { dispatch } from "./lib/reffect";
-import * as store from "./lib/lib-store";
+import * as store from "./infrastructure/store/store";
 import Toast from "./todos/Toast/Toast";
 
 window.apiUrl = "https://gateway.marvel.com/v1/public/characters?ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b";

@@ -1,6 +1,6 @@
-jest.mock("./lib/lib-store");
+jest.mock("./infrastructure/store/store");
 import * as coeffects from './coeffects';
-import * as store from "./lib/lib-store";
+import * as store from "./infrastructure/store/store";
 import { applyCoeffectsFixture } from "../testHelpers/fixtures";
 import * as reffect from "./lib/reffect";
 

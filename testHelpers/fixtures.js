@@ -1,6 +1,6 @@
 import * as effects from "../src/effects";
 import * as coeffects from "../src/coeffects";
-import { clearHandlers } from "../src/lib/lib";
+import { clearHandlers } from "../src/lib/reffect";
 
 export function applyEventsFixture(events) {
   beforeAll(() => {

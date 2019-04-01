@@ -10,7 +10,7 @@ import * as apiUrlCoeffect from "./coeffects/apiUrl";
 
 import * as httpClient from "./infrastructure/httpClient";
 import * as timer from "./infrastructure/timer";
-import * as store from "../infrastructure/store";
+import * as store from "./infrastructure/store/store";
 
 import * as todoListEvents from "./todos/TodoList/events";
 

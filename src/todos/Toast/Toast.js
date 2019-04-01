@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { subscribe } from '../../lib/lib-subscribe';
-import { getIn } from '../../lib/lib-utils';
+import { subscribe } from '../../infrastructure/store/subscriptions';
+import { getIn } from '../..//infrastructure/store/storeUtils';
 
 export function Toast({ text, shown }) {
 

@@ -1,9 +1,9 @@
 import React from "react";
 import TodoItem from "./TodoItem";
-import { subscribe } from "../../lib/lib-subscribe";
+import { subscribe } from "../../infrastructure/store/subscriptions";
 
 import { createSelector } from 'reselect'
-import { dispatch } from "../../lib/lib";
+import { dispatch } from "../../lib/reffect";
 
 function handleFilterClick(activeFilter) {
   dispatch('filterTodos', activeFilter);
@@ -58,6 +58,7 @@ export const visibleTodosSelector = createSelector(
 
 
 export default subscribe(function (state) {
+  console.log(state)
   return {
     todos: visibleTodosSelector(state),
   };

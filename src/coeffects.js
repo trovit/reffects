@@ -1,5 +1,5 @@
 import { registerCoeffectHandler } from "./lib/reffect";
-import { getState } from "./lib/lib-store";
+import { getState } from "./infrastructure/store/store";
 
 export function register(globals = {}) {
   registerCoeffectHandler("state", function (extractions) {

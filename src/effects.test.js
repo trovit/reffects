@@ -1,6 +1,5 @@
-jest.mock("./lib/lib-store");
-import * as effects from './effects';
-import * as store from "./lib/lib-store";
+jest.mock("./infrastructure/store/store");
+import * as store from "./infrastructure/store/store";
 import { applyEffectsFixture } from "../testHelpers/fixtures";
 import * as reffect from "./lib/reffect";
 
@@ -18,7 +17,7 @@ describe("effects", () => {
       store.setState.mockImplementation((...args) => calls.push(args));
 
       mutateHandler(mutations);
-      
+
       expect(calls.length).toEqual(2);
       expect(calls).toEqual([[aMutation], [anotherMutation]]);
     });
@@ -26,7 +25,7 @@ describe("effects", () => {
 
   describe("toast effect", () => {
     test("should show and hide a toast by mutating its state in the store", () => {
-      
+
     });
   });
 });

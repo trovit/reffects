@@ -1,5 +1,5 @@
 import * as events from './events';
-import { getEventHandler, clearHandlers } from '../../lib/lib';
+import { getEventHandler, clearHandlers } from '../../lib/reffect';
 import { applyEventsFixture } from '../../../testHelpers/fixtures';
 
 applyEventsFixture(events);
