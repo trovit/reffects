@@ -10,9 +10,9 @@ export function register() {
         successEvent: ["loadTodosSucceeded"]
       }
     };
-  }, ["apiUrl"])
+  }, ["apiUrl"]);
 
-  registerEventHandler("loadTodosSucceeded", function loadTodosSucceeded(coeffects, response) {
+  registerEventHandler("loadTodosSucceeded", function loadTodosSucceeded(coeffects, [response]) {
     function extractTodos(payload) {
       return payload.results.map(item => ({
         id: item.id,
@@ -37,7 +37,7 @@ export function register() {
 
   registerEventHandler("toggleTodo", function toggleTodo(coeffects, idTodo) {
     const { state: { todos } } = coeffects;
-    
+
     function toggleTodo(idTodo, todos) {
       return todos.map(todo => {
         if (todo.id === idTodo) {

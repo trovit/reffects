@@ -5,11 +5,7 @@ import { subscribe } from "../../infrastructure/store/subscriptions";
 import { createSelector } from 'reselect'
 import { dispatch } from "../../lib/reffect";
 
-function handleFilterClick(activeFilter) {
-  dispatch('filterTodos', activeFilter);
-}
-
-function TodoList({ todos }) {
+export function TodoList({ todos, handleFilterClick }) {
   return (
     <React.Fragment>
       <ul>
@@ -56,10 +52,11 @@ export const visibleTodosSelector = createSelector(
   }
 );
 
-
 export default subscribe(function (state) {
-  console.log(state)
   return {
     todos: visibleTodosSelector(state),
+    handleFilterClick: activeFilter => {
+      dispatch('filterTodos', activeFilter);
+    },
   };
 })(TodoList);

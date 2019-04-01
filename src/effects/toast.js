@@ -1,11 +1,11 @@
 import { registerEffectHandler } from "../lib/reffect";
 
 export function register(store, timer) {
-  registerEffectHandler("toast", function ({ text, milliseconds }) {
+  registerEffectHandler("toast", function toast({ text, milliseconds }) {
     const { toast: { visible: alreadyShown, timeoutId: toastTimeoutId } } = store.getState();
 
     if (alreadyShown) {
-      timer.clearTimeout(toastTimeoutId);
+      timer.clear(toastTimeoutId);
     }
 
     store.setState({
@@ -14,7 +14,7 @@ export function register(store, timer) {
       }
     });
 
-    const timeoutId = timer.setTimeout(
+    const timeoutId = timer.set(
       function () {
         store.setState({
           path: ['toast'], newValue: {

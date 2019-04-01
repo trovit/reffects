@@ -4,28 +4,11 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 
 import TodoList from "./todos/TodoList/TodoList";
-import * as coeffects from "./coeffects";
-import * as effects from "./effects";
-import * as events from "./todos/TodoList/events";
 import { dispatch } from "./lib/reffect";
-import * as store from "./infrastructure/store/store";
 import Toast from "./todos/Toast/Toast";
+import * as boostrap from "./bootstrap";
 
-window.apiUrl = "https://gateway.marvel.com/v1/public/characters?ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b";
-
-store.initialize({
-  todos: [],
-  visibilityFilter: 'all',
-  toast: {
-    text: '',
-    timeoutId: null,
-    visible: false,
-  }
-});
-
-coeffects.register(window);
-effects.register();
-events.register();
+boostrap.startApp();
 
 function App() {
   dispatch("loadTodos");

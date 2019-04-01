@@ -18,7 +18,7 @@ describe('events', () => {
   test('loadTodosSucceeded', () => {
     const givenCoeffects = {};
     const loadTodosSucceeded = getEventHandler('loadTodosSucceeded');
-    expect(loadTodosSucceeded(givenCoeffects, {
+    expect(loadTodosSucceeded(givenCoeffects, [{
       results: [
         {
           id: 1,
@@ -31,7 +31,7 @@ describe('events', () => {
           description: '',
         }
       ]
-    })).toEqual({
+    }])).toEqual({
       mutate:
         [{
           path: ["todos"], newValue: [

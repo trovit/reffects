@@ -1,10 +1,10 @@
-export function setTimeout(fn, milliseconds) {
+export function set(fn, milliseconds) {
   return setTimeout(
       fn,
       milliseconds
     );
 }
 
-export function clearTimeout(timeoutId) {
+export function clear(timeoutId) {
   clearTimeout(timeoutId);
 }

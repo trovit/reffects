@@ -1,4 +1,4 @@
-import { createElement, Children, Component } from "react";
+import { createElement, Component } from "react";
 import * as store from "./store";
 
 export function subscribe(mapStateToProps) {

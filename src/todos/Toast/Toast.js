@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { subscribe } from '../../infrastructure/store/subscriptions';
 import { getIn } from '../..//infrastructure/store/storeUtils';
 

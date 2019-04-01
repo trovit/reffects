@@ -5,7 +5,7 @@ export function register(httpClient, dispatch) {
     const [eventId, ...rest] = requestDescription.successEvent;
     httpClient.get({
       url: requestDescription.url,
-      successFn: function(response) { dispatch(eventId, [response.data].concat(rest))}
+      successFn: function (response) { dispatch(eventId, [response.data].concat(rest)) }
     });
   });
 }
