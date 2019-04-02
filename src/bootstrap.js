@@ -14,6 +14,8 @@ import * as store from "./infrastructure/store/store";
 
 import * as todoListEvents from "./todos/TodoList/events";
 
+import { VISIBILITY_FILTERS_SHOW_ALL } from "./todos/constants";
+
 export function startApp() {
   window.apiUrl = "https://gateway.marvel.com/v1/public/characters?ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b";
 
@@ -21,7 +23,7 @@ export function startApp() {
 
   const initialState = {
     todos: [],
-    visibilityFilter: 'all',
+    visibilityFilter: VISIBILITY_FILTERS_SHOW_ALL,
     toast: {
       text: '',
       timeoutId: null,
