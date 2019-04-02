@@ -15,8 +15,8 @@ test("dispatching an event and receiving its payload", () => {
   const eventId = "anEventHandlerThatWillBeCalled";
 
   reffect.registerEventHandler(
-    eventId, 
-    function(coeffects, payload) {
+    eventId,
+    function (coeffects, payload) {
       callsCounter++;
       expect(payload).toEqual(passedPayload);
     });
@@ -32,31 +32,31 @@ test("checking coeffect values whose handlers do not receive parameters are inje
   const expectedDateTime = "anyDate";
   const apiUrlCoeffectId = "apiUrl";
   const expectedApiUrl = "anyUrl";
-  const expectedCoeffects = {[datetimeCoeffectId]: expectedDateTime, [apiUrlCoeffectId]: expectedApiUrl};
+  const expectedCoeffects = { [datetimeCoeffectId]: expectedDateTime, [apiUrlCoeffectId]: expectedApiUrl };
   const passedPayload = "somePayload";
   const eventId = "eventHandlerInWhichCoeffectsValuesAreInjected";
 
   reffect.registerCoeffectHandler(
     datetimeCoeffectId,
-    function() {
-      return {[datetimeCoeffectId]: expectedDateTime};
+    function () {
+      return { [datetimeCoeffectId]: expectedDateTime };
     }
   );
 
   reffect.registerCoeffectHandler(
     apiUrlCoeffectId,
-    function() {
-      return {[apiUrlCoeffectId]: expectedApiUrl};
+    function () {
+      return { [apiUrlCoeffectId]: expectedApiUrl };
     }
   );
 
   reffect.registerEventHandler(
-    eventId, 
-    function(coeffects, payload) {
+    eventId,
+    function (coeffects, payload) {
       callsCounter++;
       expect(payload).toEqual(passedPayload);
       Object.keys(expectedCoeffects).forEach(
-        function(coeffectId) {
+        function (coeffectId) {
           expect(coeffects[coeffectId]).toEqual(expectedCoeffects[coeffectId]);
         });
     },
@@ -70,25 +70,25 @@ test("checking coeffect values whose handlers do not receive parameters are inje
 test("checking a coeffect value whose handler receives parameters is injected into event handler when dispatching an event", () => {
   var callsCounter = 0;
   const expectedData = "koko";
-  const mokoCoeffect = {id: "moko", data: expectedData};
-  const expectedCoeffects = {[mokoCoeffect.id]: expectedData};
+  const mokoCoeffect = { id: "moko", data: expectedData };
+  const expectedCoeffects = { [mokoCoeffect.id]: expectedData };
   const passedPayload = "somePayload";
   const eventId = "eventHandlerInWhichCoeffectsValuesAreInjected";
 
   reffect.registerCoeffectHandler(
     mokoCoeffect.id,
-    function() {
-      return {[mokoCoeffect.id]: expectedData};
+    function () {
+      return { [mokoCoeffect.id]: expectedData };
     }
   );
 
   reffect.registerEventHandler(
-    eventId, 
-    function(coeffects, payload) {
+    eventId,
+    function (coeffects, payload) {
       callsCounter++;
       expect(payload).toEqual(passedPayload);
       Object.keys(expectedCoeffects).forEach(
-        function(coeffectId) {
+        function (coeffectId) {
           expect(coeffects[coeffectId]).toEqual(expectedCoeffects[coeffectId]);
         });
     },
@@ -108,14 +108,14 @@ test("checkingEffectsAreAppliedAfterExecutingTheEventHandler", () => {
 
   reffect.registerEffectHandler(
     effectId,
-    function(text){
+    function (text) {
       console.error(text);
     });
 
   reffect.registerEventHandler(
     eventId,
-    function(cofx, payload) {
-      return {[effectId]: payload + 1};
+    function (cofx, payload) {
+      return { [effectId]: payload + 1 };
     });
 
   reffect.dispatch(eventId, payload);
@@ -130,20 +130,20 @@ test("dispatch effect", () => {
 
   reffect.registerEventHandler(
     "eventSubmittedUsingSubmitEffect",
-    function(coeffects, payload) {
+    function (coeffects, payload) {
       callsCounter++;
       expect(payload).toEqual(expectedPayload);
     }
   );
 
   reffect.registerEventHandler(
-    "eventReturningDispathEffect",
-    function(coeffects, payload) {
-      return {"dispatch": {eventId: "eventSubmittedUsingSubmitEffect", payload: ["arg1", "arg2"]}};
+    "eventReturningDispatchEffect",
+    function (coeffects, payload) {
+      return { "dispatch": { eventId: "eventSubmittedUsingSubmitEffect", payload: ["arg1", "arg2"] } };
     }
   );
 
-  reffect.dispatch("eventReturningDispathEffect");
+  reffect.dispatch("eventReturningDispatchEffect");
 
   expect(callsCounter).toEqual(1);
 });
@@ -156,31 +156,57 @@ test("dispatchMany effect", () => {
 
   reffect.registerEventHandler(
     "firstEventDispatchedUsingDispatchMany",
-    function(coeffects, payload) {
+    function (coeffects, payload) {
       firstEventCallsCounter++;
       expect(payload).toEqual(expectedPayloadForFirstEvent);
     });
 
   reffect.registerEventHandler(
     "secondEventDispatchedUsingDispatchMany",
-    function(coeffects, payload) {
+    function (coeffects, payload) {
       secondEventCallsCounter++;
       expect(payload).toEqual(expectedPayloadForSecondEvent);
     });
 
   reffect.registerEventHandler(
     "eventReturningDispatchManyEffect",
-    function(coeffects, payload) {
-       return {"dispatchMany": [{eventId: "firstEventDispatchedUsingDispatchMany", payload: expectedPayloadForFirstEvent},
-                                {eventId: "secondEventDispatchedUsingDispatchMany", payload: expectedPayloadForSecondEvent}]}      
+    function (coeffects, payload) {
+      return {
+        "dispatchMany": [{ eventId: "firstEventDispatchedUsingDispatchMany", payload: expectedPayloadForFirstEvent },
+        { eventId: "secondEventDispatchedUsingDispatchMany", payload: expectedPayloadForSecondEvent }]
+      }
     });
-  
+
   reffect.dispatch("eventReturningDispatchManyEffect");
 
   expect(firstEventCallsCounter).toEqual(1);
   expect(secondEventCallsCounter).toEqual(1);
 });
 
-test("dispatchLater effect", () => {
-  //TODO
+test.only("dispatchLater effect", async () => {
+  jest.useFakeTimers();
+
+  var callsCounter = 0;
+  const expectedPayload = ["arg1", "arg2"];
+
+  reffect.registerEventHandler(
+    "eventSubmittedUsingSubmitEffect",
+    function (coeffects, payload) {
+      callsCounter++;
+      expect(payload).toEqual(expectedPayload);
+    }
+  );
+
+  reffect.registerEventHandler(
+    "eventReturningDispatchLaterEffect",
+    function (coeffects, payload) {
+      return { "dispatchLater": { eventId: "eventSubmittedUsingSubmitEffect", payload: ["arg1", "arg2"], milliseconds: 1000 } };
+    }
+  );
+
+  reffect.dispatch("eventReturningDispatchLaterEffect");
+
+  jest.runAllTimers();
+
+  return expect(callsCounter).toEqual(1);
 });

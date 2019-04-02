@@ -8,6 +8,7 @@ describe('events', () => {
   test('loadTodos', () => {
     const givenCoeffects = { apiUrl: "sddasds" };
     const loadTodos = getEventHandler('loadTodos');
+
     expect(loadTodos(givenCoeffects)).toEqual({
       get: {
         url: givenCoeffects.apiUrl,
@@ -18,6 +19,7 @@ describe('events', () => {
   test('loadTodosSucceeded', () => {
     const givenCoeffects = {};
     const loadTodosSucceeded = getEventHandler('loadTodosSucceeded');
+
     expect(loadTodosSucceeded(givenCoeffects, [{
       results: [
         {
