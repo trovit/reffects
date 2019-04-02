@@ -1,3 +1,5 @@
+var verbosityOn = true;
+
 const initialHandlers = {
   effects: {},
   coeffects: {},
@@ -38,6 +40,9 @@ function applyEffects(effects) {
 }
 
 export function dispatch(eventId, payload) {
+  if(verbosityOn) {
+    console.log(`Dispatching event ${eventId} with payload ${payload}`);
+  }
   const eventHandler = getEventHandler(eventId);
   const coeffectDescriptions = coeffectsByEvent[eventId];
   const coeffects = extractCoeffectsValues(coeffectDescriptions);
@@ -47,7 +52,7 @@ export function dispatch(eventId, payload) {
 
 function dispatchMany(events) {
   events.forEach(function (event) {
-    const [eventId, payload] = event;
+    const { eventId, payload } = event;
     dispatch(eventId, payload);
   });
 }
@@ -78,7 +83,7 @@ registerEffectHandler("dispatch", function dispatchEffect(event) {
 });
 
 registerEffectHandler("dispatchMany", function dispatchManyEffect(events) {
-  return dispatchMany(events)
+  dispatchMany(events)
 });
 
 registerEffectHandler("dispatchLater", function dispatchLaterEffect(event) {
@@ -111,6 +116,10 @@ export function getEventHandler(eventId) {
 
 export function clearHandlers() {
   handlers = { ...initialHandlers };
+}
+
+export function setVerbosity(newValue) {
+  verbosityOn = newValue;
 }
 
 function getTag(value) {
