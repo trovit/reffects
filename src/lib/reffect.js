@@ -18,11 +18,19 @@ function extractCoeffectsValues(coeffectDescriptions) {
       return Object.assign({}, acc, coeffectHandler());
     }
 
+    guardValidCoeffectDescriptionObject(coeffectDescription);
+
     const coeffectId = coeffectDescription.id;
     const coeffectData = coeffectDescription.data;
     const coeffectHandler = getCoeffectHandler(coeffectId);
     return Object.assign({}, acc, coeffectHandler(coeffectData));
   }, {});
+}
+
+function guardValidCoeffectDescriptionObject(coeffectDescription) {
+  if (!coeffectDescription || coeffectDescription.id == null) {
+    throw new Error("Coeffect description is not a valid object, an id property is required");
+  }
 }
 
 function applyEffects(effects) {
@@ -125,14 +133,7 @@ export function setVerbosity(newValue) {
   verbosityOn = newValue;
 }
 
-function getTag(value) {
-  if (value == null) {
-    return value === undefined ? '[object Undefined]' : '[object Null]'
-  }
-  return toString.call(value)
-}
-
 function isString(value) {
   const type = typeof value
-  return type === 'string' || (type === 'object' && value != null && !Array.isArray(value) && getTag(value) === '[object String]')
+  return type === 'string' || (type === 'object' && value != null && !Array.isArray(value) && toString.call(value) === '[object String]')
 }

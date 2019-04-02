@@ -70,15 +70,15 @@ test("checking coeffect values whose handlers do not receive parameters are inje
 test("checking a coeffect value whose handler receives parameters is injected into event handler when dispatching an event", () => {
   var callsCounter = 0;
   const expectedData = "koko";
-  const mokoCoeffect = { id: "moko", data: expectedData };
-  const expectedCoeffects = { [mokoCoeffect.id]: expectedData };
+  const mokoCoeffectDescription = { id: "moko", data: expectedData };
+  const expectedCoeffects = { [mokoCoeffectDescription.id]: expectedData };
   const passedPayload = "somePayload";
   const eventId = "eventHandlerInWhichCoeffectsValuesAreInjected";
 
   reffect.registerCoeffectHandler(
-    mokoCoeffect.id,
+    mokoCoeffectDescription.id,
     function () {
-      return { [mokoCoeffect.id]: expectedData };
+      return { [mokoCoeffectDescription.id]: expectedData };
     }
   );
 
@@ -92,36 +92,86 @@ test("checking a coeffect value whose handler receives parameters is injected in
           expect(coeffects[coeffectId]).toEqual(expectedCoeffects[coeffectId]);
         });
     },
-    [mokoCoeffect]);
+    [mokoCoeffectDescription]);
 
   reffect.dispatch(eventId, passedPayload);
 
   expect(callsCounter).toEqual(1);
 });
 
-test("checkingEffectsAreAppliedAfterExecutingTheEventHandler", () => {
-  const eventId = "eventHandlerAfterWhichAnEffectIsAppliedAndLogsTheMeaningOfLife";
-  const effectId = "consoleLogging";
-  const payload = 41;
-  const theMeaningOfLife = 42;
-  global.console.error = jest.fn();
+test("checking a coeffect description as string whose handler receives parameters is injected into event handler when dispatching an event", () => {
+  var callsCounter = 0;
+  const expectedData = "koko";
+  const mokoCoeffectDescription = "moko";
+  const expectedCoeffects = { [mokoCoeffectDescription]: expectedData };
+  const passedPayload = "somePayload";
+  const eventId = "eventHandlerInWhichCoeffectsValuesAreInjected";
+
+  reffect.registerCoeffectHandler(
+    mokoCoeffectDescription,
+    function () {
+      return { [mokoCoeffectDescription]: expectedData };
+    }
+  );
+
+  reffect.registerEventHandler(
+    eventId,
+    function (coeffects, payload) {
+      callsCounter++;
+      expect(payload).toEqual(passedPayload);
+      Object.keys(expectedCoeffects).forEach(
+        function (coeffectId) {
+          expect(coeffects[coeffectId]).toEqual(expectedCoeffects[coeffectId]);
+        });
+    },
+    [mokoCoeffectDescription]);
+
+  reffect.dispatch(eventId, passedPayload);
+
+  expect(callsCounter).toEqual(1);
+});
+
+test("checking an invalid coeffect description object whose handler receives parameters is injected into event handler when dispatching an event", () => {
+  const mokoCoeffectDescription = undefined;
+  const passedPayload = "somePayload";
+  const eventId = "eventHandlerInWhichCoeffectsValuesAreInjected";
+
+  const dummyEvent = jest.fn();
+  reffect.registerEventHandler(
+    eventId,
+    dummyEvent,
+    [mokoCoeffectDescription]);
+
+  expect(() => reffect.dispatch(eventId, passedPayload)).toThrowError("Coeffect description is not a valid object, an id property is required");
+});
+
+test("checking a not existing handler id throws an error", () => {
+  const passedPayload = "somePayload";
+  const noopEventId = "noopEventHandler";
+
+  expect(() => reffect.dispatch(noopEventId, passedPayload)).toThrowError(`There is no undefined handler called '${noopEventId}'.`);
+});
+
+test("checking effects are applied after executing the eventHandler", () => {
+  const eventId = "eventHandlerAfterWhichAnEffectIsApplied";
+  const effectId = "someEffectId";
+  const dummyEffect = jest.fn();
+  const fakeEventPayload = 1;
 
   reffect.registerEffectHandler(
     effectId,
-    function (text) {
-      console.error(text);
-    });
+    (payload) => dummyEffect(payload)
+  );
 
   reffect.registerEventHandler(
     eventId,
     function (cofx, payload) {
-      return { [effectId]: payload + 1 };
+      return { [effectId]: payload };
     });
 
-  reffect.dispatch(eventId, payload);
+  reffect.dispatch(eventId, fakeEventPayload);
 
-  expect(console.error).toBeCalled();
-  expect(callsTo(console.error)).toEqual([[theMeaningOfLife]]);
+  expect(dummyEffect).toHaveBeenCalledWith(fakeEventPayload);
 });
 
 test("dispatch effect", () => {
@@ -183,7 +233,7 @@ test("dispatchMany effect", () => {
   expect(secondEventCallsCounter).toEqual(1);
 });
 
-test.only("dispatchLater effect", async () => {
+test("dispatchLater effect", async () => {
   jest.useFakeTimers();
 
   var callsCounter = 0;
