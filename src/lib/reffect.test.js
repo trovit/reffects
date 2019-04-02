@@ -100,9 +100,6 @@ test("checking a coeffect value whose handler receives parameters is injected in
 });
 
 test("checkingEffectsAreAppliedAfterExecutingTheEventHandler", () => {
-})
-
-test("checkingEffectsAreAppliedAfterExecutingTheEventHandler", () => {
   const eventId = "eventHandlerAfterWhichAnEffectIsAppliedAndLogsTheMeaningOfLife";
   const effectId = "consoleLogging";
   const payload = 41;
