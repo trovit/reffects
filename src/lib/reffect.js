@@ -68,9 +68,7 @@ function dispatchMany(events) {
 function dispatchLater(event) {
   const t1 = new Date().getTime();
   const { eventId, payload, milliseconds } = event;
-  console.log('entro', milliseconds);
   setTimeout(function () {
-    console.log('salgo', t1 - new Date().getTime());
     dispatch(eventId, payload);
   }, milliseconds);
 }
