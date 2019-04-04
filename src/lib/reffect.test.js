@@ -179,7 +179,7 @@ test("dispatch effect", () => {
   const expectedPayload = ["arg1", "arg2"];
 
   reffect.registerEventHandler(
-    "eventSubmittedUsingSubmitEffect",
+    "eventDispatchedUsingDispatchEffect",
     function (coeffects, payload) {
       callsCounter++;
       expect(payload).toEqual(expectedPayload);
@@ -189,7 +189,7 @@ test("dispatch effect", () => {
   reffect.registerEventHandler(
     "eventReturningDispatchEffect",
     function (coeffects, payload) {
-      return { "dispatch": { eventId: "eventSubmittedUsingSubmitEffect", payload: ["arg1", "arg2"] } };
+      return { "dispatch": { eventId: "eventDispatchedUsingDispatchEffect", payload: ["arg1", "arg2"] } };
     }
   );
 
@@ -240,7 +240,7 @@ test("dispatchLater effect", async () => {
   const expectedPayload = ["arg1", "arg2"];
 
   reffect.registerEventHandler(
-    "eventSubmittedUsingSubmitEffect",
+    "eventDispatchedUsingDispatchLaterEffect",
     function (coeffects, payload) {
       callsCounter++;
       expect(payload).toEqual(expectedPayload);
@@ -250,7 +250,7 @@ test("dispatchLater effect", async () => {
   reffect.registerEventHandler(
     "eventReturningDispatchLaterEffect",
     function (coeffects, payload) {
-      return { "dispatchLater": { eventId: "eventSubmittedUsingSubmitEffect", payload: ["arg1", "arg2"], milliseconds: 1000 } };
+      return { "dispatchLater": { eventId: "eventDispatchedUsingDispatchLaterEffect", payload: ["arg1", "arg2"], milliseconds: 1000 } };
     }
   );
 
