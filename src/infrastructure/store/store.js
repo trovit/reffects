@@ -7,7 +7,13 @@ export function getState(path = []) {
   return getIn(state, path, state);
 }
 
-export function setState({ path = [], newValue }) {
+export function setState(mutation) {
+  if (!mutation) {
+    return;
+  }
+
+  const { path = [], newValue } = mutation;
+
   if (!path.length) {
     return;
   }
@@ -15,7 +21,9 @@ export function setState({ path = [], newValue }) {
   state = setIn(state, path, newValue);
 
   let currentListeners = listeners;
-  for (let i = 0; i < currentListeners.length; i++) currentListeners[i](state);
+  for (let i = 0; i < currentListeners.length; i++) {
+    currentListeners[i](state);
+  }
 }
 
 export function subscribe(listener) {
@@ -36,4 +44,8 @@ export function unsubscribe(listener) {
 
 export function initialize(initialState = {}) {
   state = initialState;
+}
+
+export function unsubscribeAll() {
+  listeners = [];
 }
