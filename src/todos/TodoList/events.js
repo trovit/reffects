@@ -1,16 +1,16 @@
 import { registerEventHandler } from "../../lib/reffect";
+import * as coeffects from '../../coeffects/factories';
 
 export function register() {
   registerEventHandler("loadTodos", function loadTodos(coeffects, payload) {
-    const url = coeffects["apiUrl"];
-
     return {
       get: {
-        url,
+        url: coeffects.apiUrl,
         successEvent: ["loadTodosSucceeded"]
       }
     };
-  }, ["apiUrl"]);
+  }, 
+  [coeffects.injectApiUrl()]);
 
   registerEventHandler("loadTodosSucceeded", function loadTodosSucceeded(coeffects, [response]) {
     function extractTodos(payload) {
@@ -54,7 +54,8 @@ export function register() {
         { path: ["todos"], newValue: newTodos },
       ]
     };
-  }, [{ id: 'state', data: [{ path: ['todos'], key: 'todos' }] }])
+  }, 
+  [coeffects.injectFromState({ path: ['todos'], key: 'todos' })])
 
   registerEventHandler("showToggledTodoToast", function showToggledTodoToast(coeffects, { isDone, text }) {
     var toastText = `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`;

@@ -16,6 +16,7 @@ describe('events', () => {
       }
     })
   });
+
   test('loadTodosSucceeded', () => {
     const givenCoeffects = {};
     const loadTodosSucceeded = getEventHandler('loadTodosSucceeded');
@@ -51,6 +52,7 @@ describe('events', () => {
         }]
     })
   });
+
   test('filterTodos', () => {
     const givenCoeffects = {};
     const filterTodos = getEventHandler('filterTodos');
@@ -59,6 +61,7 @@ describe('events', () => {
       mutate: [{ path: ["visibilityFilter"], newValue: 'codorniz' }]
     })
   });
+
   test('toggleTodo', () => {
     const idTodo = 1;
     const givenCoeffects = {
@@ -84,6 +87,7 @@ describe('events', () => {
       ]
     })
   });
+
   test('showToggledTodoToast', () => {
     const givenCoeffects = {};
     const showToggledTodoToast = getEventHandler('showToggledTodoToast');
