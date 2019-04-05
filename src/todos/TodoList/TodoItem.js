@@ -3,7 +3,6 @@ import { dispatch } from "../../lib/reffect";
 
 export default function TodoItem({ id, text, isDone }) {
   return <article onClick={() => {
-    dispatch('toggleTodo', id);
-    dispatch('showToggledTodoToast', { isDone, text });
+    dispatch('todoClicked', { id, text, isDone });
   }}>{isDone ? <s>{text}</s> : text}</article>;
 }

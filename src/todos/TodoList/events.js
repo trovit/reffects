@@ -34,8 +34,8 @@ export function register() {
       mutate: [{ path: ["visibilityFilter"], newValue: activeFilter }]
     };
   });
-
-  registerEventHandler("toggleTodo", function toggleTodo(coeffects, idTodo) {
+ 
+  registerEventHandler("todoClicked", function toggleTodo(coeffects, { id, text, isDone }) {
     const { state: { todos } } = coeffects;
 
     function toggleTodo(idTodo, todos) {
@@ -47,23 +47,17 @@ export function register() {
       })
     }
 
-    const newTodos = toggleTodo(idTodo, todos);
+    const newTodos = toggleTodo(id, todos);
 
     return {
       mutate: [
         { path: ["todos"], newValue: newTodos },
-      ]
-    };
-  }, 
-  [coeffects.injectFromState({ path: ['todos'], key: 'todos' })])
-
-  registerEventHandler("showToggledTodoToast", function showToggledTodoToast(coeffects, { isDone, text }) {
-    var toastText = `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`;
-    return {
+      ],
       toast: {
-        text: toastText,
+        text:  `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`,
         milliseconds: 3000
       }
     };
-  })
+  }, 
+  [coeffects.injectFromState({ path: ['todos'], key: 'todos' })]);
 }

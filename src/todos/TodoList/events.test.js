@@ -62,43 +62,67 @@ describe('events', () => {
     })
   });
 
-  test('toggleTodo', () => {
-    const idTodo = 1;
+  test('todoClicked when todo is done', () => {
+    const id = 1;
+    const todoClicked = getEventHandler('todoClicked');
+    const isDone = true;
+    const text = 'Lorem ipsum';
     const givenCoeffects = {
       state: {
         todos: [{
-          id: idTodo,
+          id: id,
           text: 'Describe: Kevin Bacon',
           done: true,
         },]
       }
     };
-    const toggleTodo = getEventHandler('toggleTodo');
 
-    expect(toggleTodo(givenCoeffects, idTodo)).toEqual({
+    expect(todoClicked(givenCoeffects, {id , isDone, text })).toEqual({
+      toast: {
+        text: '"Lorem ipsum" was marked as undone.',
+        milliseconds: 3000
+      }, 
       mutate: [
         {
           path: ["todos"], newValue: [{
             id: 1,
             text: 'Describe: Kevin Bacon',
             done: false,
-          },]
-        },
+          }]
+        }
       ]
-    })
+    });
   });
 
-  test('showToggledTodoToast', () => {
-    const givenCoeffects = {};
-    const showToggledTodoToast = getEventHandler('showToggledTodoToast');
-    const isDone = true;
+  test('todoClicked when todo is undone', () => {
+    const id = 1;
+    const todoClicked = getEventHandler('todoClicked');
+    const isDone = false;
     const text = 'Lorem ipsum';
-
-    expect(showToggledTodoToast(givenCoeffects, { isDone, text })).toEqual({
-      toast: {
-        text: '"Lorem ipsum" was marked as undone.',
-        milliseconds: 3000
+    const givenCoeffects = {
+      state: {
+        todos: [{
+          id: id,
+          text: 'Describe: Kevin Bacon',
+          done: false,
+        },]
       }
-    })
+    };
+
+    expect(todoClicked(givenCoeffects, {id , isDone, text })).toEqual({
+      toast: {
+        text: '"Lorem ipsum" was marked as done.',
+        milliseconds: 3000
+      }, 
+      mutate: [
+        {
+          path: ["todos"], newValue: [{
+            id: 1,
+            text: 'Describe: Kevin Bacon',
+            done: true,
+          }]
+        }
+      ]
+    });
   });
 })
