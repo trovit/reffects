@@ -7,8 +7,7 @@ const initialHandlers = {
 };
 
 let handlers = { ...initialHandlers };
-const coeffectsByEvent = {};
-const toString = Object.prototype.toString
+let coeffectsByEvent = {};
 
 function extractCoeffectsValues(coeffectDescriptions) {
   return coeffectDescriptions.reduce(function (acc, coeffectDescription) {
@@ -125,11 +124,14 @@ export function getEventHandler(eventId) {
 
 export function clearHandlers() {
   handlers = { ...initialHandlers };
+  coeffectsByEvent = {};
 }
 
 export function setVerbosity(newValue) {
   verbosityOn = newValue;
 }
+
+const toString = Object.prototype.toString
 
 function isString(value) {
   const type = typeof value
