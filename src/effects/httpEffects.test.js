@@ -27,7 +27,7 @@ describe("http effects", () => {
       httpeffectHandler({url: "url", successEvent: [successEventId, successEventRestOfPayload[0], successEventRestOfPayload[1]]});
       
       expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(callsTo(dispatch)).toEqual([[successEventId, [responseData, successEventRestOfPayload[0], successEventRestOfPayload[1]]]])
+      expect(callsTo(dispatch)).toEqual([[{eventId: "successEventId", payload: ["responseData", "arg1", "arg2"]}]])
     });
   });
 });

@@ -32,7 +32,7 @@ export default subscribe(function (state) {
   return {
     todos: visibleTodosSelector(state),
     handleFilterClick: activeFilter => {
-      dispatch('filterTodos', activeFilter);
+      dispatch({eventId: 'filterTodos', payload: activeFilter});
     },
   };
 })(TodoList);

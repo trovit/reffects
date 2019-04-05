@@ -46,7 +46,7 @@ function applyEffects(effects) {
   });
 }
 
-export function dispatch(eventId, payload) {
+export function dispatch({eventId, payload = {}}) {
   if (verbosityOn) {
     console.log(`Dispatching event ${eventId} with payload ${payload}`);
   }
@@ -59,17 +59,15 @@ export function dispatch(eventId, payload) {
 
 function dispatchMany(events) {
   events.forEach(function (event) {
-    const { eventId, payload } = event;
-    dispatch(eventId, payload);
+    dispatch(event);
   });
 }
 
 function dispatchLater(event) {
   const t1 = new Date().getTime();
-  const { eventId, payload, milliseconds } = event;
   setTimeout(function () {
-    dispatch(eventId, payload);
-  }, milliseconds);
+    dispatch(event);
+  }, event.milliseconds);
 }
 
 export function registerEventHandler(eventId, handler, coeffectDescriptions = []) {
@@ -86,8 +84,7 @@ export function registerEffectHandler(effectId, handler) {
 }
 
 registerEffectHandler("dispatch", function dispatchEffect(event) {
-  const { eventId, payload } = event;
-  dispatch(eventId, payload);
+  dispatch(event);
 });
 
 registerEffectHandler("dispatchMany", function dispatchManyEffect(events) {
