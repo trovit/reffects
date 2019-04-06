@@ -7,7 +7,7 @@ You can register custom **effect handlers** using [`registerEffectHandler`](http
 2. The **effect handler** which has to be a function that will be executed everytime the event identified by the first parameter is dispatched.
 
 An **effect handler** is a function that performs a side-effect described by an effect.
-Remember that [effects are descriptions of side-effects](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/effects-and-coeffects.md), so **effect handlers** are interpreters of those descriptions that will know how to perform the described side-effects. The effect handler receives only one parameter: **the description of the side-effect to be performed, i.** e., the **effect**.
+Remember that [effects are descriptions of side-effects](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/effects-and-coeffects.md), so **effect handlers** are interpreters of those descriptions that will know how to perform the described side-effects. The effect handler receives only one parameter: **the description of the side-effect to be performed**, i. e., the **effect**.
 
 Example:
 ```js
