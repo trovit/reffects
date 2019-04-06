@@ -1,6 +1,6 @@
 # Registering custom effect handlers in reffects
 
-You can register custom **coeffect handlers** using [`registerEffectHandler`](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/api.md#registereffecthandler) function.
+You can register custom **effect handlers** using [`registerEffectHandler`](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/api.md#registereffecthandler) function.
 
 `registerEffectHandler` receives two parameters: 
 1. The **effect identifier** which has to be a string.
@@ -36,7 +36,7 @@ registerEventHandler(
 );
 ```
 
-In this example, the event handler for the `"toggleVisibilityOnClick"` event returns an effects map containing the `"mutate"` effect which **describes a mutation** of the values associated to the `'visible'` keywords in the application state.
+In this example, the event handler for the `"toggleVisibilityOnClick"` event returns an **effects object** containing the `"mutate"` effect which **describes a mutation** of the values associated to the `'visible'` keywords in the application state.
 
 Notice how the value associated to the `"mutate"` effect in the **effects object** is an array whose elements are the mutations to be done on the application state. Each mutation is described by a `path` which indicates where to do the mutation and a `newValue` which is the value that we'll find in the given path after the mutation takes place.
 
