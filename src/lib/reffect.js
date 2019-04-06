@@ -57,7 +57,7 @@ export function dispatch({eventId, payload = {}}) {
   applyEffects(effects);
 }
 
-function dispatchMany(events) {
+export function dispatchMany(events) {
   events.forEach(function (event) {
     dispatch(event);
   });
@@ -81,6 +81,21 @@ export function registerCoeffectHandler(coeffectId, handler) {
 
 export function registerEffectHandler(effectId, handler) {
   setHandler('effects', effectId, handler);
+}
+
+export function registerEventsDelegation(originalEvents, targetEvent) {
+  originalEvents,forEach(
+    function(eventId) {
+      registerEventHandler(
+        eventId, 
+        function(coeffects, payload) {
+          return {
+            dispatch: {eventId: targetEvent, payload: payload}
+          };
+        }
+      );
+    }
+  );
 }
 
 registerEffectHandler("dispatch", function dispatchEffect(event) {
