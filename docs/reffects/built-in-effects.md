@@ -78,7 +78,7 @@ registerEventHandler(
 );
 ```
 
-The `"updateTodosSucceeded"` event handler shown below is a very interesting case because when the condition in the `if` evaluates to `false`, it returns an effect that describes the dispatch of itself after `retryTimeInMilliSeconds` milliseconds. This will produce a recursion:
+The `"updateTodosSucceeded"` event handler shown below is a very interesting case because when the condition in the `if` evaluates to `true`, it returns an effect that describes the dispatch of itself after `retryTimeInMilliSeconds` milliseconds. This will produce a recursion until the condition in the `if` evaluates to `false`:
 
 ```js
 const retryTimeInMilliSeconds = 200;
