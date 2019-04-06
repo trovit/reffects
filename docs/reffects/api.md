@@ -129,7 +129,7 @@ the identifier they are associated with.
 
 Example:
 ```js
-const loadTodosHandler = getEventHandler("loadTodos);
+const loadTodosHandler = getEventHandler("loadTodos");
 ```
 
 ## `getEventHandler`
