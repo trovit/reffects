@@ -57,6 +57,21 @@ registerEventHandler(
   [coeffects.injectApiUrl()]);
 ```
 
+## `registerEventsDelegation`
+This function delegates the handling of the array of event identifiers it receives as its first parameter
+to the event handler associated with the event identifier it receives as its second parameter.
+
+Example:
+```js
+registerEventsDelegation(
+  ["chartClicked", "tableClicked"],
+  "dataUpdateRequested");
+```
+
+In this examples the handling of `"chartClicked"` and `tableClicked` events
+will be delegated to the event handler of the `dataUpdateRequested` event,
+which will be the only handler that needs to be registered using `registerEventHandler`.
+
 ## `registerEffectHandler`
 This function associates a given effect with its handler.
 
@@ -90,21 +105,6 @@ registerCoeffectHandler(
 
 This example registers a coeffect `"datetime"` that computes the current datetime
 and returns and object that associates its value to the coeffects identifier, `"datetime"`.
-
-## `registerEventsDelegation`
-This function delegates the handling of the array of event identifiers it receives as its first parameter
-to the event handler associated with the event identifier it receives as its second parameter.
-
-Example:
-```js
-registerEventsDelegation(
-  ["chartClicked", "tableClicked"],
-  "dataUpdateRequested");
-```
-
-In this examples the handling of `:facilities-device-power-curve-chart.enter` and `:facilities-device-power-curve-table.enter`
-will be delegated to the event handler of the `:facilities-device-power-curve.enter` event,
-which will be the only handler that needs to be registered using `register-event-handler!`.
 
 ## `getCoeffectHandler`
 This function is used only in tests and gets coeffect handlers already registered in `reffects` given 
