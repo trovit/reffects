@@ -140,7 +140,6 @@ test("unsubscribing from store changes", () => {
   );
   store.subscribe(functionToUnsubscribe);
 
-
   store.unsubscribe(functionToUnsubscribe);
 
   store.setState({path: path, newValue: newValue});

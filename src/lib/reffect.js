@@ -146,6 +146,6 @@ export function setVerbosity(newValue) {
 const toString = Object.prototype.toString
 
 function isString(value) {
-  const type = typeof value
-  return type === 'string' || (type === 'object' && value != null && !Array.isArray(value) && toString.call(value) === '[object String]')
+  const type = typeof value;
+  return type === 'string' || (type === 'object' && value != null && !Array.isArray(value) && toString.call(value) === '[object String]');
 }

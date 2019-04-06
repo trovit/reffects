@@ -6,6 +6,6 @@ export function register(store) {
       acc[key] = store.getState(path);
       return acc;
     }, {});
-    return { state: result }
+    return { state: result };
   });
 }

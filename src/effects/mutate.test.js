@@ -10,7 +10,7 @@ describe("mutate effect", () => {
   afterEach(() => {
     reffect.clearHandlers();
     destroyAllMocks();
-  })
+  });
 
   test("should mutate the state in the store", () => {
     const effectId = "mutate";
@@ -24,6 +24,6 @@ describe("mutate effect", () => {
     mutateHandler(mutations);
     
     expect(store.setState).toHaveBeenCalledTimes(2);
-    expect(callsTo(store.setState)).toEqual([[firstMutation], [secondMutation]])
+    expect(callsTo(store.setState)).toEqual([[firstMutation], [secondMutation]]);
   });
 });

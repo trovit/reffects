@@ -7,7 +7,7 @@ describe("datetime coeffect", () => {
   afterEach(() => {
     reffect.clearHandlers();
     destroyAllMocks();
-  })
+  });
 
   test("should extract the expected date", () => {
     const coeffectId = "datetime";

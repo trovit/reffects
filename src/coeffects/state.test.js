@@ -10,7 +10,7 @@ describe("state coeffect", () => {
   afterEach(() => {
     reffect.clearHandlers();
     destroyAllMocks();
-  })
+  });
 
   test("should extract the expected values from the store", () => {
     const state = {todos: [{ id: "123", text: "saludos", isDone: true }], toast: {id: "pepe"}};
