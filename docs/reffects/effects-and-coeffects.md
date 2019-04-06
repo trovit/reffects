@@ -13,6 +13,6 @@ They  **track your program’s side-causes**, (*what your program requires from 
 
 ## Related documents
 
-* [Built-in Effects in re-om]()
-* [Registering custom effect handlers]()
-* [Registering custom coeffect handlers]()
+* [Built-in Effects in reffects](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/built-in-effects.md)
+* [Registering custom effect handlers](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/custom-effects.md)
+* [Registering custom coeffect handlers](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/custom-coeffects.md)
