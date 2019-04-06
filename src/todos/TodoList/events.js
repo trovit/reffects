@@ -10,7 +10,7 @@ export function register() {
       }
     };
   }, 
-  [coeffects.injectApiUrl()]);
+  [coeffects.apiUrl()]);
 
   registerEventHandler("loadTodosSucceeded", function loadTodosSucceeded(coeffects, [response]) {
     function extractTodos(payload) {
@@ -59,5 +59,5 @@ export function register() {
       }
     };
   }, 
-  [coeffects.injectFromState({ path: ['todos'], key: 'todos' })]);
+  [coeffects.state({ path: ['todos'], key: 'todos' })]);
 }

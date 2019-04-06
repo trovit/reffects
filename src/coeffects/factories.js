@@ -1,11 +1,11 @@
-export function injectApiUrl() {
+export function apiUrl() {
   return "apiUrl";
 }
 
-export function injectFromState(...extractions) {
+export function state(...extractions) {
   return { id: 'state', data: extractions };
 }
 
-export function injectDateTime() {
+export function dateTime() {
   return "datetime";
 }
