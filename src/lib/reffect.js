@@ -84,7 +84,7 @@ export function registerEffectHandler(effectId, handler) {
 }
 
 export function registerEventsDelegation(originalEvents, targetEvent) {
-  originalEvents,forEach(
+  originalEvents.forEach(
     function(eventId) {
       registerEventHandler(
         eventId, 

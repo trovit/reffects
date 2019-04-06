@@ -260,3 +260,31 @@ test("dispatchLater effect", async () => {
 
   return expect(callsCounter).toEqual(1);
 });
+
+test("delegating events", () => {
+  var callsCounter = 0;
+  const expectedPayload = ["arg1", "arg2"];
+  const eventReceivingDelegationId = "eventReceivingDelegation";
+  const delegatedEventId1 = "delegatedEventId1";
+  const delegatedEventId2 = "delegatedEventId2";
+  const delegatedEventId3 = "delegatedEventId3";
+
+  reffect.registerEventHandler(
+    eventReceivingDelegationId,
+    function (coeffects, payload) {
+      callsCounter++;
+      expect(payload).toEqual(expectedPayload);
+    }
+  );
+
+  reffect.registerEventsDelegation(
+    [delegatedEventId1, delegatedEventId2, delegatedEventId3],
+    eventReceivingDelegationId
+  );
+
+  reffect.dispatch({eventId: delegatedEventId1, payload: expectedPayload});
+  reffect.dispatch({eventId: delegatedEventId2, payload: expectedPayload});
+  reffect.dispatch({eventId: delegatedEventId3, payload: expectedPayload});
+
+  expect(callsCounter).toEqual(3);
+});
