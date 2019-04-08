@@ -5,7 +5,7 @@ TODO
 To run the tests once: `npm run test`
 
 To run the tests everytime the code changes: `npm run test:watch`
-=======
+
 ## Documentation
 * [Effects & Coeffects](https://github.com/trikitrok/reffects/blob/master/docs/effects-and-coeffects.md)
   * [Built-in effects](https://github.com/trikitrok/reffects/blob/master/docs/built-in-effects.md)
