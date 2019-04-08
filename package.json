@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js", // ??
-  "dependencies": {
-	
-  },
+  "dependencies": {},
   "devDependencies": {
-    "typescript": "3.3.3"
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-jest": "^24.7.1",
+    "jest": "^24.7.1"
   },
   "scripts": {
-
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "jest": {
     "watchPathIgnorePatterns": [

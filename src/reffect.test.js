@@ -1,6 +1,6 @@
 import * as reffect from "./reffect";
-import { callsTo } from "../../testHelpers/mockHelpers";
-import { destroyAllMocks } from "../../testHelpers/fixtures";
+import { callsTo } from "../testHelpers/mockHelpers";
+import { destroyAllMocks } from "../testHelpers/fixtures";
 
 reffect.setVerbosity(false);
 
