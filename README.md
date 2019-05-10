@@ -1,6 +1,6 @@
 # reffects 
 
-TODO
+Synchronous event bus with effects and coeffects in JS
 
 To run the tests once: `npm run test`
 
