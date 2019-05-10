@@ -1,10 +1,6 @@
 # reffects 
 
-TODO
-
-To run the tests once: `npm run test`
-
-To run the tests everytime the code changes: `npm run test:watch`
+Synchronous event bus with effects and coeffects in JS
 
 ## Documentation
 * [Effects & Coeffects](https://github.com/trikitrok/reffects/blob/master/docs/effects-and-coeffects.md)
@@ -12,3 +8,9 @@ To run the tests everytime the code changes: `npm run test:watch`
   * [Registering custom effect handlers](https://github.com/trikitrok/reffects/blob/master/docs/custom-effects.md)
   * [Registering custom coeffect handlers](https://github.com/trikitrok/reffects/blob/master/docs/custom-coeffects.md)
 * [API](https://github.com/trikitrok/reffects/blob/master/docs/api.md)
+
+## Tests
+
+To run the tests once: `npm run test`
+
+To run the tests everytime the code changes: `npm run test:watch`
