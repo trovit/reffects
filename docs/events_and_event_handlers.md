@@ -2,7 +2,7 @@
 
 reffects is a synchronous event bus with [effects and coeffects](https://github.com/trovit/reffects/blob/master/docs/effects-and-coeffects.md).
 
-Any application using reffects has a an [event-drive architecture](https://en.wikipedia.org/wiki/Event-driven_architecture).
+Any application using reffects has a an [event-driven architecture](https://en.wikipedia.org/wiki/Event-driven_architecture).
 
 Thanks to the [declarative effects pattern](https://github.com/trovit/reffects/blob/master/docs/effects-and-coeffects.md#declarative-effects-pattern), all the event handlers in an application using reffects can be pure function.
 
@@ -22,6 +22,6 @@ In an application using reffects, you should write all your state management log
 
 More on event handlers:
 
-1. Registering event handlers.
+1. [Registering event handlers](https://github.com/trovit/reffects/blob/master/docs/event_handlers.md).
 
-2. Testing event handlers.
+2. [Testing event handlers](https://github.com/trovit/reffects/blob/master/docs/testing_event_handlers.md).
