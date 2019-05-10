@@ -113,7 +113,7 @@ registerEffectHandler("dispatchLater", function dispatchLaterEffect(event) {
 function getHandler(handlerType, handlerId) {
   const handler = handlers[handlerType][handlerId];
   if (!handler) {
-    throw new Error(`There is no ${handler} handler called '${handlerId}'.`);
+    throw new Error(`There is no handler called '${handlerId}'.`);
   }
   return handler;
 }

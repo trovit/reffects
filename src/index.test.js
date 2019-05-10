@@ -148,7 +148,7 @@ test("checking a not existing handler id throws an error", () => {
   const passedPayload = "somePayload";
   const noopEventId = "noopEventHandler";
 
-  expect(() => reffects.dispatch({ eventId: noopEventId, payload: passedPayload })).toThrowError(`There is no undefined handler called '${noopEventId}'.`);
+  expect(() => reffects.dispatch({ eventId: noopEventId, payload: passedPayload })).toThrowError(`There is no handler called '${noopEventId}'.`);
 });
 
 test("checking effects are applied after executing the eventHandler", () => {
