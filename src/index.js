@@ -19,7 +19,7 @@ let handlers = { ...initialHandlers };
 let coeffectsByEvent = {};
 
 function extractCoeffectsValues(coeffectDescriptions) {
-  return coeffectDescriptions.reduce(function (acc, coeffectDescription) {
+  return coeffectDescriptions.reduce(function(acc, coeffectDescription) {
     if (isString(coeffectDescription)) {
       const coeffectId = coeffectDescription;
       const coeffectHandler = getCoeffectHandler(coeffectId);
@@ -37,7 +37,9 @@ function extractCoeffectsValues(coeffectDescriptions) {
 
 function guardValidCoeffectDescriptionObject(coeffectDescription) {
   if (!coeffectDescription || coeffectDescription.id == null) {
-    throw new Error("Coeffect description is not a valid object, an id property is required");
+    throw new Error(
+      'Coeffect description is not a valid object, an id property is required'
+    );
   }
 }
 
@@ -47,7 +49,7 @@ function applyEffects(effects) {
   }
   const effectIds = Object.keys(effects);
 
-  effectIds.forEach(function (effectId) {
+  effectIds.forEach(function(effectId) {
     const effectData = effects[effectId];
     const effectHandler = getEffectHandler(effectId);
 
@@ -55,7 +57,7 @@ function applyEffects(effects) {
   });
 }
 
-export function dispatch({eventId, payload = {}}) {
+export function dispatch({ eventId, payload = {} }) {
   logEvent(eventId, payload);
 
   const eventHandler = getEventHandler(eventId);
@@ -66,18 +68,22 @@ export function dispatch({eventId, payload = {}}) {
 }
 
 export function dispatchMany(events) {
-  events.forEach(function (event) {
+  events.forEach(function(event) {
     dispatch(event);
   });
 }
 
 function dispatchLater(event) {
-  setTimeout(function () {
+  setTimeout(function() {
     dispatch(event);
   }, event.milliseconds);
 }
 
-export function registerEventHandler(eventId, handler, coeffectDescriptions = []) {
+export function registerEventHandler(
+  eventId,
+  handler,
+  coeffectDescriptions = []
+) {
   setHandler('events', eventId, handler);
   coeffectsByEvent[eventId] = coeffectDescriptions;
 }
@@ -91,29 +97,24 @@ export function registerEffectHandler(effectId, handler) {
 }
 
 export function registerEventsDelegation(originalEvents, targetEvent) {
-  originalEvents.forEach(
-    function(eventId) {
-      registerEventHandler(
-        eventId, 
-        function(coeffects, payload) {
-          return {
-            dispatch: {eventId: targetEvent, payload: payload}
-          };
-        }
-      );
-    }
-  );
+  originalEvents.forEach(function(eventId) {
+    registerEventHandler(eventId, function(coeffects, payload) {
+      return {
+        dispatch: { eventId: targetEvent, payload: payload }
+      };
+    });
+  });
 }
 
-registerEffectHandler("dispatch", function dispatchEffect(event) {
+registerEffectHandler('dispatch', function dispatchEffect(event) {
   dispatch(event);
 });
 
-registerEffectHandler("dispatchMany", function dispatchManyEffect(events) {
-  dispatchMany(events)
+registerEffectHandler('dispatchMany', function dispatchManyEffect(events) {
+  dispatchMany(events);
 });
 
-registerEffectHandler("dispatchLater", function dispatchLaterEffect(event) {
+registerEffectHandler('dispatchLater', function dispatchLaterEffect(event) {
   dispatchLater(event);
 });
 
@@ -150,9 +151,15 @@ export function setVerbosity(newValue) {
   verbosityOn = newValue;
 }
 
-const toString = Object.prototype.toString
+const toString = Object.prototype.toString;
 
 function isString(value) {
   const type = typeof value;
-  return type === 'string' || (type === 'object' && value != null && !Array.isArray(value) && toString.call(value) === '[object String]');
+  return (
+    type === 'string' ||
+    (type === 'object' &&
+      value != null &&
+      !Array.isArray(value) &&
+      toString.call(value) === '[object String]')
+  );
 }
