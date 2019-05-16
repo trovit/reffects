@@ -48,7 +48,7 @@ function applyEffects(effects) {
 
 export function dispatch({eventId, payload = {}}) {
   if (verbosityOn) {
-    console.log(`Dispatching event ${eventId} with payload ${payload}`);
+    console.log(`Dispatching event ${eventId} with payload:`, payload);
   }
   const eventHandler = getEventHandler(eventId);
   const coeffectDescriptions = coeffectsByEvent[eventId];
@@ -64,7 +64,6 @@ export function dispatchMany(events) {
 }
 
 function dispatchLater(event) {
-  const t1 = new Date().getTime();
   setTimeout(function () {
     dispatch(event);
   }, event.milliseconds);
