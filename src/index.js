@@ -1,4 +1,13 @@
-var verbosityOn = true;
+var verbosityOn = process.env.NODE_ENV === 'development';
+
+function logEvent(eventId, payload) {
+  if (verbosityOn) {
+    console.group('Dispatching event:');
+    console.info('EventId:', eventId);
+    console.log('Payload:', payload);
+    console.groupEnd();
+  }
+}
 
 const initialHandlers = {
   effects: {},
@@ -47,9 +56,8 @@ function applyEffects(effects) {
 }
 
 export function dispatch({eventId, payload = {}}) {
-  if (verbosityOn) {
-    console.log(`Dispatching event ${eventId} with payload:`, payload);
-  }
+  logEvent(eventId, payload);
+
   const eventHandler = getEventHandler(eventId);
   const coeffectDescriptions = coeffectsByEvent[eventId];
   const coeffects = extractCoeffectsValues(coeffectDescriptions);
