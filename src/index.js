@@ -57,7 +57,7 @@ function applyEffects(effects) {
   });
 }
 
-export function dispatch({ eventId, payload = {} }) {
+export function dispatch({ eventId, payload }) {
   logEvent(eventId, payload);
 
   const eventHandler = getEventHandler(eventId);
