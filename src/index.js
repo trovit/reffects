@@ -2,7 +2,7 @@ var verbosityOn = process.env.NODE_ENV === 'development';
 
 function logEvent(eventId, payload) {
   if (verbosityOn) {
-    console.group('Dispatching event:');
+    console.groupCollapsed(`Dispatching event: ${eventId}`);
     console.info('EventId:', eventId);
     console.log('Payload:', payload);
     console.groupEnd();
