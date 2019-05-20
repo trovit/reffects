@@ -37,7 +37,7 @@ registerEventHandler(
       }
     };
   },
-  [{id: "localStore", data: "lastConnectionDate"}]
+  [coeffect("localStore", "lastConnectionDate")]
 );
 ```
 
@@ -69,7 +69,7 @@ registerEventHandler(
       }
     };
   },
-  ["datetime"]
+  [coeffect("datetime")]
 );
 ```
 

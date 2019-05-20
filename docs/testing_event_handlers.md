@@ -1,3 +1,3 @@
 # Testing event handlers in reffects
 
-TODO
+Since event handlers are very easy to test bla bla... TODO
