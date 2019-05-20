@@ -3,13 +3,19 @@ This function dispatches an **event** that will be processed by the event handli
 
 It accepts only one parameter: an **event** object. 
 
-The **event** object has two keys `eventId` and `payload`. The value associated with  `eventId` identifies the event and the value associated with `payload` is the payload of the event which is optional and it's an empty object by default.
+The **event** object has two keys `id` and `payload`. The value associated with  `id` identifies the event and the value associated with `payload` is the payload of the event which is optional and it's an empty object by default.
 
-**Important**: The **event handler** associated to the given `eventId` will be **synchronously** executed.
+**Important**: The **event handler** associated to the given `id` will be **synchronously** executed.
 
 Example:
 ```js
-dispatch({eventId: 'todoClicked', payload: { id, text, isDone }});
+dispatch({id: 'todoClicked', payload: { id, text, isDone }});
+```
+
+If there's no payload, there's an alternative way to dispatch an event:
+
+```js
+dispatch("idOfEventNotNeedingPayload");
 ```
 
 ## `dispatchMany`
@@ -19,8 +25,9 @@ It receives **an array of events**. Each of them must have the structure describ
 
 Example:
 ```js
-dispatchMany([{eventId: 'todoClicked', payload: { id, text, isDone }},
-              {eventId: 'descriptionsRequested', payload: { id }}]);
+dispatchMany([{id: 'todoClicked', payload: { id, text, isDone }},
+              {id: 'descriptionsRequested', payload: { id }},
+              "idOfEventNotNeedingPayload"]);
 ```
 
 ## `registerEventHandler`
@@ -36,8 +43,9 @@ Example using no coeffects:
 registerEventHandler(
   "setSelectedChartsRange",
   function(coeffects, selectedChartsRange) {
-    return {dispatchMany: [{eventId: "modifyComboSelection", payload: selected-charts-range},
-                           {eventId: "loadChartData", payload: selected-charts-range}]};
+    return {dispatchMany: [{id: "modifyComboSelection", payload: selected-charts-range},
+                           {id: "loadChartData", payload: selected-charts-range},
+                           "idOfEventNotNeedingPayload"]};
   }
 );
 ```
@@ -54,7 +62,7 @@ registerEventHandler(
       }
     };
   }, 
-  [coeffects.injectApiUrl()]);
+  [coeffect("apiUrl")]);
 ```
 
 ## `registerEventsDelegation`
@@ -152,3 +160,8 @@ Example:
 ```js
 setVerbosity(true);
 ```
+
+## `coeffect`
+This function is syntax sugar for creating coeffect descriptions. 
+
+Doing `coeffect("state", {'todoCount': 'todo.count'})` is equivalent to `{id: "state", data: {'todoCount': 'todo.count'}}`.
