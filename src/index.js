@@ -9,20 +9,29 @@ const initialHandlers = {
 let handlers = { ...initialHandlers };
 let coeffectsByEvent = {};
 
-function logEvent(eventId, payload) {
+function logEvent({ id, payload }) {
   if (verbosityOn) {
-    console.groupCollapsed(`Dispatching event: ${eventId}`);
-    console.info('EventId:', eventId);
-    console.log('Payload:', payload);
+    console.groupCollapsed(`Dispatching event: ${id}`);
+    console.info('EventId:', id);
+    if (!payload) {
+      console.info('Payload:', `The ${id} event has no payload.`);
+    } else {
+      console.info('Payload:', payload);
+    }
     console.groupEnd();
   }
 }
 
-function logCoeffect(coeffectDescription) {
+function logCoeffect({id, data}, value) {
   if (verbosityOn) {
-    console.groupCollapsed(`Extracting values of coeffect: ${coeffectDescription.id}`);
-    console.info('Coeffect id:', coeffectDescription.id);
-    console.log('Coeffect data:', coeffectDescription.data);
+    console.groupCollapsed(`Extracting values of coeffect: ${id}`);
+    console.info('Coeffect id:', id);
+    if(!data) {
+      console.info('Coeffect data:', `The ${id} coeffect needs no data`);
+    } else {
+      console.info('Coeffect data:', data);
+    }
+    console.info('Extracted value:', value);
     console.groupEnd();
   }
 }
@@ -31,25 +40,29 @@ function logEffect(effectId, effectData) {
   if (verbosityOn) {
     console.groupCollapsed(`Applying effect: ${effectId}`);
     console.info('Effect id:', effectId);
-    if (effectData) {
-      console.log('Effect data:', coeffectDescription.data);  
+    if (!effectData) {
+      console.info('Effect data:', `The ${effectId} effect needs no data`);
+    } else {
+      console.info('Effect data:', effectData);  
     }
     console.groupEnd();
   }
 }
 
-function extractCoeffectValue(coeffectDescription) {
-  checkElementValidity(coeffectDescription, "coeffect")
-  logCoeffect(coeffectDescription);
-
+function normalizeCoeffectDescription(coeffectDescription) {
   if (isString(coeffectDescription)) {
-    const coeffectId = coeffectDescription;
-    const coeffectHandler = getCoeffectHandler(coeffectId);
-    return coeffectHandler();
+    return {id:coeffectDescription};
   }
+  return coeffectDescription;
+}
 
-  const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
-  return coeffectHandler(coeffectDescription.data);
+function extractCoeffectValue(coeffectDescription) {
+  checkElementValidity(coeffectDescription, "coeffect");
+  const normalizedCoeffectDescription = normalizeCoeffectDescription(coeffectDescription);
+  const coeffectHandler = getCoeffectHandler(normalizedCoeffectDescription.id);
+  const value = coeffectHandler(normalizedCoeffectDescription.data);
+  logCoeffect(normalizedCoeffectDescription, value);
+  return value;
 }
 
 function extractCoeffectsValues(coeffectDescriptions) {
@@ -65,14 +78,16 @@ function applyEffects(effects) {
   if (!effects) {
     return;
   }
-  Object.entries(effects).forEach(function([effectId, effectData]) {
-    logEffect(effectId, effectData);
-    const effectHandler = getEffectHandler(effectId);
-    effectHandler(effectData);
-  });
+  Object.entries(effects).forEach(
+    function([effectId, effectData]) {
+      logEffect(effectId, effectData);
+      const effectHandler = getEffectHandler(effectId);
+      effectHandler(effectData);
+    }
+  );
 }
 
-function completeEventParts(event) {
+function normalizeEvent(event) {
   if(isString(event)) {
     return {id: event};
   }
@@ -81,8 +96,9 @@ function completeEventParts(event) {
 
 export function dispatch(event) {
   checkElementValidity(event, "event");
-  const { id, payload } = completeEventParts(event);
-  logEvent(id, payload);
+  const normalizedEvent = normalizeEvent(event);
+  logEvent(normalizedEvent);
+  const { id, payload } = normalizedEvent;
   const eventHandler = getEventHandler(id);
   const coeffectDescriptions = coeffectsByEvent[id];
   const coeffects = extractCoeffectsValues(coeffectDescriptions);
@@ -216,4 +232,3 @@ function checkElementValidity(element, elementType) {
     throw new Error("Not valid " + element + ".\n" + shapeDescriptionsByElement[element]);
   }
 }
-
