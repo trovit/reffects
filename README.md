@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/trovit/reffects/badge.svg?branch=master)](https://coveralls.io/github/trovit/reffects?branch=master)
+![npm](https://img.shields.io/npm/v/reffects) [![Build Status](https://travis-ci.com/trovit/reffects.svg?branch=master)](https://travis-ci.com/trovit/reffects) [![Coverage Status](https://coveralls.io/repos/github/trovit/reffects/badge.svg?branch=master)](https://coveralls.io/github/trovit/reffects?branch=master)
 
 # reffects 
 
