@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/trovit/reffects/badge.svg?branch=master)](https://coveralls.io/github/trovit/reffects?branch=master)
+
 # reffects 
 
 Synchronous event bus with effects and coeffects in JS
