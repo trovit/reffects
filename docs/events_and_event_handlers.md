@@ -1,10 +1,10 @@
 # Events and event handlers
 
-reffects is a synchronous event bus with [effects and coeffects](https://github.com/trovit/reffects/blob/master/docs/effects-and-coeffects.md).
+reffects is a synchronous event bus with [effects and coeffects](https://github.com/trovit/reffects/blob/master/docs/effects_and_coeffects.md).
 
 Any application using reffects has a an [event-driven architecture](https://en.wikipedia.org/wiki/Event-driven_architecture).
 
-Thanks to the [declarative effects pattern](https://github.com/trovit/reffects/blob/master/docs/effects-and-coeffects.md#declarative-effects-pattern), all the event handlers in an application using reffects can be pure function.
+Thanks to the [declarative effects pattern](https://github.com/trovit/reffects/blob/master/docs/effects_and_coeffects.md#declarative-effects-pattern), all the event handlers in an application using reffects can be pure function.
 
 Pure functions offer great advantages over effectful functions because they are
 

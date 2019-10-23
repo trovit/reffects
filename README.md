@@ -27,10 +27,10 @@
 - [Events & event handlers](https://github.com/trovit/reffects/blob/master/docs/events_and_event_handlers.md)
   - [Registering event handlers](https://github.com/trovit/reffects/blob/master/docs/event_handlers.md).
   - [Testing event handlers](https://github.com/trovit/reffects/blob/master/docs/testing_event_handlers.md).
-- [Effects & Coeffects](https://github.com/trikitrok/reffects/blob/master/docs/effects-and-coeffects.md)
+- [Effects & Coeffects](https://github.com/trikitrok/reffects/blob/master/docs/effects_and_coeffects.md)
   - [Built-in effects](https://github.com/trikitrok/reffects/blob/master/docs/built-in-effects.md)
-  - [Registering custom effect handlers](https://github.com/trikitrok/reffects/blob/master/docs/custom-effects.md)
-  - [Registering custom coeffect handlers](https://github.com/trikitrok/reffects/blob/master/docs/custom-coeffects.md)
+  - [Registering custom effect handlers](https://github.com/trikitrok/reffects/blob/master/docs/custom_effects.md)
+  - [Registering custom coeffect handlers](https://github.com/trikitrok/reffects/blob/master/docs/custom_coeffects.md)
 - [API](https://github.com/trikitrok/reffects/blob/master/docs/api.md)
 
 ## Tests

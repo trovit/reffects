@@ -9,14 +9,7 @@
 A clear and concise description of what the bug is.
 
 **To Reproduce**
-Steps to reproduce the behavior. Examples:
-
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-Provie some code sample or project if you have any or provide instructions in order to get a proper environment to reproduce the bug.
+Provide some code examples or give instructions in order to get a proper environment to reproduce the bug.
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
