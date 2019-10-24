@@ -14,10 +14,11 @@
     "babel-jest": "^24.7.1",
     "coveralls": "^3.0.7",
     "jest": "^24.7.1",
-    "microbundle": "^0.11.0"
+    "rollup": "^1.25.2",
+    "rollup-plugin-terser": "^5.1.2"
   },
   "scripts": {
-    "build": "microbundle",
+    "build": "rollup -c",
     "release": "npm run build && npm t && git push && npm publish",
     "test": "jest",
     "test:watch": "jest --watch",
