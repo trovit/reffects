@@ -1,0 +1,31 @@
+{
+  "name": "reffects",
+  "version": "0.1.6",
+  "description": "",
+  "source": "src/index.js",
+  "module": "dist/reffects.es.js",
+  "main": "dist/reffects.js",
+  "umd:main": "dist/reffects.umd.js",
+  "keywords": [],
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-jest": "^24.7.1",
+    "coveralls": "^3.0.7",
+    "jest": "^24.7.1",
+    "rollup": "^1.25.2",
+    "rollup-plugin-terser": "^5.1.2"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "release": "npm run build && npm t && git push && npm publish",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --coverage --coverageReporters=text-lcov | coveralls"
+  },
+  "jest": {
+    "watchPathIgnorePatterns": [
+      "node_modules"
+    ]
+  }
+}
