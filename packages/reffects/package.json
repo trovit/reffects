@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "prepublish": "npm run build && npm t && git push",
+    "preversion": "npm run build && npm t && git push",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --coverage --coverageReporters=text-lcov | coveralls"
