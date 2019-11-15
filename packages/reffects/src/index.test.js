@@ -22,7 +22,7 @@ test("dispatching an event and receiving its payload", () => {
 
   reffects.dispatch({ id: eventId, payload: passedPayload });
 
-  expect(callsCounter).toEqual(1);
+  expect(callsCounter).toEqual(2);
 });
 
 test("dispatching an event represented as a string because it does not need payload", () => {
