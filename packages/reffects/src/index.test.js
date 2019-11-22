@@ -1,5 +1,5 @@
 import * as reffects from ".";
-import { destroyAllMocks } from "../testHelpers/fixtures";
+import { destroyAllMocks } from "../test-helpers/fixtures";
 
 reffects.setVerbosity(false);
 
