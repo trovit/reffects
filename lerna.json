@@ -1,6 +1,14 @@
 {
+  "commands": {
+    "publish": {
+      "ignore": [
+        "example-*"
+      ]
+    }
+  },
   "packages": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "version": "independent"
 }
