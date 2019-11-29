@@ -24,6 +24,8 @@
 
 ## Documentation
 
+### Reffects
+
 - [Events & event handlers](./docs/events_and_event_handlers.md)
   - [Registering event handlers](./docs/event_handlers.md).
   - [Testing event handlers](./docs/testing_event_handlers.md).
@@ -32,6 +34,11 @@
   - [Registering custom effect handlers](./docs/custom_effects.md)
   - [Registering custom coeffect handlers](./docs/custom_coeffects.md)
 - [API](./docs/api.md)
+
+### Reffects store
+
+- [Store](./docs/reffects_store/store_api.md)
+- [Subscriptions](./docs/reffects_store/store_api.md)
 
 ## Tests
 
