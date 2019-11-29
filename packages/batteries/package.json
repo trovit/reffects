@@ -1,0 +1,35 @@
+{
+  "name": "reffects-batteries",
+  "version": "0.1.0",
+  "description": "",
+  "source": "src/index.js",
+  "module": "dist/reffects-batteries.es.js",
+  "main": "dist/reffects-batteries.js",
+  "umd:main": "dist/reffects-batteries.umd.js",
+  "keywords": [],
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-jest": "^24.7.1",
+    "coveralls": "^3.0.7",
+    "jest": "^24.7.1",
+    "reffects": "^0.1.10",
+    "rollup": "^1.25.2",
+    "rollup-plugin-terser": "^5.1.2"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "preversion": "npm run build && npm t && git push",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --coverage --coverageReporters=text-lcov | coveralls"
+  },
+  "peerDependencies": {
+    "reffects": "^0.1.0"
+  },
+  "jest": {
+    "watchPathIgnorePatterns": [
+      "node_modules"
+    ]
+  }
+}
