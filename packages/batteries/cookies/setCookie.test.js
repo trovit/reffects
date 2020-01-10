@@ -1,5 +1,5 @@
 import { clearHandlers, getEffectHandler } from 'reffects';
-import * as setCookieEffect from './cookies';
+import registerSetCookieEffect from './setCookie';
 
 afterEach(() => {
   clearHandlers();
@@ -11,7 +11,7 @@ describe('setCookie effect', () => {
     const effectId = 'setCookie';
     const cookiesClient = { set: jest.fn() };
 
-    setCookieEffect.register(cookiesClient);
+    registerSetCookieEffect(cookiesClient);
     const setCookieHandler = getEffectHandler(effectId);
 
     const cookieToSet = {

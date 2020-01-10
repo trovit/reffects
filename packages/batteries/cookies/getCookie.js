@@ -1,6 +1,6 @@
 import { registerCoeffectHandler } from 'reffects';
 
-export function register(cookiesClient) {
+export default function registerGetCookieCoeffect(cookiesClient) {
   registerCoeffectHandler('cookie', function cookie(key) {
     return {
       cookie: {

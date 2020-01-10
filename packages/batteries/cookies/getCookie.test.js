@@ -1,19 +1,19 @@
 import { clearHandlers, getCoeffectHandler, coeffect } from 'reffects';
-import * as cookieCoeffect from './cookies';
+import registerGetCookieCoeffect from './getCookie';
 
 afterEach(() => {
   clearHandlers();
   jest.clearAllMocks();
 });
 
-describe('cookies', () => {
+describe('get cookie coeffect', () => {
   test('should extract keys from cookies', () => {
     const fakeKey = 'fakeCookieKey';
     const fakeValue = 'fakeCookieValue';
     const coeffectDescription = coeffect('cookie', fakeKey);
     const cookiesClient = { get: jest.fn() };
     cookiesClient.get.mockReturnValue(fakeValue);
-    cookieCoeffect.register(cookiesClient);
+    registerGetCookieCoeffect(cookiesClient);
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 
     expect(coeffectHandler(coeffectDescription.data)).toEqual({
@@ -29,7 +29,7 @@ describe('cookies', () => {
     const coeffectDescription = coeffect('cookie', fakeKey);
     const cookiesClient = { get: jest.fn() };
     cookiesClient.get.mockReturnValue(fakeValue);
-    cookieCoeffect.register(cookiesClient);
+    registerGetCookieCoeffect(cookiesClient);
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 
     expect(coeffectHandler(coeffectDescription.data)).toEqual({
