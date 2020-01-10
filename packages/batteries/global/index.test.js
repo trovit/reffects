@@ -5,10 +5,6 @@ import * as reffects from 'reffects';
 import * as coeffect from './global';
 
 describe('global battery', () => {
-  test('effects and coeffects registrars can be used separatedly', () => {
-    expect(registerGlobalCoeffect).toBeDefined();
-  });
-
   test('effects and coeffects are registered at once when calling registerGlobalBatteries', () => {
     const globalOject = {};
     const registerGlobalCoeffectFn = jest.spyOn(coeffect, 'default');

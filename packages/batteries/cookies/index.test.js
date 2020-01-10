@@ -7,11 +7,6 @@ import * as coeffect from './getCookie';
 import * as reffects from 'reffects';
 
 describe('cookies battery', () => {
-  test('effects and coeffects registrars can be used separatedly', () => {
-    expect(registerSetCookieEffect).toBeDefined();
-    expect(registerGetCookieCoeffect).toBeDefined();
-  });
-
   test('effects and coeffects are registered at once when calling registerStateBatteries', () => {
     const cookieClient = {};
     const registerCookieEffectFn = jest.spyOn(effect, 'default');
