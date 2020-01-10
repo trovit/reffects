@@ -1,7 +1,7 @@
 import { clearHandlers, coeffect, getCoeffectHandler } from 'reffects';
 import registerStateCoeffect from './state';
-import { destroyAllMocks } from '../test-helpers/fixtures';
-import { callsTo } from '../test-helpers/mockHelpers';
+import { destroyAllMocks } from '../../../batteries/test-helpers/fixtures';
+import { callsTo } from '../../../batteries/test-helpers/mockHelpers';
 
 describe('state coeffect', () => {
   afterEach(() => {
