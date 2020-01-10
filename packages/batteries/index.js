@@ -1,22 +1,20 @@
 import registerCookiesBatteries, {
-  registerSetCookieEffect, 
-  registerGetCookieCoeffect
+  registerSetCookieEffect,
+  registerGetCookieCoeffect,
 } from './cookies';
-import registerGlobalBatteries, {registerGlobalCoeffect} from './global';
+import registerGlobalBatteries, { registerGlobalCoeffect } from './global';
 import registerHttpBatteries from './http';
-import registerQueryParamsBatteries, 
-{ registerQueryParamsCoeffect } from './queryParams';
+import registerQueryParamsBatteries, {
+  registerQueryParamsCoeffect,
+} from './queryParams';
 
-export default {
+export {
   registerSetCookieEffect,
   registerGetCookieCoeffect,
   registerCookiesBatteries,
-
   registerGlobalCoeffect,
   registerGlobalBatteries,
-
   registerHttpBatteries,
-
   registerQueryParamsCoeffect,
   registerQueryParamsBatteries,
-}
+};
