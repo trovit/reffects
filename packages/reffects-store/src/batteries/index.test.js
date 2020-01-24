@@ -1,10 +1,10 @@
+import * as reffects from 'reffects';
 import registerStateBatteries, {
   registerStateEffect,
   registerStateCoeffect,
 } from './index';
 import * as effect from './setState';
 import * as coeffect from './state';
-import * as reffects from 'reffects';
 
 describe('state battery', () => {
   test('effects and coeffects registrars can be used separatedly', () => {
@@ -16,8 +16,14 @@ describe('state battery', () => {
     const store = {};
     const registerStateEffectFn = jest.spyOn(effect, 'default');
     const registerStateCoeffectFn = jest.spyOn(coeffect, 'default');
-    const registerEffectHandlerFn = jest.spyOn(reffects, 'registerEffectHandler');
-    const registerCoeffectHandlerFn = jest.spyOn(reffects, 'registerCoeffectHandler');
+    const registerEffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerEffectHandler'
+    );
+    const registerCoeffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerCoeffectHandler'
+    );
 
     registerStateBatteries(store);
 

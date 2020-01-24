@@ -1,4 +1,5 @@
 import { setIn, getIn } from './utils';
+import registerStateBatteries from './batteries';
 
 let state = {};
 let listeners = [];
