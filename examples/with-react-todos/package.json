@@ -2,6 +2,7 @@
   "name": "example-with-react-todos",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

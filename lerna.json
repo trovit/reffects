@@ -1,11 +1,4 @@
 {
-  "commands": {
-    "publish": {
-      "ignore": [
-        "example-*"
-      ]
-    }
-  },
   "packages": [
     "packages/*",
     "examples/*"
