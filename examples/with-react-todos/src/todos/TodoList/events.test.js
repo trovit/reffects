@@ -6,50 +6,54 @@ applyEventsFixture(events);
 
 describe('events', () => {
   test('loadTodos', () => {
-    const givenCoeffects = { apiUrl: "sddasds" };
+    const givenCoeffects = { global: { apiUrl: 'http://someurl' } };
     const loadTodos = getEventHandler('loadTodos');
 
     expect(loadTodos(givenCoeffects)).toEqual({
-      get: {
-        url: givenCoeffects.apiUrl,
-        successEvent: ["loadTodosSucceeded"]
-      }
-    })
+      httpGet: {
+        url: 'http://someurl',
+        successEvent: ['loadTodosSucceeded'],
+      },
+    });
   });
 
   test('loadTodosSucceeded', () => {
     const givenCoeffects = {};
     const loadTodosSucceeded = getEventHandler('loadTodosSucceeded');
 
-    expect(loadTodosSucceeded(givenCoeffects, [{
-      results: [
+    expect(
+      loadTodosSucceeded(givenCoeffects, [
         {
-          id: 1,
-          name: 'Kevin Bacon',
-          description: 'Super sexy',
-        },
-        {
-          id: 2,
-          name: 'Alison',
-          description: '',
-        }
-      ]
-    }])).toEqual({
-      setState: {
-        "todos": [
+          results: [
             {
               id: 1,
-              text: 'Describe: Kevin Bacon',
-              done: true,
+              name: 'Kevin Bacon',
+              description: 'Super sexy',
             },
             {
               id: 2,
-              text: 'Describe: Alison',
-              done: false,
-            }
-          ]
-      }
-    })
+              name: 'Alison',
+              description: '',
+            },
+          ],
+        },
+      ])
+    ).toEqual({
+      setState: {
+        todos: [
+          {
+            id: 1,
+            text: 'Describe: Kevin Bacon',
+            done: true,
+          },
+          {
+            id: 2,
+            text: 'Describe: Alison',
+            done: false,
+          },
+        ],
+      },
+    });
   });
 
   test('filterTodos', () => {
@@ -57,8 +61,8 @@ describe('events', () => {
     const filterTodos = getEventHandler('filterTodos');
 
     expect(filterTodos(givenCoeffects, 'codorniz')).toEqual({
-      setState: {"visibilityFilter": 'codorniz'}
-    })
+      setState: { visibilityFilter: 'codorniz' },
+    });
   });
 
   test('todoClicked when todo is done', () => {
@@ -68,26 +72,30 @@ describe('events', () => {
     const text = 'Lorem ipsum';
     const givenCoeffects = {
       state: {
-        todos: [{
-          id: id,
-          text: 'Describe: Kevin Bacon',
-          done: true,
-        },]
-      }
+        todos: [
+          {
+            id: id,
+            text: 'Describe: Kevin Bacon',
+            done: true,
+          },
+        ],
+      },
     };
 
     expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
       toast: {
         text: '"Lorem ipsum" was marked as undone.',
-        milliseconds: 3000
+        milliseconds: 3000,
       },
       setState: {
-        "todos": [{
+        todos: [
+          {
             id: 1,
             text: 'Describe: Kevin Bacon',
             done: false,
-          }]
-      }
+          },
+        ],
+      },
     });
   });
 
@@ -98,26 +106,30 @@ describe('events', () => {
     const text = 'Lorem ipsum';
     const givenCoeffects = {
       state: {
-        todos: [{
-          id: id,
-          text: 'Describe: Kevin Bacon',
-          done: false,
-        }]
-      }
+        todos: [
+          {
+            id: id,
+            text: 'Describe: Kevin Bacon',
+            done: false,
+          },
+        ],
+      },
     };
 
     expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
       toast: {
         text: '"Lorem ipsum" was marked as done.',
-        milliseconds: 3000
+        milliseconds: 3000,
       },
       setState: {
-        "todos": [{
+        todos: [
+          {
             id: 1,
             text: 'Describe: Kevin Bacon',
             done: true,
-          }]
-      }
+          },
+        ],
+      },
     });
   });
-})
+});

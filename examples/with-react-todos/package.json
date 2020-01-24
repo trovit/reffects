@@ -9,6 +9,7 @@
     "react-scripts": "2.1.8",
     "reffects": "github:trovit/reffects#0.1.11",
     "reffects-store": "github:trovit/reffects-store#0.2.4",
+    "reffects-batteries": "github:trovit/reffects-batteries#0.1.2",
     "reselect": "^4.0.0"
   },
   "devDependencies": {

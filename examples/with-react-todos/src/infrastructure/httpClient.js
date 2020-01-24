@@ -1,5 +1,5 @@
-export function get({url, successFn}) {
+export function get({ url, successFn }) {
   fetch(url)
-      .then(res => res.json())
-      .then(response => successFn(response));
+    .then(res => res.json())
+    .then(response => successFn(response.data));
 }
