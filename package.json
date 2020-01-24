@@ -9,6 +9,6 @@
   "scripts": {
     "bootstrap": "lerna bootstrap && npm run build",
     "release": "lerna publish",
-    "build": "lerna run build --scope=reffects-*"
+    "build": "lerna run build --scope=reffects*"
   }
 }
