@@ -1,7 +1,7 @@
 import * as reffects from ".";
 import { destroyAllMocks } from "../test-helpers/fixtures";
 
-reffects.setVerbosity(false);
+reffects.disableVerbosity();
 
 afterEach(() => {
   reffects.clearHandlers();

@@ -1,4 +1,5 @@
 var verbosityOn = process.env.NODE_ENV === 'development';
+var devToolsOn = process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
 
 const initialHandlers = {
   effects: {},
@@ -94,7 +95,7 @@ function normalizeEvent(event) {
   return event;
 }
 
-export function dispatch(event) {
+function dispatch(event) {
   checkElementValidity(event, "event");
   const normalizedEvent = normalizeEvent(event);
   logEvent(normalizedEvent);
@@ -106,7 +107,7 @@ export function dispatch(event) {
   applyEffects(effects);
 }
 
-export function dispatchMany(events) {
+function dispatchMany(events) {
   events.forEach(function(event) {
     dispatch(event);
   });
@@ -118,7 +119,7 @@ function dispatchLater(event) {
   }, event.milliseconds);
 }
 
-export function registerEventHandler(
+function registerEventHandler(
   eventId,
   handler,
   coeffectDescriptions = []
@@ -127,15 +128,15 @@ export function registerEventHandler(
   coeffectsByEvent[eventId] = coeffectDescriptions;
 }
 
-export function registerCoeffectHandler(coeffectId, handler) {
+function registerCoeffectHandler(coeffectId, handler) {
   setHandler('coeffects', coeffectId, handler);
 }
 
-export function registerEffectHandler(effectId, handler) {
+function registerEffectHandler(effectId, handler) {
   setHandler('effects', effectId, handler);
 }
 
-export function registerEventsDelegation(originalEvents, targetEvent) {
+function registerEventsDelegation(originalEvents, targetEvent) {
   originalEvents.forEach(function(id) {
     registerEventHandler(id, function(coeffects, payload) {
       return {
@@ -165,7 +166,7 @@ function getHandler(handlerType, handlerId) {
   return handler;
 }
 
-export function coeffect(id, data) {
+function coeffect(id, data) {
   if (!data) {
     return id;
   }
@@ -176,25 +177,25 @@ function setHandler(handlerType, handlerId, handler) {
   handlers[handlerType][handlerId] = handler;
 }
 
-export function getCoeffectHandler(coeffectId) {
+function getCoeffectHandler(coeffectId) {
   return getHandler('coeffects', coeffectId);
 }
 
-export function getEffectHandler(effectId) {
+function getEffectHandler(effectId) {
   return getHandler('effects', effectId);
 }
 
-export function getEventHandler(eventId) {
+function getEventHandler(eventId) {
   return getHandler('events', eventId);
 }
 
-export function clearHandlers() {
+function clearHandlers() {
   handlers = { ...initialHandlers };
   coeffectsByEvent = {};
 }
 
-export function setVerbosity(newValue) {
-  verbosityOn = newValue;
+function disableVerbosity() {
+  verbosityOn = false;
 }
 
 const toString = Object.prototype.toString;
@@ -231,4 +232,27 @@ function checkElementValidity(element, elementType) {
   function throwNotValidError(element) {
     throw new Error("Not valid " + element + ".\n" + shapeDescriptionsByElement[element]);
   }
+}
+
+if (devToolsOn) {
+  window['__REFFECTS_DEVTOOLS__'] = {
+    dispatch,
+    dispatchMany,
+  };
+}
+
+export {
+  dispatch,
+  dispatchMany,
+  dispatchLater,
+  registerEventHandler,
+  registerCoeffectHandler,
+  registerEffectHandler,
+  registerEventsDelegation,
+  getHandler,
+  coeffect,
+  getCoeffectHandler,
+  getEventHandler,
+  clearHandlers,
+  disableVerbosity,
 }
