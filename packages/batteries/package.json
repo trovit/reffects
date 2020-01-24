@@ -15,6 +15,7 @@
     "jest": "^24.7.1",
     "reffects": "^0.1.10",
     "rollup": "^1.25.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2"
   },
   "scripts": {
