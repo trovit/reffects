@@ -1,6 +1,6 @@
 import { clearHandlers, getEffectHandler } from 'reffects';
-import { destroyAllMocks } from '../test-helpers/fixtures';
-import { callsTo } from '../test-helpers/mockHelpers';
+import { destroyAllMocks } from '../../test-helpers/fixtures';
+import { callsTo } from '../../test-helpers/mockHelpers';
 import registerHttpEffect from './http';
 
 describe('http effects', () => {
