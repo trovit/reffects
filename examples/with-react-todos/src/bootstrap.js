@@ -3,16 +3,16 @@ import {
   registerHttpBatteries,
   registerGlobalBatteries,
 } from 'reffects-batteries';
-import * as setStateEffect from './effects/setState';
-import * as toastEffect from './effects/toast';
+import registerStateEffect from './effects/setState';
+import registerToastEffect from './effects/toast';
 
-import * as stateCoeffect from './coeffects/state';
-import * as dateTimeCoeffect from './coeffects/datetime';
+import registerStateCoeffect from './coeffects/state';
+import registerDatetimeCoeffect from './coeffects/datetime';
 
-import * as httpClient from './infrastructure/httpClient';
-import * as timer from './infrastructure/timer';
+import httpClient from './infrastructure/httpClient';
+import timer from './infrastructure/timer';
 
-import * as todoListEvents from './todos/TodoList/events';
+import registerTodoListEvents from './todos/TodoList/events';
 
 import { VISIBILITY_FILTERS_SHOW_ALL } from './todos/constants';
 
@@ -32,24 +32,26 @@ export function startApp() {
 
   store.initialize(initialState);
 
+  // Reffects' built in batteries
   registerHttpBatteries(httpClient);
   registerGlobalBatteries();
 
+  // Custom effects/coeffects & events
   registerEffects();
   registerCoeffects();
   registerEvents();
 }
 
 function registerEffects() {
-  setStateEffect.register(store);
-  toastEffect.register(store, timer);
+  registerStateEffect(store);
+  registerToastEffect(store, timer);
 }
 
 function registerCoeffects() {
-  stateCoeffect.register(store);
-  dateTimeCoeffect.register(Date);
+  registerStateCoeffect(store);
+  registerDatetimeCoeffect(Date);
 }
 
 function registerEvents() {
-  todoListEvents.register();
+  registerTodoListEvents();
 }

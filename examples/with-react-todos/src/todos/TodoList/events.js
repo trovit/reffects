@@ -1,6 +1,6 @@
 import { registerEventHandler, coeffect } from 'reffects';
 
-export function register() {
+export default function registerTodoListEvents() {
   registerEventHandler(
     'loadTodos',
     function loadTodos(coeffects, payload) {

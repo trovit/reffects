@@ -1,14 +1,14 @@
-import { clearHandlers } from "reffects";
+import { clearHandlers } from 'reffects';
 
-export function applyEventsFixture(events) {
+export function applyEventsFixture(registerEventsCallback) {
   beforeAll(() => {
-    events.register();
+    registerEventsCallback();
   });
 
   afterAll(() => {
     clearHandlers();
     destroyAllMocks();
-  })
+  });
 }
 
 export function destroyAllMocks() {

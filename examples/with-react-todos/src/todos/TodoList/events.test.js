@@ -1,8 +1,8 @@
-import * as events from './events';
+import registerTodoListEvents from './events';
 import { getEventHandler } from 'reffects';
 import { applyEventsFixture } from '../../../test-helpers/fixtures';
 
-applyEventsFixture(events);
+applyEventsFixture(registerTodoListEvents);
 
 describe('events', () => {
   test('loadTodos', () => {
