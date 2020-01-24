@@ -6,9 +6,9 @@ import "./styles.css";
 
 import TodoList from "./todos/TodoList/TodoList";
 import Toast from "./todos/Toast/Toast";
-import * as boostrap from "./bootstrap";
+import { startApp } from "./bootstrap";
 
-boostrap.startApp();
+startApp();
 
 function App() {
   dispatch("loadTodos");
