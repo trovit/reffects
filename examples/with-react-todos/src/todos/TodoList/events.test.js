@@ -10,7 +10,7 @@ describe('events', () => {
     const loadTodos = getEventHandler('loadTodos');
 
     expect(loadTodos(givenCoeffects)).toEqual({
-      httpGet: {
+      'http.get': {
         url: 'http://someurl',
         successEvent: ['loadTodosSucceeded'],
       },

@@ -4,7 +4,7 @@ export default function registerHttpEffect(
   httpClient,
   dispatch = reffectsDispatch
 ) {
-  registerEffectHandler('httpGet', function getEffect({
+  registerEffectHandler('http.get', function getEffect({
     url,
     successEvent = [],
     errorEvent = [],
@@ -20,7 +20,7 @@ export default function registerHttpEffect(
     });
   });
 
-  registerEffectHandler('httpPost', function postEffect({
+  registerEffectHandler('http.post', function postEffect({
     url,
     body,
     config = {},
@@ -44,7 +44,7 @@ export default function registerHttpEffect(
     });
   });
 
-  registerEffectHandler('httpPut', function putEffect({
+  registerEffectHandler('http.put', function putEffect({
     url,
     body,
     successEvent = [],

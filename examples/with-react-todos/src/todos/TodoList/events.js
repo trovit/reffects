@@ -5,7 +5,7 @@ export default function registerTodoListEvents() {
     'loadTodos',
     function loadTodos(coeffects, payload) {
       return {
-        httpGet: {
+        'http.get': {
           url: coeffects.global.apiUrl,
           successEvent: ['loadTodosSucceeded'],
         },

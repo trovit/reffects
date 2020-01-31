@@ -11,8 +11,8 @@ describe('http effects', () => {
 
   const eventRestOfPayload = ['arg1', 'arg2'];
 
-  describe('httpGet', () => {
-    const effectId = 'httpGet';
+  describe('http.get', () => {
+    const effectId = 'http.get';
 
     test('request success', () => {
       const responseData = 'responseData';
@@ -81,8 +81,8 @@ describe('http effects', () => {
     });
   });
 
-  describe('httpPost', () => {
-    const effectId = 'httpPost';
+  describe('http.post', () => {
+    const effectId = 'http.post';
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
     test('request success', () => {
@@ -207,8 +207,8 @@ describe('http effects', () => {
     });
   });
 
-  describe('httpPut', () => {
-    const effectId = 'httpPut';
+  describe('http.put', () => {
+    const effectId = 'http.put';
 
     test('request success', () => {
       const responseData = 'responseData';
