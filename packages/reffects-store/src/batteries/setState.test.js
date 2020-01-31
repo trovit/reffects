@@ -10,7 +10,6 @@ describe('state.set effect', () => {
   test('should state.set the state in the store', () => {
     const effectId = 'state.set';
     registerSetStateEffect(store);
-    console.log(getEffectHandler);
     const setStateHandler = getEffectHandler(effectId);
     const firstMutation = { path: 'visibilityFilter', newValue: 'all' };
     const secondMutation = { path: 'toast.isShown', newValue: true };
