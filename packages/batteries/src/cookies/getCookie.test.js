@@ -17,7 +17,7 @@ describe('cookie.get coeffect', () => {
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 
     expect(coeffectHandler(coeffectDescription.data)).toEqual({
-      [coeffectDescription.id]: {
+      cookie: {
         [fakeKey]: fakeValue,
       },
     });
@@ -33,7 +33,7 @@ describe('cookie.get coeffect', () => {
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 
     expect(coeffectHandler(coeffectDescription.data)).toEqual({
-      [coeffectDescription.id]: {
+      cookie: {
         [fakeKey]: fakeValue,
       },
     });

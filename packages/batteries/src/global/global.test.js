@@ -17,7 +17,7 @@ describe('global.get', () => {
     const result = coeffectHandler(coeffectDescription.data);
 
     expect(result).toEqual({
-      [coeffectDescription.id]: {
+      global: {
         [fakeVariable]: fakeValue,
       },
     });

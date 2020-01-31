@@ -18,7 +18,7 @@ describe('queryParams.get', () => {
     const result = coeffectHandler(coeffectDescription.data);
 
     expect(result).toEqual({
-      [coeffectDescription.id]: {
+      queryParams: {
         peanuts: '3',
         chesnuts: 'dilìcíous',
         nuts: ['cashew', 'pistachios'],
