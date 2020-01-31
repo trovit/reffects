@@ -6,9 +6,9 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-describe('setCookie effect', () => {
+describe('cookie.set effect', () => {
   test('should set value into a cookie', () => {
-    const effectId = 'setCookie';
+    const effectId = 'cookie.set';
     const cookiesClient = { set: jest.fn() };
 
     registerSetCookieEffect(cookiesClient);

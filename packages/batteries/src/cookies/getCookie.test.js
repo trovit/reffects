@@ -6,11 +6,11 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-describe('get cookie coeffect', () => {
+describe('cookie.get coeffect', () => {
   test('should extract keys from cookies', () => {
     const fakeKey = 'fakeCookieKey';
     const fakeValue = 'fakeCookieValue';
-    const coeffectDescription = coeffect('cookie', fakeKey);
+    const coeffectDescription = coeffect('cookie.get', fakeKey);
     const cookiesClient = { get: jest.fn() };
     cookiesClient.get.mockReturnValue(fakeValue);
     registerGetCookieCoeffect(cookiesClient);
@@ -26,7 +26,7 @@ describe('get cookie coeffect', () => {
   test("should return undefined when a key doesn't exists", () => {
     const fakeKey = 'fakeCookieKey';
     const fakeValue = undefined;
-    const coeffectDescription = coeffect('cookie', fakeKey);
+    const coeffectDescription = coeffect('cookie.get', fakeKey);
     const cookiesClient = { get: jest.fn() };
     cookiesClient.get.mockReturnValue(fakeValue);
     registerGetCookieCoeffect(cookiesClient);
