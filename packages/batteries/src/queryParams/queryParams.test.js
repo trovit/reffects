@@ -6,12 +6,12 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-describe('queryParams', () => {
+describe('queryParams.get', () => {
   test('should extract query params from url', () => {
     const selectedQueryParams = ['peanuts', 'chesnuts', 'nuts', 'hazelnuts'];
     const fakeUrlSearch =
       '?peanuts=3&chesnuts=dil%C3%ACc%C3%ADous&nuts=cashew&nuts=pistachios';
-    const coeffectDescription = coeffect('queryParams', selectedQueryParams);
+    const coeffectDescription = coeffect('queryParams.get', selectedQueryParams);
     registerQueryParamsCoeffect({ location: { search: fakeUrlSearch } });
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 

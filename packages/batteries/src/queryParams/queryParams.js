@@ -1,7 +1,7 @@
 import { registerCoeffectHandler } from 'reffects';
 
 export default function registerQueryParamsCoeffect(globalOject) {
-  registerCoeffectHandler('queryParams', function retrieveQueryParams(
+  registerCoeffectHandler('queryParams.get', function retrieveQueryParams(
     selectedQueryParams = []
   ) {
     const urlParams = new URLSearchParams(globalOject.location.search);
