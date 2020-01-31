@@ -6,10 +6,11 @@ import { callsTo } from '../test-helpers/mockHelpers';
 const store = { setState: jest.fn() };
 applyEventsFixture(() => registerSetStateEffect(store));
 
-describe('setState effect', () => {
-  test('should setState the state in the store', () => {
+describe('state.set effect', () => {
+  test('should state.set the state in the store', () => {
     const effectId = 'state.set';
     registerSetStateEffect(store);
+    console.log(getEffectHandler);
     const setStateHandler = getEffectHandler(effectId);
     const firstMutation = { path: 'visibilityFilter', newValue: 'all' };
     const secondMutation = { path: 'toast.isShown', newValue: true };

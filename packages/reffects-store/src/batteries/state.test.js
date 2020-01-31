@@ -29,7 +29,7 @@ describe('state coeffect', () => {
     const stateHandler = getCoeffectHandler(coeffectDescription.id);
 
     expect(stateHandler(coeffectDescription.data)).toEqual({
-      [coeffectDescription.id]: {
+      state: {
         todosRenamed: state.todos,
         toastId: state.toast.id,
       },
