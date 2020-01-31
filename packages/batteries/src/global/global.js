@@ -15,7 +15,7 @@ function getIn(obj, path, defaultValue = null) {
 }
 
 export default function registeGlobalCoeffect(globalObject = window) {
-  registerCoeffectHandler('global', function global(variableName) {
+  registerCoeffectHandler('global.get', function global(variableName) {
     return {
       global: {
         [variableName]: getIn(globalObject, variableName),

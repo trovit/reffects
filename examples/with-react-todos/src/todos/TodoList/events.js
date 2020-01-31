@@ -11,7 +11,7 @@ export default function registerTodoListEvents() {
         },
       };
     },
-    [coeffect('global', 'apiUrl')]
+    [coeffect('global.get', 'apiUrl')]
   );
 
   registerEventHandler('loadTodosSucceeded', function loadTodosSucceeded(
