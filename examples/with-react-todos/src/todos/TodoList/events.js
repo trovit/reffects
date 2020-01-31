@@ -29,7 +29,7 @@ export default function registerTodoListEvents() {
     const todos = extractTodos(response);
 
     return {
-      setState: { todos: todos },
+      'state.set': { todos: todos },
     };
   });
 
@@ -38,7 +38,7 @@ export default function registerTodoListEvents() {
     activeFilter
   ) {
     return {
-      setState: { visibilityFilter: activeFilter },
+      'state.set': { visibilityFilter: activeFilter },
     };
   });
 
@@ -61,7 +61,7 @@ export default function registerTodoListEvents() {
       const newTodos = toggleTodo(id, todos);
 
       return {
-        setState: {
+        'state.set': {
           todos: newTodos,
         },
         toast: {
@@ -70,6 +70,6 @@ export default function registerTodoListEvents() {
         },
       };
     },
-    [coeffect('state', { todos: 'todos' })]
+    [coeffect('state.get', { todos: 'todos' })]
   );
 }

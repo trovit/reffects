@@ -39,7 +39,7 @@ describe('events', () => {
         },
       ])
     ).toEqual({
-      setState: {
+      'state.set': {
         todos: [
           {
             id: 1,
@@ -61,7 +61,7 @@ describe('events', () => {
     const filterTodos = getEventHandler('filterTodos');
 
     expect(filterTodos(givenCoeffects, 'codorniz')).toEqual({
-      setState: { visibilityFilter: 'codorniz' },
+      'state.set': { visibilityFilter: 'codorniz' },
     });
   });
 
@@ -87,7 +87,7 @@ describe('events', () => {
         text: '"Lorem ipsum" was marked as undone.',
         milliseconds: 3000,
       },
-      setState: {
+      'state.set': {
         todos: [
           {
             id: 1,
@@ -121,7 +121,7 @@ describe('events', () => {
         text: '"Lorem ipsum" was marked as done.',
         milliseconds: 3000,
       },
-      setState: {
+      'state.set': {
         todos: [
           {
             id: 1,

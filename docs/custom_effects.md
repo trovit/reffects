@@ -12,7 +12,7 @@ Remember that [effects are descriptions of side-effects](https://github.com/mari
 Example:
 ```js
 registerEffectHandler(
-  "setState", 
+  "state.set", 
   function setStateEffect(mutations) {
     Object.entries(mutations).forEach(function ([path, newValue]) {
       store.setState({path, newValue});
@@ -21,8 +21,8 @@ registerEffectHandler(
 );
 ```
 
-In this example we're registering a handler for the `"setState"` effect.
-This handler interprets the description of mutations of values of the application state (`store`) that is associated to the `"setState"` key in the effects object and performs them. This effect would allow you to setState the application state from pure event handlers as shown in the following code snippet:
+In this example we're registering a handler for the `"state.set"` effect.
+This handler interprets the description of mutations of values of the application state (`store`) that is associated to the `"state.set"` key in the effects object and performs them. This effect would allow you to setState the application state from pure event handlers as shown in the following code snippet:
 
 ```js
 registerEventHandler(
@@ -36,11 +36,11 @@ registerEventHandler(
 );
 ```
 
-In this example, the event handler for the `"toggleVisibilityOnClick"` event returns an **effects object** containing the `"setState"` effect which **describes a mutation** of the values associated to the `'visible'` keywords in the application state.
+In this example, the event handler for the `"toggleVisibilityOnClick"` event returns an **effects object** containing the `"state.set"` effect which **describes a mutation** of the values associated to the `'visible'` keywords in the application state.
 
-Notice how the value associated to the `"setState"` effect in the **effects object** is an boject whose entries (key-value pairs) are the mutations to be done on the application state. Each mutation is described by a key-value pair in which *the key* is the *path* which indicates where to do the mutation and *the value* is the *new value* that we'll find in the given path after the mutation takes place.
+Notice how the value associated to the `"state.set"` effect in the **effects object** is an boject whose entries (key-value pairs) are the mutations to be done on the application state. Each mutation is described by a key-value pair in which *the key* is the *path* which indicates where to do the mutation and *the value* is the *new value* that we'll find in the given path after the mutation takes place.
 
-Notice also that the previous value of `'visible'` was retrieved using a custom coeffect 'state' whose data are are an object whose entries are extractions. Each extraction is described by a key-value pair in which *the key* 
+Notice also that the previous value of `'visible'` was retrieved using a custom coeffect 'state.get' whose data are are an object whose entries are extractions. Each extraction is described by a key-value pair in which *the key* 
 tells *the key which the extracted value will be associated with* in the object associated with the `"state"` key in the coeffects object, and *the value* is the *path* which indicates where the value is.
 
 If you want to know how to register custom coeffect handlers, have a look at [Registering custom coeffect handlers in reffects](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/custom_coeffects.md).

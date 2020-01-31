@@ -8,7 +8,7 @@ applyEventsFixture(() => registerSetStateEffect(store));
 
 describe('setState effect', () => {
   test('should setState the state in the store', () => {
-    const effectId = 'setState';
+    const effectId = 'state.set';
     registerSetStateEffect(store);
     const setStateHandler = getEffectHandler(effectId);
     const firstMutation = { path: 'visibilityFilter', newValue: 'all' };

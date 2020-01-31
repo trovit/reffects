@@ -1,7 +1,7 @@
-import {registerEffectHandler} from 'reffects';
+import { registerEffectHandler } from 'reffects';
 
 export default function registerSetStateEffect(store) {
-  registerEffectHandler('setState', function setStateEffect(mutations) {
+  registerEffectHandler('state.set', function setStateEffect(mutations) {
     // eslint-disable-next-line no-param-reassign
     mutations = Object.entries(mutations).map(function([path, newValue]) {
       return { path, newValue };

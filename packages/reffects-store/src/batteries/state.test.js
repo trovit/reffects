@@ -16,7 +16,7 @@ describe('state coeffect', () => {
     };
     const pathToTodos = 'todos';
     const pathToToastId = 'toast.id';
-    const coeffectDescription = coeffect('state', {
+    const coeffectDescription = coeffect('state.get', {
       todosRenamed: 'todos',
       toastId: 'toast.id',
     });

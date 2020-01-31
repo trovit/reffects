@@ -53,9 +53,9 @@ registerEventHandler(
       }
     };
   },
-  [coeffect('state', {todos: 'todos'})]);
+  [coeffect('state.get', {todos: 'todos'})]);
 ```
-In this example we used the third parameter of [reffects' registerEventHandler](https://github.com/trovit/reffects/blob/master/docs/api.md#registereventhandler) function to declare the list of coeffects that the event handler of the `todoClicked` event will receive when called. In this case, it includes only the `state` coeffect. To declare it we're using the `coeffect` function which is a coeffects factory function, in `coeffect('state', {todos: 'todos'})`. This factory function receives an object whose entries (key-value pairs) represent *extractions*. Each extraction (key-value pair) is interpreted as:
+In this example we used the third parameter of [reffects' registerEventHandler](https://github.com/trovit/reffects/blob/master/docs/api.md#registereventhandler) function to declare the list of coeffects that the event handler of the `todoClicked` event will receive when called. In this case, it includes only the `state` coeffect. To declare it we're using the `coeffect` function which is a coeffects factory function, in `coeffect('state.get', {todos: 'todos'})`. This factory function receives an object whose entries (key-value pairs) represent *extractions*. Each extraction (key-value pair) is interpreted as:
 
 1. The key represents the **key** that the value will be associated to in the object associated to the `state` key in the coeffects object.
 
