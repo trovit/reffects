@@ -108,9 +108,7 @@ function dispatch(event) {
 }
 
 function dispatchMany(events) {
-  events.forEach(function(event) {
-    dispatch(event);
-  });
+  events.forEach(dispatch);
 }
 
 function dispatchLater(event) {
