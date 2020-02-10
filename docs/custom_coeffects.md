@@ -1,6 +1,6 @@
 # Registering custom coeffect handlers in reffects
 
-You can register custom **coeffect handlers** using the [`registerCoeffectHandler`](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/api.md#registercoeffecthandler) function.
+You can register custom **coeffect handlers** using the [`registerCoeffectHandler`](./api.md#registercoeffecthandler) function.
 
 The `registerCoeffectHandler` receives two parameters:
 1. The coeffect identifier which has to be a string.
