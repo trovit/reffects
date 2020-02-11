@@ -1,13 +1,13 @@
 # Registering custom effect handlers in reffects
 
-You can register custom **effect handlers** using [`registerEffectHandler`](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/api.md#registereffecthandler) function.
+You can register custom **effect handlers** using [`registerEffectHandler`](./api.md#registereffecthandler) function.
 
 `registerEffectHandler` receives two parameters: 
 1. The **effect identifier** which has to be a string.
 2. The **effect handler** which has to be a function that will be executed everytime the event identified by the first parameter is dispatched.
 
 An **effect handler** is a function that performs a side-effect described by an effect.
-Remember that [effects are descriptions of side-effects](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/effects_and_coeffects.md), so **effect handlers** are interpreters of those descriptions that will know how to perform the described side-effects. The effect handler receives only one parameter: **the description of the side-effect to be performed**, i. e., the **effect**.
+Remember that [effects are descriptions of side-effects](./effects_and_coeffects.md), so **effect handlers** are interpreters of those descriptions that will know how to perform the described side-effects. The effect handler receives only one parameter: **the description of the side-effect to be performed**, i. e., the **effect**.
 
 Example:
 ```js
@@ -43,4 +43,4 @@ Notice how the value associated to the `"state.set"` effect in the **effects obj
 Notice also that the previous value of `'visible'` was retrieved using a custom coeffect 'state.get' whose data are are an object whose entries are extractions. Each extraction is described by a key-value pair in which *the key* 
 tells *the key which the extracted value will be associated with* in the object associated with the `"state"` key in the coeffects object, and *the value* is the *path* which indicates where the value is.
 
-If you want to know how to register custom coeffect handlers, have a look at [Registering custom coeffect handlers in reffects](https://github.com/mariosanchez/spike-todo-declarative-effects/blob/master/docs/reffects/custom_coeffects.md).
+If you want to know how to register custom coeffect handlers, have a look at [Registering custom coeffect handlers in reffects](./custom_coeffects.md).
