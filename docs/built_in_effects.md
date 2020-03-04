@@ -49,7 +49,7 @@ registerEventHandler(
 ##  `"dispatchMany"`
 The `"dispatchMany"` effect is **used to describe the dispatch of a sequence of events in order**.
 
-The data associated to a `"dispatchLater"` effect is **an array of event objects**.
+The data associated to a `"dispatchMany"` effect is **an array of event objects**.
 
 The **event** object has two keys: `id` and `payload`. The value associated with `id` is a string that identifies the event and the value associated with `payload` is the payload of the event which is optional and it's an empty object by default. When the event has no payload it can also be represented by a string which would be its id.
 
