@@ -233,7 +233,8 @@ function checkElementValidity(element, elementType) {
 }
 
 if (devToolsOn) {
-  window['__REFFECTS_DEVTOOLS__'] = {
+  window['__REFFECTS_DEV_TOOLS__'] = {
+    ...window['__REFFECTS_DEV_TOOLS__'],
     dispatch,
     dispatchMany,
   };
