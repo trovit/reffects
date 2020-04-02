@@ -6,8 +6,14 @@ describe('http battery', () => {
   test('effects and coeffects are registered at once when calling registerQueryParamsBatteries', () => {
     const httpClient = jest.fn();
     const registerBatteriesFn = jest.spyOn(registerBatteries, 'default');
-    const registerEffectHandlerFn = jest.spyOn(reffects, 'registerEffectHandler');
-    const registerCoeffectHandlerFn = jest.spyOn(reffects, 'registerCoeffectHandler');
+    const registerEffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerEffectHandler'
+    );
+    const registerCoeffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerCoeffectHandler'
+    );
 
     registerQueryParamsBatteries(httpClient);
 

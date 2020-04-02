@@ -11,7 +11,10 @@ describe('queryParams.get', () => {
     const selectedQueryParams = ['peanuts', 'chesnuts', 'nuts', 'hazelnuts'];
     const fakeUrlSearch =
       '?peanuts=3&chesnuts=dil%C3%ACc%C3%ADous&nuts=cashew&nuts=pistachios';
-    const coeffectDescription = coeffect('queryParams.get', selectedQueryParams);
+    const coeffectDescription = coeffect(
+      'queryParams.get',
+      selectedQueryParams
+    );
     registerQueryParamsCoeffect({ location: { search: fakeUrlSearch } });
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 

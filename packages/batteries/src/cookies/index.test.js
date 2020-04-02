@@ -11,8 +11,14 @@ describe('cookies battery', () => {
     const cookieClient = {};
     const registerCookieEffectFn = jest.spyOn(effect, 'default');
     const registerCookieCoeffectFn = jest.spyOn(coeffect, 'default');
-    const registerEffectHandlerFn = jest.spyOn(reffects, 'registerEffectHandler');
-    const registerCoeffectHandlerFn = jest.spyOn(reffects, 'registerCoeffectHandler');
+    const registerEffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerEffectHandler'
+    );
+    const registerCoeffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerCoeffectHandler'
+    );
 
     registerCookiesBatteries(cookieClient);
 

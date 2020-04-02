@@ -8,8 +8,14 @@ describe('query params battery', () => {
   test('effects and coeffects are registered at once when calling registerQueryParamsBatteries', () => {
     const globalOject = {};
     const registerQueryParamsCoeffectFn = jest.spyOn(coeffect, 'default');
-    const registerEffectHandlerFn = jest.spyOn(reffects, 'registerEffectHandler');
-    const registerCoeffectHandlerFn = jest.spyOn(reffects, 'registerCoeffectHandler');
+    const registerEffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerEffectHandler'
+    );
+    const registerCoeffectHandlerFn = jest.spyOn(
+      reffects,
+      'registerCoeffectHandler'
+    );
 
     registerQueryParamsBatteries(globalOject);
 

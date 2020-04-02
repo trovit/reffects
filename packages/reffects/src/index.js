@@ -1,10 +1,11 @@
 var verbosityOn = process.env.NODE_ENV === 'development';
-var devToolsOn = process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
+var devToolsOn =
+  process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
 
 const initialHandlers = {
   effects: {},
   coeffects: {},
-  events: {}
+  events: {},
 };
 
 let handlers = { ...initialHandlers };
@@ -23,11 +24,11 @@ function logEvent({ id, payload }) {
   }
 }
 
-function logCoeffect({id, data}, value) {
+function logCoeffect({ id, data }, value) {
   if (verbosityOn) {
     console.groupCollapsed(`Extracting values of coeffect: ${id}`);
     console.info('Coeffect id:', id);
-    if(!data) {
+    if (!data) {
       console.info('Coeffect data:', `The ${id} coeffect needs no data`);
     } else {
       console.info('Coeffect data:', data);
@@ -44,7 +45,7 @@ function logEffect(effectId, effectData) {
     if (!effectData) {
       console.info('Effect data:', `The ${effectId} effect needs no data`);
     } else {
-      console.info('Effect data:', effectData);  
+      console.info('Effect data:', effectData);
     }
     console.groupEnd();
   }
@@ -52,14 +53,16 @@ function logEffect(effectId, effectData) {
 
 function normalizeCoeffectDescription(coeffectDescription) {
   if (isString(coeffectDescription)) {
-    return {id:coeffectDescription};
+    return { id: coeffectDescription };
   }
   return coeffectDescription;
 }
 
 function extractCoeffectValue(coeffectDescription) {
-  checkElementValidity(coeffectDescription, "coeffect");
-  const normalizedCoeffectDescription = normalizeCoeffectDescription(coeffectDescription);
+  checkElementValidity(coeffectDescription, 'coeffect');
+  const normalizedCoeffectDescription = normalizeCoeffectDescription(
+    coeffectDescription
+  );
   const coeffectHandler = getCoeffectHandler(normalizedCoeffectDescription.id);
   const value = coeffectHandler(normalizedCoeffectDescription.data);
   logCoeffect(normalizedCoeffectDescription, value);
@@ -67,36 +70,31 @@ function extractCoeffectValue(coeffectDescription) {
 }
 
 function extractCoeffectsValues(coeffectDescriptions) {
-  return coeffectDescriptions.reduce(
-    function(acc, coeffectDescription) {
-      return Object.assign({}, acc, extractCoeffectValue(coeffectDescription));
-    }, 
-    {}
-  );
+  return coeffectDescriptions.reduce(function(acc, coeffectDescription) {
+    return Object.assign({}, acc, extractCoeffectValue(coeffectDescription));
+  }, {});
 }
 
 function applyEffects(effects) {
   if (!effects) {
     return;
   }
-  Object.entries(effects).forEach(
-    function([effectId, effectData]) {
-      logEffect(effectId, effectData);
-      const effectHandler = getEffectHandler(effectId);
-      effectHandler(effectData);
-    }
-  );
+  Object.entries(effects).forEach(function([effectId, effectData]) {
+    logEffect(effectId, effectData);
+    const effectHandler = getEffectHandler(effectId);
+    effectHandler(effectData);
+  });
 }
 
 function normalizeEvent(event) {
-  if(isString(event)) {
-    return {id: event};
+  if (isString(event)) {
+    return { id: event };
   }
   return event;
 }
 
 function dispatch(event) {
-  checkElementValidity(event, "event");
+  checkElementValidity(event, 'event');
   const normalizedEvent = normalizeEvent(event);
   logEvent(normalizedEvent);
   const { id, payload } = normalizedEvent;
@@ -117,11 +115,7 @@ function dispatchLater(event) {
   }, event.milliseconds);
 }
 
-function registerEventHandler(
-  eventId,
-  handler,
-  coeffectDescriptions = []
-) {
+function registerEventHandler(eventId, handler, coeffectDescriptions = []) {
   setHandler('events', eventId, handler);
   coeffectsByEvent[eventId] = coeffectDescriptions;
 }
@@ -138,7 +132,7 @@ function registerEventsDelegation(originalEvents, targetEvent) {
   originalEvents.forEach(function(id) {
     registerEventHandler(id, function(coeffects, payload) {
       return {
-        dispatch: { id: targetEvent, payload: payload }
+        dispatch: { id: targetEvent, payload: payload },
       };
     });
   });
@@ -211,24 +205,30 @@ function isString(value) {
 
 function checkElementValidity(element, elementType) {
   const shapeDescriptionsByElement = {
-    "coeffect": "It must be an object with the following format `{ id: 'COEFFECT_ID', data: <Object | any> }`, or a string if no data is needed: 'EVENT_ID'",
-    "event": "It must be an object with the following format `{ id: 'EVENT_ID', payload: <Object | any> }`, or a string if no payload is needed: 'EVENT_ID'",
+    coeffect:
+      "It must be an object with the following format `{ id: 'COEFFECT_ID', data: <Object | any> }`, or a string if no data is needed: 'EVENT_ID'",
+    event:
+      "It must be an object with the following format `{ id: 'EVENT_ID', payload: <Object | any> }`, or a string if no payload is needed: 'EVENT_ID'",
   };
 
   if (!element) {
     throwNotDefinedError(elementType);
   }
 
-  if(!isString(element) && element.id == null) {
+  if (!isString(element) && element.id == null) {
     throwNotValidError(elementType);
   }
 
   function throwNotDefinedError(element) {
-    throw new Error("Not defined " + element + ".\n" + shapeDescriptionsByElement[element]);
+    throw new Error(
+      'Not defined ' + element + '.\n' + shapeDescriptionsByElement[element]
+    );
   }
 
   function throwNotValidError(element) {
-    throw new Error("Not valid " + element + ".\n" + shapeDescriptionsByElement[element]);
+    throw new Error(
+      'Not valid ' + element + '.\n' + shapeDescriptionsByElement[element]
+    );
   }
 }
 
@@ -254,4 +254,4 @@ export {
   getEventHandler,
   clearHandlers,
   disableVerbosity,
-}
+};

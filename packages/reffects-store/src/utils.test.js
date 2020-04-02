@@ -23,8 +23,8 @@ describe('getIn', () => {
     const expected = false;
     const startState = {
       otherData: 'imma string',
-      falsyValue: expected
-   };
+      falsyValue: expected,
+    };
 
     const result = getIn(startState, 'falsyValue', expected);
 
