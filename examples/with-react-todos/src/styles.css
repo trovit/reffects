@@ -32,14 +32,11 @@ body {
 }
 
 .App ul li.done:before {
-  content: "\2705";
+  content: '\2705';
 }
 
 .App ul li.undone:before {
-  content: "\2B1C";
-}
-
-.App ul li:before {
+  content: '\2B1C';
 }
 
 .App button {
