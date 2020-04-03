@@ -38,7 +38,7 @@
 ### Reffects store
 
 - [Store](./docs/reffects_store/store_api.md)
-- [Subscriptions](./docs/reffects_store/store_api.md)
+- [Subscriptions](./docs/reffects_store/subscriptions_api.md)
 
 ## Tests
 
