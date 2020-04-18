@@ -7,6 +7,7 @@
   "main": "dist/reffects.js",
   "umd:main": "dist/reffects.umd.js",
   "keywords": [],
+  "types": "index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
