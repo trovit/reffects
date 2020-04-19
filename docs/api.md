@@ -140,7 +140,7 @@ Example:
 const loadTodosHandler = getEventHandler("loadTodos");
 ```
 
-## `getEventHandler`
+## `clearHandlers`
 This function is used only in tests fixtures and clears all the handlers of any type previously registered in `reffects`.
 
 Example:
