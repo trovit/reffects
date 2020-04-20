@@ -1,6 +1,3 @@
-// Type definitions for reffects
-// Project: reffects
-// Definitions by: Gabriele Lippi - https://www.github.com/glippi
 interface Event {
     id: string;
     payload?: object;
