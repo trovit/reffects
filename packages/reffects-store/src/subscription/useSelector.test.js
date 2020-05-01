@@ -54,30 +54,37 @@ describe('useSelector hook', () => {
 
   it('should update the component using it when the state changes', () => {
     const store = storeModule;
-    store.initialize({ a: null });
-    const expectedProps = { a: 'b' };
+    const initialProps = { a: 'a' };
+    store.initialize(initialProps);
     const ComponentUsingSelector = withProfiler(() => {
       const a = useSelector(state => state.a);
       return <div>{a}</div>;
     });
 
     const wrapper = mount(<ComponentUsingSelector />);
-    let text = wrapper
-      .find(ComponentUsingSelector)
-      .first()
-      .text();
-    expect(text).toBe('');
+    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('a');
 
     act(() => {
       store.setState({ path: ['a'], newValue: 'b' });
     });
+
+    wrapper.update();
+    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('b');
+
+    act(() => {
+      store.setState({ path: ['a'], newValue: 'a' });
+    });
+
     wrapper.update();
 
-    text = wrapper
-      .find(ComponentUsingSelector)
-      .first()
-      .text();
-    expect(text).toBe('b');
-    expect(ComponentUsingSelector).toHaveCommittedTimes(2);
+    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('a');
+    expect(ComponentUsingSelector).toHaveCommittedTimes(3);
   });
 });
+
+function extractTextFrom(wrapper, component) {
+  return wrapper
+    .find(component)
+    .first()
+    .text();
+}
