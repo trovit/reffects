@@ -2,6 +2,7 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { withProfiler } from 'jest-react-profiler';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import * as storeModule from '../store';
 import useSelector from './useSelector';
 
@@ -22,9 +23,12 @@ describe('useSelector hook', () => {
     });
 
     const wrapper = mount(<ComponentUsingSelector />);
-    const child = wrapper.find(ComponentUsingSelector).first();
+    const text = wrapper
+      .find(ComponentUsingSelector)
+      .first()
+      .text();
 
-    expect(child.text()).toEqual('b');
+    expect(text).toEqual('b');
     expect(ComponentUsingSelector).toHaveCommittedTimes(1);
   });
 
@@ -46,5 +50,34 @@ describe('useSelector hook', () => {
     mountedProvider.unmount();
     expect(store.unsubscribeListener).toBeCalled();
     expect(ComponentUsingSelector).toHaveCommittedTimes(1);
+  });
+
+  it('should update the component using it when the state changes', () => {
+    const store = storeModule;
+    store.initialize({ a: null });
+    const expectedProps = { a: 'b' };
+    const ComponentUsingSelector = withProfiler(() => {
+      const a = useSelector(state => state.a);
+      return <div>{a}</div>;
+    });
+
+    const wrapper = mount(<ComponentUsingSelector />);
+    let text = wrapper
+      .find(ComponentUsingSelector)
+      .first()
+      .text();
+    expect(text).toBe('');
+
+    act(() => {
+      store.setState({ path: ['a'], newValue: 'b' });
+    });
+    wrapper.update();
+
+    text = wrapper
+      .find(ComponentUsingSelector)
+      .first()
+      .text();
+    expect(text).toBe('b');
+    expect(ComponentUsingSelector).toHaveCommittedTimes(2);
   });
 });

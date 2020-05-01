@@ -1,8 +1,13 @@
 import { useEffect } from 'react';
 import * as store from '../store';
+import useForceUpdate from './utils';
 
 export default function useSelector(selector) {
-  function update() {}
+  const forceUpdate = useForceUpdate();
+
+  function update() {
+    forceUpdate();
+  }
 
   useEffect(() => {
     // Did mount
