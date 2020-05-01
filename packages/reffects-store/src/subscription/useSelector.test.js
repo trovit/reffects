@@ -67,19 +67,40 @@ describe('useSelector hook', () => {
     act(() => {
       store.setState({ path: ['a'], newValue: 'b' });
     });
-
     wrapper.update();
+
     expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('b');
 
     act(() => {
       store.setState({ path: ['a'], newValue: 'a' });
     });
-
     wrapper.update();
 
     expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('a');
     expect(ComponentUsingSelector).toHaveCommittedTimes(3);
   });
+});
+
+it("shouldn't update the component using it when the state is the same", () => {
+  const initialProps = { a: 1 };
+  const store = storeModule;
+  store.initialize(initialProps);
+  const ComponentUsingSelector = withProfiler(() => {
+    const a = useSelector(state => state.a);
+    return <div>{a}</div>;
+  });
+
+  const wrapper = mount(<ComponentUsingSelector />);
+  expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('1');
+
+  act(() => {
+    store.setState({ path: ['a'], newValue: 1 });
+    store.setState({ path: ['koko'], newValue: 'loko' });
+  });
+  wrapper.update();
+
+  expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('1');
+  expect(ComponentUsingSelector).toHaveCommittedTimes(1);
 });
 
 function extractTextFrom(wrapper, component) {

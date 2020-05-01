@@ -4,8 +4,16 @@ import useForceUpdate from './utils';
 
 export default function useSelector(selector) {
   const forceUpdate = useForceUpdate();
+  let currentSelectedState = selector(store.getState());
 
   function update() {
+    const nextSelectedState = selector(store.getState());
+
+    if (nextSelectedState === currentSelectedState) {
+      return;
+    }
+
+    currentSelectedState = nextSelectedState;
     forceUpdate();
   }
 
