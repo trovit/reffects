@@ -7,7 +7,7 @@ import useSelector from './useSelector';
 
 configure({ adapter: new Adapter() });
 
-describe('subscriptions', () => {
+describe('useSelector hook', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     jest.clearAllMocks();
@@ -16,20 +16,35 @@ describe('subscriptions', () => {
   it('should return selected state region', () => {
     const store = storeModule;
     store.initialize({ a: 'b' });
-
-    function ComponentUsingSelector() {
+    const ComponentUsingSelector = withProfiler(() => {
       const a = useSelector(state => state.a);
       return <div>{a}</div>;
-    }
+    });
 
-    const ComponentUsingSelectorWithProfiler = withProfiler(
-      ComponentUsingSelector
-    );
-
-    const wrapper = mount(<ComponentUsingSelectorWithProfiler />);
-    const child = wrapper.find(ComponentUsingSelectorWithProfiler).first();
+    const wrapper = mount(<ComponentUsingSelector />);
+    const child = wrapper.find(ComponentUsingSelector).first();
 
     expect(child.text()).toEqual('b');
-    expect(ComponentUsingSelectorWithProfiler).toHaveCommittedTimes(1);
+    expect(ComponentUsingSelector).toHaveCommittedTimes(1);
+  });
+
+  it('should subscribe and unsubscribe to store', () => {
+    const store = storeModule;
+    store.initialize({ a: null });
+    jest.spyOn(store, 'subscribeListener');
+    jest.spyOn(store, 'unsubscribeListener');
+    const ComponentUsingSelector = withProfiler(() => {
+      const a = useSelector(state => state.a);
+      return <div>{a}</div>;
+    });
+
+    expect(store.subscribeListener).not.toHaveBeenCalled();
+
+    const mountedProvider = mount(<ComponentUsingSelector />);
+
+    expect(store.unsubscribeListener).not.toHaveBeenCalled();
+    mountedProvider.unmount();
+    expect(store.unsubscribeListener).toBeCalled();
+    expect(ComponentUsingSelector).toHaveCommittedTimes(1);
   });
 });
