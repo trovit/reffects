@@ -54,5 +54,8 @@
     "react": "^16",
     "react-dom": "^16",
     "reffects": "^0.1.0"
+  },
+  "dependencies": {
+    "lodash.isequal": "^4.5.0"
   }
 }
