@@ -1,6 +1,6 @@
 {
   "name": "reffects",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "",
   "source": "src/index.js",
   "module": "dist/reffects.es.js",
