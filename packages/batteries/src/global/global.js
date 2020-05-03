@@ -1,4 +1,8 @@
-import { registerCoeffectHandler } from 'reffects';
+import {coeffect, registerCoeffectHandler} from 'reffects';
+
+export function globalGetBuilder(path) {
+  return coeffect('global.get', path);
+}
 
 function getPathArray(path) {
   return Array.isArray(path) ? path : path.split('.');
