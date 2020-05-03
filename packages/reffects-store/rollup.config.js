@@ -2,15 +2,17 @@ import resolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
+const external = [
+  ...Object.keys(pkg.peerDependencies),
+  ...Object.keys(pkg.dependencies),
+];
+
 export default [
   // CommonJS
   {
     input: 'src/index.js',
     output: { file: 'dist/reffects-store.js', format: 'cjs', indent: false },
-    external: [
-      ...Object.keys(pkg.peerDependencies),
-      ...Object.keys(pkg.dependencies),
-    ],
+    external,
     plugins: [
       resolve({
         extensions: ['.js'],
@@ -22,10 +24,7 @@ export default [
   {
     input: 'src/index.js',
     output: { file: 'dist/reffects-store.es.js', format: 'es', indent: false },
-    external: [
-      ...Object.keys(pkg.peerDependencies),
-      ...Object.keys(pkg.dependencies),
-    ],
+    external,
     plugins: [
       resolve({
         extensions: ['.js'],
@@ -44,10 +43,7 @@ export default [
         react: 'React',
       },
     },
-    external: [
-      ...Object.keys(pkg.peerDependencies),
-      ...Object.keys(pkg.dependencies),
-    ],
+    external,
     plugins: [
       terser({
         compress: {
@@ -66,10 +62,7 @@ export default [
   // UMD Development
   {
     input: 'src/index.js',
-    external: [
-      ...Object.keys(pkg.peerDependencies),
-      ...Object.keys(pkg.dependencies),
-    ],
+    external,
     output: {
       file: 'dist/reffects-store.umd.js',
       format: 'umd',
@@ -89,10 +82,7 @@ export default [
   // UMD Production
   {
     input: 'src/index.js',
-    external: [
-      ...Object.keys(pkg.peerDependencies),
-      ...Object.keys(pkg.dependencies),
-    ],
+    external,
     output: {
       file: 'dist/reffects-store.umd.min.js',
       format: 'umd',
