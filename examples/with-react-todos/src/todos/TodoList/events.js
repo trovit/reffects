@@ -1,5 +1,6 @@
-import { registerEventHandler, coeffect } from 'reffects';
+import { registerEventHandler } from 'reffects';
 import {stateBuilder} from "reffects-store/src/batteries";
+import {globalBuilder} from "reffects-batteries/src/global";
 
 export default function registerTodoListEvents() {
   registerEventHandler(
@@ -12,7 +13,7 @@ export default function registerTodoListEvents() {
         },
       };
     },
-    [coeffect('global.get', 'apiUrl')]
+    [globalBuilder.get('apiUrl')]
   );
 
   registerEventHandler('loadTodosSucceeded', function loadTodosSucceeded(
