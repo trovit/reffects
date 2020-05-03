@@ -4,8 +4,7 @@ interface Event {
 }
 
 interface Effect {
-    id: string;
-    data: object;
+    [effectName: string]: object
 }
 
 interface Coeffect{
@@ -22,7 +21,7 @@ type CoeffectHandler = Function;
 export function dispatch(event: Event): void;
 export function dispatchMany(events: Event[]): void;
 export function dispatchLater(event: Event): void;
-export function registerEventHandler(eventId: string, handler: EventHandler, coeffectDescriptions?: string[]): void;
+export function registerEventHandler(eventId: string, handler: EventHandler, coeffectDescriptions?: Coeffect[]): void;
 export function registerCoeffectHandler(coeffectId: string, handler: CoeffectHandler): void;
 export function registerEffectHandler(effectId: string, handler: EffectHandler): void;
 export function registerEventsDelegation(originalEvents: string[], targetEvent: string): void;
