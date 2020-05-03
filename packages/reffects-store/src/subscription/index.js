@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal';
 import { createElement, memo, useEffect } from 'react';
 import * as storeModule from '../store';
 import useForceUpdate from './utils';
@@ -19,7 +20,7 @@ function subscribe(
 
         // Compares the current derived state props against the current state props
         for (const i in nextMappedProps) {
-          if (nextMappedProps[i] !== currentMappedProps[i]) {
+          if (isEqual(nextMappedProps[i], currentMappedProps[i]) === false) {
             shouldForceUpdate = true;
           }
         }
