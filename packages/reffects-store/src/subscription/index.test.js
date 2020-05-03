@@ -1,8 +1,8 @@
-import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { mount, configure } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { withProfiler } from 'jest-react-profiler';
+import React from 'react';
+import { act } from 'react-dom/test-utils';
 import subscribe from '.';
 import * as storeModule from '../store';
 
@@ -127,7 +127,12 @@ describe('subscriptions', () => {
   });
 
   it("shouldn't update the subscribed component props when the state is the same", () => {
-    const initialProps = { a: 1 };
+    const initialProps = {
+      a: {
+        b: [1, 2],
+        c: { d: null, e: undefined, f: [{ g: 1 }] },
+      },
+    };
     const store = storeModule;
     store.initialize(initialProps);
 
@@ -140,12 +145,29 @@ describe('subscriptions', () => {
     expect(wrapper.find(Child).props()).toMatchObject(initialProps);
 
     act(() => {
-      store.setState({ path: ['a'], newValue: 1 });
+      store.setState({
+        path: ['a'],
+        newValue: {
+          b: [1, 2],
+          c: { d: null, e: undefined, f: [{ g: 1 }] },
+        },
+      });
       store.setState({ path: ['koko'], newValue: 'loko' });
     });
     wrapper.update();
 
-    expect(wrapper.find(Child).props()).toMatchObject(initialProps);
+    expect(wrapper.find(Child).props()).toEqual(initialProps);
+
+    act(() => {
+      store.setState({
+        path: 'a.c.f',
+        newValue: [{ g: 1 }],
+      });
+      store.setState({ path: ['koko'], newValue: 'loko' });
+    });
+    wrapper.update();
+
+    expect(wrapper.find(Child).props()).toEqual(initialProps);
     expect(SubscribedChild).toHaveCommittedTimes(1);
   });
 
