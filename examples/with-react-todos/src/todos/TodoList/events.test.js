@@ -1,6 +1,7 @@
 import registerTodoListEvents from './events';
 import { getEventHandler } from 'reffects';
 import { applyEventsFixture } from '../../../test-helpers/fixtures';
+import {stateBuilder} from "reffects-store/src/batteries";
 
 applyEventsFixture(registerTodoListEvents);
 
@@ -38,8 +39,7 @@ describe('events', () => {
           ],
         },
       ])
-    ).toEqual({
-      'state.set': {
+    ).toEqual(stateBuilder.set({
         todos: [
           {
             id: 1,
@@ -52,17 +52,16 @@ describe('events', () => {
             done: false,
           },
         ],
-      },
-    });
+      }));
   });
 
   test('filterTodos', () => {
     const givenCoeffects = {};
     const filterTodos = getEventHandler('filterTodos');
 
-    expect(filterTodos(givenCoeffects, 'codorniz')).toEqual({
-      'state.set': { visibilityFilter: 'codorniz' },
-    });
+    expect(filterTodos(givenCoeffects, 'codorniz')).toEqual(
+      stateBuilder.set({ visibilityFilter: 'codorniz' })
+    );
   });
 
   test('todoClicked when todo is done', () => {
@@ -87,7 +86,7 @@ describe('events', () => {
         text: '"Lorem ipsum" was marked as undone.',
         milliseconds: 3000,
       },
-      'state.set': {
+      ...stateBuilder.set({
         todos: [
           {
             id: 1,
@@ -95,7 +94,7 @@ describe('events', () => {
             done: false,
           },
         ],
-      },
+      }),
     });
   });
 
@@ -121,7 +120,7 @@ describe('events', () => {
         text: '"Lorem ipsum" was marked as done.',
         milliseconds: 3000,
       },
-      'state.set': {
+      ...stateBuilder.set({
         todos: [
           {
             id: 1,
@@ -129,7 +128,7 @@ describe('events', () => {
             done: true,
           },
         ],
-      },
+      }),
     });
   });
 });
