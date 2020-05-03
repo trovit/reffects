@@ -1,6 +1,6 @@
 {
   "name": "reffects-batteries",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "",
   "source": "src/index.js",
   "module": "dist/reffects-batteries.es.js",
@@ -13,7 +13,7 @@
     "babel-jest": "^24.7.1",
     "coveralls": "^3.0.7",
     "jest": "^24.7.1",
-    "reffects": "^0.1.15",
+    "reffects": "^0.1.16",
     "rollup": "^1.25.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2"
