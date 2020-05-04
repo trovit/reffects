@@ -1,9 +1,18 @@
 import * as reffects from '.';
 import { destroyAllMocks } from '../test-helpers/fixtures';
+import s from 'speco';
 
 reffects.disableVerbosity();
 
+const OLD_ENV = process.env;
+
+beforeEach(() => {
+  jest.resetModules()
+  process.env = { ...OLD_ENV };
+});
+
 afterEach(() => {
+  process.env = OLD_ENV;
   reffects.clearHandlers();
   destroyAllMocks();
 });
@@ -307,11 +316,13 @@ test('creating coeffects sugar', () => {
   });
 });
 
-test('an exception is thrown, when a coeffect is not defined', () => {
+test('in production an exception is thrown, when dispatching an event that uses a coeffect description that is undefined', () => {
+  process.env.NODE_ENV = 'prod'
   const mokoCoeffectDescription = undefined;
   const passedPayload = 'somePayload';
   const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
   const dummyEventHandler = jest.fn();
+
   reffects.registerEventHandler(eventId, dummyEventHandler, [
     mokoCoeffectDescription,
   ]);
@@ -321,6 +332,19 @@ test('an exception is thrown, when a coeffect is not defined', () => {
       id: eventId,
       payload: passedPayload,
     })
+  ).toThrowError('Not defined coeffect.');
+});
+
+test('in development an exception is thrown, when registering a coeffect description that is undefined', () => {
+  const mokoCoeffectDescription = undefined;
+  const passedPayload = 'somePayload';
+  const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
+  const dummyEventHandler = jest.fn();
+
+  expect(() =>
+    reffects.registerEventHandler(eventId, dummyEventHandler, [
+      mokoCoeffectDescription,
+    ])
   ).toThrowError('Not defined coeffect.');
 });
 
@@ -349,4 +373,43 @@ test('an exception is thrown, when an event is not defined', () => {
 test('an exception is thrown, when an event is not valid', () => {
   const event = { oh: 'lala' };
   expect(() => reffects.dispatch(event)).toThrowError('Not valid event.');
+});
+
+test('an exception is thrown, when the coeffect received is missing a required coeffect id', () => {
+  const mokoCoeffectDescription = { id: 'moko', data: {} };
+  const passedPayload = 'somePayload';
+  const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
+  const dummyEventHandler = () => {};
+  reffects.registerEventHandler(
+    eventId,
+    dummyEventHandler,
+    [mokoCoeffectDescription]
+  );
+
+  const eventHandler = reffects.getEventHandler(eventId);
+
+  expect(() =>
+    eventHandler({"mioko": {}}, passedPayload)
+  ).toThrowError("{\"mioko\":{}} missing keywords (moko)");
+});
+
+test('an exception is thrown, when the value any of the received does not conform to its spec', () => {
+  const mokoCoeffectSpec = s.OBJ({req: {a: s.STRING}});
+  const mokoCoeffectDescription = { id: 'moko', data: {} };
+  const passedPayload = 'somePayload';
+  const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
+  const dummyEventHandler = () => {};
+  reffects.registerCoeffectSpec("moko", mokoCoeffectSpec);
+
+  reffects.registerEventHandler(
+    eventId,
+    dummyEventHandler,
+    [mokoCoeffectDescription]
+  );
+
+  const eventHandler = reffects.getEventHandler(eventId);
+
+  expect(() =>
+    eventHandler({"moko": {a: 1}}, passedPayload)
+  ).toThrowError(/key a with value 1 failures -> 1 fails spec.STRING/);
 });
