@@ -2,12 +2,17 @@ import { terser } from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
 import pkg from './package.json';
 
+const external = [
+  ...Object.keys(pkg.peerDependencies),
+  ...Object.keys(pkg.dependencies),
+];
+
 export default [ 
   // CommonJS
   {
     input: 'src/index.js',
     output: { file: 'dist/reffects-batteries.js', format: 'cjs', indent: false },
-    external: Object.keys(pkg.peerDependencies),
+    external,
     plugins: [
       resolve({
         extensions: ['.js'],
@@ -19,7 +24,7 @@ export default [
   {
     input: 'src/index.js',
     output: { file: 'dist/reffects-batteries.es.js', format: 'es', indent: false },
-    external: Object.keys(pkg.peerDependencies),
+    external, 
     plugins: [
       resolve({
         extensions: ['.js'],
@@ -38,7 +43,7 @@ export default [
         react: 'React',
       },
     },
-    external: Object.keys(pkg.peerDependencies),
+    external,
     plugins: [
       terser({
         compress: {
@@ -57,7 +62,7 @@ export default [
   // UMD Development
   {
     input: 'src/index.js',
-    external: Object.keys(pkg.peerDependencies),
+    external,
     output: {
       file: 'dist/reffects-batteries.umd.js',
       format: 'umd',
@@ -65,6 +70,8 @@ export default [
       indent: false,
       globals: {
         react: 'React',
+        speco: 'speco',
+        reffects: 'reffects',
       },
     },
     plugins: [
@@ -77,7 +84,7 @@ export default [
   // UMD Production
   {
     input: 'src/index.js',
-    external: Object.keys(pkg.peerDependencies),
+    external,
     output: {
       file: 'dist/reffects-batteries.umd.min.js',
       format: 'umd',
@@ -85,6 +92,8 @@ export default [
       indent: false,
       globals: {
         react: 'React',
+        speco: 'speco',
+        reffects: 'reffects',
       },
     },
     plugins: [
