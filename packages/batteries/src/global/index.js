@@ -1,9 +1,9 @@
-import coeffect, { globalGetBuilder } from './global';
+import coeffect, { globalGet } from './global';
 
 export const registerGlobalCoeffect = coeffect;
 
-export const globalBuilder = {
-  get: globalGetBuilder
+export const globalVariable = {
+  get: globalGet
 };
 
 export default function registerGlobalBatteries(store) {

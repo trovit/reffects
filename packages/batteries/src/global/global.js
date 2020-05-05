@@ -1,6 +1,6 @@
 import {coeffect, registerCoeffectHandler} from 'reffects';
 
-export function globalGetBuilder(path) {
+export function globalGet(path) {
   return coeffect('global.get', path);
 }
 

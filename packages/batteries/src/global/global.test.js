@@ -1,5 +1,5 @@
 import { clearHandlers, getCoeffectHandler, coeffect } from 'reffects';
-import registeGlobalCoeffect, { globalGetBuilder } from './global';
+import registeGlobalCoeffect, { globalGet } from './global';
 
 afterEach(() => {
   clearHandlers();
@@ -42,7 +42,7 @@ describe('global.get', () => {
 
   test('should create a global.get coeffect using a builder', () => {
     const fakeVariablePath = 'fake.path';
-    const globalGetCoeffect = globalGetBuilder(fakeVariablePath);
+    const globalGetCoeffect = globalGet(fakeVariablePath);
 
     expect(globalGetCoeffect).toEqual(coeffect('global.get', fakeVariablePath));
   });
