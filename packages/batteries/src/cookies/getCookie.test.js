@@ -1,5 +1,5 @@
 import { clearHandlers, getCoeffectHandler, coeffect } from 'reffects';
-import registerGetCookieCoeffect from './getCookie';
+import registerGetCookieCoeffect, { cookieGet } from './getCookie';
 
 afterEach(() => {
   clearHandlers();
@@ -38,4 +38,11 @@ describe('cookie.get coeffect', () => {
       },
     });
   });
+
+  test('should create a cookie.get coeffect using a builder', () => {
+    const fakeKey = 'fakeCookieKey';
+    const cookieGetCoeffect = cookieGet(fakeKey);
+
+    expect(cookieGetCoeffect).toEqual(coeffect('cookie.get', fakeKey));
+  })
 });
