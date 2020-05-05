@@ -1,6 +1,6 @@
 import { coeffect, registerCoeffectHandler } from 'reffects';
 
-export function stateGetBuilder(extractions) {
+export function stateGet(extractions) {
   return coeffect('state.get', extractions);
 }
 

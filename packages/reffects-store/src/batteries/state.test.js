@@ -1,5 +1,5 @@
 import { clearHandlers, coeffect, getCoeffectHandler } from 'reffects';
-import registerStateCoeffect, { stateGetBuilder } from './state';
+import registerStateCoeffect, { stateGet } from './state';
 import { destroyAllMocks } from '../test-helpers/fixtures';
 import { callsTo } from '../test-helpers/mockHelpers';
 
@@ -39,7 +39,7 @@ describe('state coeffect', () => {
   });
 
   test('should create a state.get coeffect from a builder', () => {
-    const stateGetCoeffect = stateGetBuilder({
+    const stateGetCoeffect = stateGet({
       todosRenamed: 'todos',
       toastId: 'toast.id',
     });

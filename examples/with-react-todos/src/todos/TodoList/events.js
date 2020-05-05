@@ -1,6 +1,6 @@
 import { registerEventHandler } from 'reffects';
-import {stateBuilder} from "reffects-store/src/batteries";
-import {globalBuilder} from "reffects-batteries/src/global";
+import { globalBuilder } from "reffects-batteries/src/global";
+import { state } from "reffects-store/src/batteries";
 
 export default function registerTodoListEvents() {
   registerEventHandler(
@@ -30,14 +30,14 @@ export default function registerTodoListEvents() {
 
     const todos = extractTodos(response);
 
-    return stateBuilder.set({ todos: todos });
+    return state.set({ todos: todos });
   });
 
   registerEventHandler('filterTodos', function filterTodos(
     coeffects,
     activeFilter
   ) {
-    return stateBuilder.set({ visibilityFilter: activeFilter });
+    return state.set({ visibilityFilter: activeFilter });
   });
 
   registerEventHandler(
@@ -59,7 +59,7 @@ export default function registerTodoListEvents() {
       const newTodos = toggleTodo(id, todos);
 
       return {
-        ...stateBuilder.set({
+        ...state.set({
           todos: newTodos,
         }),
         toast: {
@@ -68,6 +68,6 @@ export default function registerTodoListEvents() {
         },
       };
     },
-    [stateBuilder.get({ todos: 'todos' })]
+    [state.get({ todos: 'todos' })]
   );
 }

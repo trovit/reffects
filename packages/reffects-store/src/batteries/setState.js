@@ -1,6 +1,6 @@
 import { registerEffectHandler } from 'reffects';
 
-export function stateSetBuilder(mutations) {
+export function stateSet(mutations) {
   return {
     'state.set': mutations,
   };

@@ -1,5 +1,5 @@
 import { getEffectHandler } from 'reffects';
-import registerSetStateEffect, { stateSetBuilder } from './setState';
+import registerSetStateEffect, { stateSet } from './setState';
 import { applyEventsFixture } from '../test-helpers/fixtures';
 import { callsTo } from '../test-helpers/mockHelpers';
 
@@ -27,7 +27,7 @@ describe('state.set effect', () => {
   });
 
   test('should create a state.set effect using a builder', () => {
-    const effect = stateSetBuilder({
+    const effect = stateSet({
       aKey: 'hello',
       anotherKey: 1,
       objectKey: { a: 1 },

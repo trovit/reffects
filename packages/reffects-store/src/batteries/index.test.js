@@ -2,7 +2,7 @@ import * as reffects from 'reffects';
 import registerStateBatteries, {
   registerStateEffect,
   registerStateCoeffect,
-  stateBuilder,
+  state,
 } from './index';
 import * as effect from './setState';
 import * as coeffect from './state';
@@ -11,8 +11,8 @@ describe('state battery', () => {
   test('effects and coeffects registrars can be used separatedly', () => {
     expect(registerStateEffect).toBeDefined();
     expect(registerStateCoeffect).toBeDefined();
-    expect(stateBuilder.get).toBeDefined();
-    expect(stateBuilder.set).toBeDefined();
+    expect(state.get).toBeDefined();
+    expect(state.set).toBeDefined();
   });
 
   test('effects and coeffects are registered at once when calling registerStateBatteries', () => {
