@@ -6,7 +6,7 @@ import * as coeffect from './queryParams';
 
 describe('query params battery', () => {
   test('effects and coeffects are registered at once when calling registerQueryParamsBatteries', () => {
-    const globalOject = {};
+    const globalObject = {};
     const registerQueryParamsCoeffectFn = jest.spyOn(coeffect, 'default');
     const registerEffectHandlerFn = jest.spyOn(
       reffects,
@@ -17,10 +17,10 @@ describe('query params battery', () => {
       'registerCoeffectHandler'
     );
 
-    registerQueryParamsBatteries(globalOject);
+    registerQueryParamsBatteries(globalObject);
 
     expect(registerEffectHandlerFn).toHaveBeenCalledTimes(0);
     expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(1);
-    expect(registerQueryParamsCoeffectFn).toHaveBeenCalledWith(globalOject);
+    expect(registerQueryParamsCoeffectFn).toHaveBeenCalledWith(globalObject);
   });
 });
