@@ -62,6 +62,24 @@ export default function registerHttpEffect(
     });
   });
 
+  registerEffectHandler('http.patch', function patchEffect({
+    url,
+    body,
+    successEvent = [],
+    errorEvent = [],
+  }) {
+    httpClient.patch({
+      url,
+      body,
+      successFn(response) {
+        dispatchEvent(successEvent, response);
+      },
+      errorFn(error) {
+        dispatchEvent(errorEvent, error);
+      },
+    });
+  });
+
   function dispatchEvent(event, ...data) {
     if (!event) {
       return;
