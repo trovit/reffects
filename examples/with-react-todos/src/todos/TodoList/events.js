@@ -1,6 +1,6 @@
 import { registerEventHandler } from 'reffects';
-import { globalVariable } from "reffects-batteries/src/global";
-import { state } from "reffects-store/src/batteries";
+import { globalVariable } from "reffects-batteries";
+import { state } from "reffects-store";
 
 export default function registerTodoListEvents() {
   registerEventHandler(
