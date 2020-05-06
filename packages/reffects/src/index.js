@@ -142,7 +142,7 @@ function createCoeffectsSpec(coeffectsDescriptions) {
     }
   ).reduce(
     function(acc, coeffectId) {
-      acc[coeffectId] = specsByHandler["coeffects"][coeffectId] || s.ANY;
+      acc[coeffectId] = getCoeffectSpec(coeffectId);
       return acc;
     },
     {}
@@ -171,11 +171,13 @@ function registerEventHandler(eventId, handler, coeffectDescriptions = []) {
   coeffectsByEvent[eventId] = coeffectDescriptions;
 }
 
-function registerCoeffectHandler(coeffectId, handler) {
+function registerCoeffectHandler(coeffectId, handler, spec = s.ANY) {
+  registerCoeffectSpec(coeffectId, spec)
   setHandler('coeffects', coeffectId, handler);
 }
 
-function registerEffectHandler(effectId, handler) {
+function registerEffectHandler(effectId, handler, spec = s.ANY) {
+  registerEffectSpec(effectId, spec)
   setHandler('effects', effectId, handler);
 }
 
@@ -234,6 +236,14 @@ function getCoeffectHandler(coeffectId) {
 
 function getEffectHandler(effectId) {
   return getHandler('effects', effectId);
+}
+
+function getCoeffectSpec(coeffectId) {
+  return specsByHandler["coeffects"][coeffectId];
+}
+
+function getEffectSpec(effectId) {
+  return specsByHandler["effects"][effectId];
 }
 
 function getEventHandler(eventId) {
@@ -307,8 +317,6 @@ export {
   registerCoeffectHandler,
   registerEffectHandler,
   registerEventsDelegation,
-  registerCoeffectSpec,
-  registerEffectSpec,
   coeffect,
   getEffectHandler,
   getCoeffectHandler,

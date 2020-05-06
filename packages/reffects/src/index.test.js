@@ -380,6 +380,7 @@ test('an exception is thrown, when the coeffect received is missing a required c
   const passedPayload = 'somePayload';
   const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
   const dummyEventHandler = () => {};
+  reffects.registerCoeffectHandler("moko", () => {});
   reffects.registerEventHandler(
     eventId,
     dummyEventHandler,
@@ -399,7 +400,7 @@ test('an exception is thrown, when the value any of the received does not confor
   const passedPayload = 'somePayload';
   const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
   const dummyEventHandler = () => {};
-  reffects.registerCoeffectSpec("moko", mokoCoeffectSpec);
+  reffects.registerCoeffectHandler("moko", () => {}, mokoCoeffectSpec);
 
   reffects.registerEventHandler(
     eventId,
