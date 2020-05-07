@@ -27,8 +27,5 @@
     "watchPathIgnorePatterns": [
       "node_modules"
     ]
-  },
-  "dependencies": {
-    "speco": "^0.1.0"
   }
 }

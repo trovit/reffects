@@ -2,10 +2,7 @@ import { terser } from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
 import pkg from './package.json';
 
-const external = [
-  ...Object.keys(pkg.peerDependencies),
-  ...Object.keys(pkg.dependencies),
-];
+const external = Object.keys(pkg.peerDependencies);
 
 export default [ 
   // CommonJS
@@ -70,7 +67,6 @@ export default [
       indent: false,
       globals: {
         react: 'React',
-        speco: 'speco',
         reffects: 'reffects',
       },
     },
@@ -92,7 +88,6 @@ export default [
       indent: false,
       globals: {
         react: 'React',
-        speco: 'speco',
         reffects: 'reffects',
       },
     },
