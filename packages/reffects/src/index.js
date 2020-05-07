@@ -1,11 +1,23 @@
+import s from 'speco';
+
 var verbosityOn = process.env.NODE_ENV === 'development';
+
 var devToolsOn =
   process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
+
+const devOrTest = () => {
+  return process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test';
+}
 
 const initialHandlers = {
   effects: {},
   coeffects: {},
   events: {},
+};
+
+const specsByHandler = {
+  effects: {},
+  coeffects: {},
 };
 
 let handlers = { ...initialHandlers };
@@ -115,17 +127,66 @@ function dispatchLater(event) {
   }, event.milliseconds);
 }
 
+function createCoeffectsSpec(coeffectsDescriptions) {
+  const coeffectsSpec = coeffectsDescriptions.map(
+    (desc) => {
+      if(!desc) {
+        throw new Error('Not defined coeffect.');
+      }
+
+      if (isString(desc)) {
+        return desc;
+      } else {
+        return desc["id"];
+      }
+    }
+  ).reduce(
+    function(acc, coeffectId) {
+      acc[coeffectId] = getCoeffectSpec(coeffectId);
+      return acc;
+    },
+    {}
+  );
+
+  return s.OBJ({req: coeffectsSpec});
+}
+
+function checkedEventHandler(handler, coeffectDescriptions) {
+  if(!devOrTest()) {
+    return handler;
+  }
+
+  const coeffectsSpec = createCoeffectsSpec(coeffectDescriptions);
+
+  return function(coeffects, payload) {
+    if(!s.isValid(coeffectsSpec, coeffects)) {
+      throw new Error(s.explain(coeffectsSpec, coeffects))
+    }
+    return handler(coeffects, payload)
+  };
+}
+
 function registerEventHandler(eventId, handler, coeffectDescriptions = []) {
-  setHandler('events', eventId, handler);
+  setHandler('events', eventId, checkedEventHandler(handler, coeffectDescriptions));
   coeffectsByEvent[eventId] = coeffectDescriptions;
 }
 
-function registerCoeffectHandler(coeffectId, handler) {
+function registerCoeffectHandler(coeffectId, handler, spec = s.ANY) {
+  registerCoeffectSpec(coeffectId, spec)
   setHandler('coeffects', coeffectId, handler);
 }
 
-function registerEffectHandler(effectId, handler) {
+function registerEffectHandler(effectId, handler, spec = s.ANY) {
+  registerEffectSpec(effectId, spec)
   setHandler('effects', effectId, handler);
+}
+
+function registerCoeffectSpec(coeffectId, spec) {
+  specsByHandler["coeffects"][coeffectId] = spec;
+}
+
+function registerEffectSpec(effectId, spec) {
+  specsByHandler["effects"][effectId] = spec;
 }
 
 function registerEventsDelegation(originalEvents, targetEvent) {
@@ -175,6 +236,14 @@ function getCoeffectHandler(coeffectId) {
 
 function getEffectHandler(effectId) {
   return getHandler('effects', effectId);
+}
+
+function getCoeffectSpec(coeffectId) {
+  return specsByHandler["coeffects"][coeffectId];
+}
+
+function getEffectSpec(effectId) {
+  return specsByHandler["effects"][effectId];
 }
 
 function getEventHandler(eventId) {
