@@ -1,6 +1,4 @@
-import registerQueryParamsBatteries, {
-  registerQueryParamsCoeffect,
-} from './index';
+import registerQueryParamsBatteries from './index';
 import * as reffects from 'reffects';
 import * as coeffect from './queryParams';
 
