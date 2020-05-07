@@ -1,14 +1,9 @@
 import registerTodoListEvents from './events';
 import { getEventHandler } from 'reffects';
-import { registerStateBatteries, state } from "reffects-store";
+import { state } from "reffects-store";
 import { applyEventsFixture } from '../../../test-helpers/fixtures';
-import { registerGlobalBatteries } from "reffects-batteries";
 
-applyEventsFixture(() => {
-  registerGlobalBatteries();
-  registerStateBatteries();
-  registerTodoListEvents();
-});
+applyEventsFixture(registerTodoListEvents);
 
 describe('events', () => {
   test('loadTodos', () => {
