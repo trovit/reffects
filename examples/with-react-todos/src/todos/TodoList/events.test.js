@@ -12,7 +12,7 @@ applyEventsFixture(() => {
 
 describe('events', () => {
   test('loadTodos', () => {
-    const givenCoeffects = { global: { apiUrl: 'http://someurl' } };
+    const givenCoeffects = { globals: { apiUrl: 'http://someurl' } };
     const loadTodos = getEventHandler('loadTodos');
 
     expect(loadTodos(givenCoeffects)).toEqual({

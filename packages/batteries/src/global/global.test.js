@@ -6,11 +6,11 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-describe('global.get', () => {
+describe('globals', () => {
   test('should extract global variable', () => {
     const fakeVariable = 'fakeVariable';
     const fakeValue = 'fakeValue';
-    const coeffectDescription = coeffect('global.get', fakeVariable);
+    const coeffectDescription = coeffect('globals', fakeVariable);
     registeGlobalCoeffect({ [fakeVariable]: fakeValue });
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 
@@ -29,7 +29,7 @@ describe('global.get', () => {
     const global = {
       fake: { path: fakeValue },
     };
-    const coeffectDescription = coeffect('global.get', fakeVariablePath);
+    const coeffectDescription = coeffect('globals', fakeVariablePath);
     registeGlobalCoeffect(global);
     const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
 
@@ -40,10 +40,10 @@ describe('global.get', () => {
     });
   });
 
-  test('should create a global.get coeffect using a builder', () => {
+  test('should create a globals coeffect using a builder', () => {
     const fakeVariablePath = 'fake.path';
     const globalsGetCoeffect = globalsGet(fakeVariablePath);
 
-    expect(globalsGetCoeffect).toEqual(coeffect('global.get', fakeVariablePath));
+    expect(globalsGetCoeffect).toEqual(coeffect('globals', fakeVariablePath));
   });
 });

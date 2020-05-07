@@ -5,10 +5,10 @@ import {globals} from "reffects-batteries";
 export default function registerTodoListEvents() {
   registerEventHandler(
     'loadTodos',
-    function loadTodos(coeffects, payload) {
+    function loadTodos({ globals }, payload) {
       return {
         'http.get': {
-          url: coeffects.global.apiUrl,
+          url: globals.apiUrl,
           successEvent: ['loadTodosSucceeded'],
         },
       };
