@@ -1,5 +1,5 @@
 import { clearHandlers, coeffect, getCoeffectHandler } from 'reffects';
-import registerStateCoeffect from './state';
+import registerStateCoeffect, { stateGet } from './state';
 import { destroyAllMocks } from '../test-helpers/fixtures';
 import { callsTo } from '../test-helpers/mockHelpers';
 
@@ -16,7 +16,7 @@ describe('state coeffect', () => {
     };
     const pathToTodos = 'todos';
     const pathToToastId = 'toast.id';
-    const coeffectDescription = coeffect('state.get', {
+    const coeffectDescription = coeffect('state', {
       todosRenamed: 'todos',
       toastId: 'toast.id',
     });
@@ -36,5 +36,19 @@ describe('state coeffect', () => {
     });
     expect(store.getState).toHaveBeenCalledTimes(2);
     expect(callsTo(store.getState)).toEqual([[pathToTodos], [pathToToastId]]);
+  });
+
+  test('should create a state coeffect from a builder', () => {
+    const stateGetCoeffect = stateGet({
+      todosRenamed: 'todos',
+      toastId: 'toast.id',
+    });
+
+    expect(stateGetCoeffect).toEqual(
+        coeffect('state', {
+          todosRenamed: 'todos',
+          toastId: 'toast.id',
+        })
+    );
   });
 });

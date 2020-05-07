@@ -1,6 +1,6 @@
 import store from './store';
 import subscribe from './subscription';
-import registerStateBatteries from './batteries';
+import registerStateBatteries, { state } from './batteries';
 
 const devToolsOn =
   process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
@@ -13,4 +13,4 @@ if (devToolsOn) {
   };
 }
 
-export { store, subscribe, registerStateBatteries };
+export { store, subscribe, registerStateBatteries, state };

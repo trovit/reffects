@@ -1,7 +1,11 @@
-import { registerCoeffectHandler } from 'reffects';
+import { coeffect, registerCoeffectHandler } from 'reffects';
+
+export function stateGet(extractions) {
+    return coeffect('state', extractions);
+}
 
 export default function registerStateCoeffect(store) {
-  registerCoeffectHandler('state.get', function state(extractions) {
+  registerCoeffectHandler('state', function state(extractions) {
     const result = Object.entries(extractions).reduce(
       function extractStateParts(acc, [key, path]) {
         acc[key] = store.getState(path);
