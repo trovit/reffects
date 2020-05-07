@@ -1,5 +1,5 @@
 import { getEffectHandler } from 'reffects';
-import registerSetStateEffect from './setState';
+import registerSetStateEffect, { stateSet } from './setState';
 import { applyEventsFixture } from '../test-helpers/fixtures';
 import { callsTo } from '../test-helpers/mockHelpers';
 
@@ -24,5 +24,21 @@ describe('state.set effect', () => {
     expect(callsTo(store.setState)).toEqual([
       [[firstMutation, secondMutation]],
     ]);
+  });
+
+  test('should create a state.set effect using a builder', () => {
+    const effect = stateSet({
+      aKey: 'hello',
+      anotherKey: 1,
+      objectKey: { a: 1 },
+    });
+
+    expect(effect).toEqual({
+      'state.set': {
+        aKey: 'hello',
+        anotherKey: 1,
+        objectKey: { a: 1 },
+      },
+    });
   });
 });

@@ -1,4 +1,8 @@
-import { registerCoeffectHandler } from 'reffects';
+import { coeffect, registerCoeffectHandler } from 'reffects';
+
+export function stateGet(extractions) {
+    return coeffect('state.get', extractions);
+}
 
 export default function registerStateCoeffect(store) {
   registerCoeffectHandler('state.get', function state(extractions) {
