@@ -1,5 +1,3 @@
-import s from 'speco';
-
 var verbosityOn = process.env.NODE_ENV === 'development';
 
 var devToolsOn =
@@ -122,42 +120,21 @@ function dispatchLater(event) {
   }, event.milliseconds);
 }
 
-function createCoeffectsSpec(coeffectsDescriptions) {
-  const coeffectsSpec = coeffectsDescriptions.map(
-    (desc) => {
-      if(!desc) {
-        throw new Error('Not defined coeffect.');
-      }
-
-      if (isString(desc)) {
-        return desc;
-      } else {
-        return desc["id"];
-      }
-    }
-  ).reduce(
-    function(acc, coeffectId) {
-      acc[coeffectId] = s.ANY;
-      return acc;
-    },
-    {}
-  );
-
-  return s.OBJ({req: coeffectsSpec});
-}
-
 function checkedEventHandler(handler, coeffectDescriptions) {
   if(!devOrTest()) {
     return handler;
   }
-
-  const coeffectsSpec = createCoeffectsSpec(coeffectDescriptions);
+  if (!coeffectDescriptions.every(desc => desc !== undefined)) {
+    throw new Error('Not defined coeffect.');
+  }
 
   return function(coeffects, payload) {
-    if(!s.isValid(coeffectsSpec, coeffects)) {
-      throw new Error(s.explain(coeffectsSpec, coeffects))
+    const requiredIds = coeffectDescriptions.map((desc) => isString(desc) ? desc : desc["id"]);
+    const missingCoeffects = Object.keys(coeffects).filter(coeffectId => !requiredIds.includes(coeffectId));
+    if(missingCoeffects.length > 0) {
+      throw new Error(`Missing coeffects ${missingCoeffects.join(',')}`);
     }
-    return handler(coeffects, payload)
+    return handler(coeffects, payload);
   };
 }
 

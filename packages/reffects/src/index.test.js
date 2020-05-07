@@ -1,6 +1,5 @@
 import * as reffects from '.';
 import { destroyAllMocks } from '../test-helpers/fixtures';
-import s from 'speco';
 
 reffects.disableVerbosity();
 
