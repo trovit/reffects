@@ -1,5 +1,5 @@
 import { clearHandlers, getCoeffectHandler, coeffect } from 'reffects';
-import registerQueryParamsCoeffect from './queryParams';
+import registerQueryParamsCoeffect, { queryParamsGet } from './queryParams';
 
 afterEach(() => {
   clearHandlers();
@@ -28,5 +28,12 @@ describe('queryParams.get', () => {
         hazelnuts: null,
       },
     });
+  });
+
+  test('should create a queryParams.get coeffect using a builder', () => {
+    const selectedQueryParams = ['peanuts', 'chesnuts', 'nuts', 'hazelnuts'];
+    const queryParamsCoeffect = queryParamsGet(selectedQueryParams);
+
+    expect(queryParamsCoeffect).toEqual(coeffect('queryParams.get', selectedQueryParams));
   });
 });

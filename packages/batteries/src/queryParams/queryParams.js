@@ -1,4 +1,8 @@
-import { registerCoeffectHandler } from 'reffects';
+import { coeffect, registerCoeffectHandler } from 'reffects';
+
+export function queryParamsGet(selectedQueryParams) {
+    return coeffect('queryParams.get', selectedQueryParams);
+}
 
 export default function registerQueryParamsCoeffect(globalOject) {
   registerCoeffectHandler('queryParams.get', function retrieveQueryParams(
