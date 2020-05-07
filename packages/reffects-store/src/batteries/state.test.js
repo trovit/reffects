@@ -16,7 +16,7 @@ describe('state coeffect', () => {
     };
     const pathToTodos = 'todos';
     const pathToToastId = 'toast.id';
-    const coeffectDescription = coeffect('state.get', {
+    const coeffectDescription = coeffect('state', {
       todosRenamed: 'todos',
       toastId: 'toast.id',
     });
@@ -38,14 +38,14 @@ describe('state coeffect', () => {
     expect(callsTo(store.getState)).toEqual([[pathToTodos], [pathToToastId]]);
   });
 
-  test('should create a state.get coeffect from a builder', () => {
+  test('should create a state coeffect from a builder', () => {
     const stateGetCoeffect = stateGet({
       todosRenamed: 'todos',
       toastId: 'toast.id',
     });
 
     expect(stateGetCoeffect).toEqual(
-        coeffect('state.get', {
+        coeffect('state', {
           todosRenamed: 'todos',
           toastId: 'toast.id',
         })
