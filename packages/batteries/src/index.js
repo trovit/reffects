@@ -1,6 +1,7 @@
 import registerCookiesBatteries, {
   registerSetCookieEffect,
   registerGetCookieCoeffect,
+  cookies,
 } from './cookies';
 import registerGlobalBatteries, { registerGlobalCoeffect, globals } from './global';
 import registerHttpBatteries from './http';
@@ -19,5 +20,6 @@ export {
   registerQueryParamsCoeffect,
   registerQueryParamsBatteries,
   globals,
+  cookies,
   queryParams,
 };
