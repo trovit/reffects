@@ -286,4 +286,84 @@ describe('http effects', () => {
       ]);
     });
   });
+
+  describe('http.patch', () => {
+    const effectId = 'http.patch';
+
+    test('request success', () => {
+      const responseData = 'responseData';
+      const fakeHttpClient = {
+        patch: jest.fn().mockImplementation(function patch({ successFn }) {
+          return successFn(responseData);
+        }),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const successEventId = 'successEventId';
+      const body = {
+        param: 'peanut',
+      };
+      const url = 'fakeUrl';
+
+      httpEffectHandler({
+        url,
+        body,
+        successEvent: [
+          successEventId,
+          eventRestOfPayload[0],
+          eventRestOfPayload[1],
+        ],
+      });
+
+      expect(fakeHttpClient.patch).toHaveBeenCalledWith({
+        url,
+        body,
+        successFn: expect.any(Function),
+        errorFn: expect.any(Function),
+      });
+      expect(dispatchFake).toHaveBeenCalledTimes(1);
+      expect(callsTo(dispatchFake)).toEqual([
+        [{ id: successEventId, payload: ['responseData', 'arg1', 'arg2'] }],
+      ]);
+    });
+
+    test('request error', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        patch: jest.fn().mockImplementation(function patch({ errorFn }) {
+          return errorFn(errorData);
+        }),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const errorEventId = 'errorEventId';
+      const body = {
+        param: 'peanut',
+      };
+      const url = 'fakeUrl';
+
+      httpEffectHandler({
+        url,
+        body,
+        errorEvent: [
+          errorEventId,
+          eventRestOfPayload[0],
+          eventRestOfPayload[1],
+        ],
+      });
+
+      expect(fakeHttpClient.patch).toHaveBeenCalledWith({
+        url,
+        body,
+        successFn: expect.any(Function),
+        errorFn: expect.any(Function),
+      });
+      expect(dispatchFake).toHaveBeenCalledTimes(1);
+      expect(callsTo(dispatchFake)).toEqual([
+        [{ id: errorEventId, payload: ['errorData', 'arg1', 'arg2'] }],
+      ]);
+    });
+  });
 });
