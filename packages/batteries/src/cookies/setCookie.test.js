@@ -1,5 +1,5 @@
 import { clearHandlers, getEffectHandler } from 'reffects';
-import registerSetCookieEffect from './setCookie';
+import registerSetCookieEffect, { cookieSet } from './setCookie';
 
 afterEach(() => {
   clearHandlers();
@@ -22,5 +22,17 @@ describe('cookie.set effect', () => {
     setCookieHandler(cookieToSet);
 
     expect(cookiesClient.set).toHaveBeenCalledWith(cookieToSet);
+  });
+
+  test('should create a cookie.set effect from a builder', () => {
+    const cookieToSet = {
+      key: 'cookieKey',
+      value: 'newValue',
+    };
+    const cookieSetEffect = cookieSet(cookieToSet);
+
+    expect(cookieSetEffect).toEqual({
+      'cookie.set': cookieToSet
+    });
   });
 });
