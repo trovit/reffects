@@ -4,11 +4,11 @@ export function queryParamsGet(selectedQueryParams) {
     return coeffect('queryParams', selectedQueryParams);
 }
 
-export default function registerQueryParamsCoeffect(globalOject) {
+export default function registerQueryParamsCoeffect(globalObject) {
   registerCoeffectHandler('queryParams', function retrieveQueryParams(
     selectedQueryParams = []
   ) {
-    const urlParams = new URLSearchParams(globalOject.location.search);
+    const urlParams = new URLSearchParams(globalObject.location.search);
 
     const queryParams = selectedQueryParams.reduce(
       function convertQueryParamsToObject(queryParamValues, queryParam) {
