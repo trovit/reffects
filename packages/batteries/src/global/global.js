@@ -1,4 +1,4 @@
-import { registerCoeffectHandler } from 'reffects';
+import { coeffect, registerCoeffectHandler } from 'reffects';
 
 function getPathArray(path) {
   return Array.isArray(path) ? path : path.split('.');
@@ -14,8 +14,12 @@ function getIn(obj, path, defaultValue = null) {
   }, obj);
 }
 
+export function globalsGet(path) {
+  return coeffect('globals', path);
+}
+
 export default function registeGlobalCoeffect(globalObject = window) {
-  registerCoeffectHandler('global.get', function global(variableName) {
+  registerCoeffectHandler('globals', function global(variableName) {
     return {
       global: {
         [variableName]: getIn(globalObject, variableName),

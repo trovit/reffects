@@ -1,18 +1,19 @@
-import { registerEventHandler, coeffect } from 'reffects';
+import { registerEventHandler } from 'reffects';
 import { state } from "reffects-store";
+import {globals} from "reffects-batteries";
 
 export default function registerTodoListEvents() {
   registerEventHandler(
     'loadTodos',
-    function loadTodos(coeffects, payload) {
+    function loadTodos({ globals }, payload) {
       return {
         'http.get': {
-          url: coeffects.global.apiUrl,
+          url: globals.apiUrl,
           successEvent: ['loadTodosSucceeded'],
         },
       };
     },
-    [coeffect('global.get', 'apiUrl')]
+    [globals.get('apiUrl')]
   );
 
   registerEventHandler('loadTodosSucceeded', function loadTodosSucceeded(
