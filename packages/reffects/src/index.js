@@ -15,11 +15,6 @@ const initialHandlers = {
   events: {},
 };
 
-const specsByHandler = {
-  effects: {},
-  coeffects: {},
-};
-
 let handlers = { ...initialHandlers };
 let coeffectsByEvent = {};
 
@@ -171,22 +166,12 @@ function registerEventHandler(eventId, handler, coeffectDescriptions = []) {
   coeffectsByEvent[eventId] = coeffectDescriptions;
 }
 
-function registerCoeffectHandler(coeffectId, handler, spec = s.ANY) {
-  registerCoeffectSpec(coeffectId, spec)
+function registerCoeffectHandler(coeffectId, handler) {
   setHandler('coeffects', coeffectId, handler);
 }
 
-function registerEffectHandler(effectId, handler, spec = s.ANY) {
-  registerEffectSpec(effectId, spec)
+function registerEffectHandler(effectId, handler) {
   setHandler('effects', effectId, handler);
-}
-
-function registerCoeffectSpec(coeffectId, spec) {
-  specsByHandler["coeffects"][coeffectId] = spec;
-}
-
-function registerEffectSpec(effectId, spec) {
-  specsByHandler["effects"][effectId] = spec;
 }
 
 function registerEventsDelegation(originalEvents, targetEvent) {
@@ -236,14 +221,6 @@ function getCoeffectHandler(coeffectId) {
 
 function getEffectHandler(effectId) {
   return getHandler('effects', effectId);
-}
-
-function getCoeffectSpec(coeffectId) {
-  return specsByHandler["coeffects"][coeffectId];
-}
-
-function getEffectSpec(effectId) {
-  return specsByHandler["effects"][effectId];
 }
 
 function getEventHandler(eventId) {

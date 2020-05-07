@@ -59,12 +59,12 @@ test('when dispatching an event, coeffect values, whose handlers do not receive 
   const passedPayload = 'somePayload';
   const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
 
-  reffects.registerCoeffectHandler(datetimeCoeffectId, function() {
-    return { [datetimeCoeffectId]: expectedDateTime };
+  reffects.registerCoeffectHandler(datetimeCoeffectId, function () {
+    return {[datetimeCoeffectId]: expectedDateTime};
   });
 
-  reffects.registerCoeffectHandler(apiUrlCoeffectId, function() {
-    return { [apiUrlCoeffectId]: expectedApiUrl };
+  reffects.registerCoeffectHandler(apiUrlCoeffectId, function () {
+    return {[apiUrlCoeffectId]: expectedApiUrl};
   });
 
   reffects.registerEventHandler(
@@ -92,8 +92,8 @@ test('when dispatching an event, a coeffect value, whose handler receives parame
   const passedPayload = 'somePayload';
   const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
 
-  reffects.registerCoeffectHandler(mokoCoeffectDescription.id, function() {
-    return { [mokoCoeffectDescription.id]: expectedData };
+  reffects.registerCoeffectHandler(mokoCoeffectDescription.id, function () {
+    return {[mokoCoeffectDescription.id]: expectedData};
   });
 
   reffects.registerEventHandler(
@@ -121,8 +121,8 @@ test('when dispatching an event, a coeffect description as string, whose handler
   const passedPayload = 'somePayload';
   const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
 
-  reffects.registerCoeffectHandler(mokoCoeffectDescription, function() {
-    return { [mokoCoeffectDescription]: expectedData };
+  reffects.registerCoeffectHandler(mokoCoeffectDescription, function () {
+    return {[mokoCoeffectDescription]: expectedData};
   });
 
   reffects.registerEventHandler(
@@ -380,7 +380,8 @@ test('an exception is thrown, when the coeffect received is missing a required c
   const passedPayload = 'somePayload';
   const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
   const dummyEventHandler = () => {};
-  reffects.registerCoeffectHandler("moko", () => {});
+  reffects.registerCoeffectHandler("moko", () => {
+  });
   reffects.registerEventHandler(
     eventId,
     dummyEventHandler,
