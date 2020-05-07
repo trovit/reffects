@@ -1,4 +1,5 @@
 import { registerEventHandler, coeffect } from 'reffects';
+import { state } from "reffects-store";
 
 export default function registerTodoListEvents() {
   registerEventHandler(
@@ -28,18 +29,14 @@ export default function registerTodoListEvents() {
 
     const todos = extractTodos(response);
 
-    return {
-      'state.set': { todos: todos },
-    };
+    return state.set({ todos: todos });
   });
 
   registerEventHandler('filterTodos', function filterTodos(
     coeffects,
     activeFilter
   ) {
-    return {
-      'state.set': { visibilityFilter: activeFilter },
-    };
+    return state.set({ visibilityFilter: activeFilter });
   });
 
   registerEventHandler(
@@ -61,15 +58,13 @@ export default function registerTodoListEvents() {
       const newTodos = toggleTodo(id, todos);
 
       return {
-        'state.set': {
-          todos: newTodos,
-        },
+        ...state.set({ todos: newTodos }),
         toast: {
           text: `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`,
           milliseconds: 3000,
         },
       };
     },
-    [coeffect('state.get', { todos: 'todos' })]
+    [state.get( { todos: 'todos' })]
   );
 }
