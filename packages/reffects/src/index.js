@@ -142,7 +142,7 @@ function createCoeffectsSpec(coeffectsDescriptions) {
     }
   ).reduce(
     function(acc, coeffectId) {
-      acc[coeffectId] = getCoeffectSpec(coeffectId);
+      acc[coeffectId] = s.ANY;
       return acc;
     },
     {}

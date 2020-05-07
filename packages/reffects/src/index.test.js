@@ -393,24 +393,3 @@ test('an exception is thrown, when the coeffect received is missing a required c
     eventHandler({"mioko": {}}, passedPayload)
   ).toThrowError();
 });
-
-test('an exception is thrown, when the value any of the received does not conform to its spec', () => {
-  const mokoCoeffectSpec = s.OBJ({req: {a: s.STRING}});
-  const mokoCoeffectDescription = { id: 'moko', data: {} };
-  const passedPayload = 'somePayload';
-  const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
-  const dummyEventHandler = () => {};
-  reffects.registerCoeffectHandler("moko", () => {}, mokoCoeffectSpec);
-
-  reffects.registerEventHandler(
-    eventId,
-    dummyEventHandler,
-    [mokoCoeffectDescription]
-  );
-
-  const eventHandler = reffects.getEventHandler(eventId);
-
-  expect(() =>
-    eventHandler({"moko": {a: 1}}, passedPayload)
-  ).toThrowError();
-});
