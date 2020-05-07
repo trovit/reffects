@@ -17,7 +17,7 @@ describe('http battery', () => {
 
     registerQueryParamsBatteries(httpClient);
 
-    expect(registerEffectHandlerFn).toHaveBeenCalledTimes(3);
+    expect(registerEffectHandlerFn).toHaveBeenCalledTimes(4);
     expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(0);
     expect(registerBatteriesFn).toHaveBeenCalledWith(httpClient);
   });
