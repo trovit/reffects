@@ -239,7 +239,11 @@ function getEffectHandler(effectId) {
 }
 
 function getCoeffectSpec(coeffectId) {
-  return specsByHandler["coeffects"][coeffectId];
+  const spec = specsByHandler["coeffects"][coeffectId];
+  if (!spec) {
+    throw new Error(`Missing spec for coeffect ${coeffectId}. Remember to register this coeffect.`)
+  }
+  return spec;
 }
 
 function getEffectSpec(effectId) {
