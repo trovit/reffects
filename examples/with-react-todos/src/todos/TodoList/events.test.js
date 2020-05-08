@@ -1,6 +1,7 @@
 import registerTodoListEvents from './events';
 import { getEventHandler } from 'reffects';
 import { state } from "reffects-store";
+import { http } from "reffects-batteries";
 import { applyEventsFixture } from '../../../test-helpers/fixtures';
 
 applyEventsFixture(registerTodoListEvents);
@@ -10,12 +11,10 @@ describe('events', () => {
     const givenCoeffects = { globals: { apiUrl: 'http://someurl' } };
     const loadTodos = getEventHandler('loadTodos');
 
-    expect(loadTodos(givenCoeffects)).toEqual({
-      'http.get': {
-        url: 'http://someurl',
-        successEvent: ['loadTodosSucceeded'],
-      },
-    });
+    expect(loadTodos(givenCoeffects)).toEqual(http.get({
+      url: 'http://someurl',
+      successEvent: ['loadTodosSucceeded'],
+    }));
   });
 
   test('loadTodosSucceeded', () => {
