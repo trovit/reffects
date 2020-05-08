@@ -21,7 +21,7 @@ export function globalsGet(path) {
 export default function registeGlobalCoeffect(globalObject = window) {
   registerCoeffectHandler('globals', function global(variableName) {
     return {
-      global: {
+      globals: {
         [variableName]: getIn(globalObject, variableName),
       },
     };
