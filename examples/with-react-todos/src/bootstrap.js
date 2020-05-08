@@ -4,7 +4,6 @@ import {
   registerGlobalBatteries,
 } from 'reffects-batteries';
 import registerToastEffect from './effects/toast';
-import registerDatetimeCoeffect from './coeffects/datetime';
 import httpClient from './infrastructure/httpClient';
 import timer from './infrastructure/timer';
 import registerTodoListEvents from './todos/TodoList/events';
@@ -33,6 +32,5 @@ export function startApp() {
 
   // Custom effects/coeffects & events
   registerToastEffect(store, timer);
-  registerDatetimeCoeffect(Date);
   registerTodoListEvents();
 }
