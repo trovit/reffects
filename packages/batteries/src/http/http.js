@@ -24,6 +24,14 @@ export function httpPut({ url, body, successEvent = [], errorEvent = [] }) {
   };
 }
 
+export function httpPatch({ url, body, successEvent = [], errorEvent = [] }) {
+  return {
+    'http.patch': {
+      url, body, successEvent, errorEvent
+    }
+  };
+}
+
 export default function registerHttpEffect(
   httpClient,
   dispatch = reffectsDispatch
