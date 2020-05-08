@@ -1,7 +1,7 @@
 import { clearHandlers, getEffectHandler } from 'reffects';
 import { destroyAllMocks } from '../../test-helpers/fixtures';
 import { callsTo } from '../../test-helpers/mockHelpers';
-import registerHttpEffect, { httpGet, httpPost } from './http';
+import registerHttpEffect, { httpGet, httpPost, httpPut } from './http';
 
 describe('http effects', () => {
   afterEach(() => {
@@ -321,6 +321,23 @@ describe('http effects', () => {
       expect(callsTo(dispatchFake)).toEqual([
         [{ id: errorEventId, payload: ['errorData', 'arg1', 'arg2'] }],
       ]);
+    });
+
+    test('should create an http.put effect using a builder', () => {
+      const httpPutEffect = httpPut({
+        url: 'https://github.com/trovit/reffects',
+        body: {hello: 'world'},
+        successEvent: ['callbackEvent', 'arg1']
+      });
+
+      expect(httpPutEffect).toEqual({
+        'http.put': {
+          url: 'https://github.com/trovit/reffects',
+          body: {hello: 'world'},
+          successEvent: ['callbackEvent', 'arg1'],
+          errorEvent: [],
+        }
+      });
     });
   });
 

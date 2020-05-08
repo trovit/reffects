@@ -5,7 +5,7 @@ export function httpGet({ url, successEvent, errorEvent = []}) {
     'http.get': {
       url, successEvent, errorEvent
     }
-  }
+  };
 }
 
 export function httpPost({ url, body, config = {}, successEvent = [], errorEvent = [], alwaysEvent = [] }) {
@@ -13,7 +13,15 @@ export function httpPost({ url, body, config = {}, successEvent = [], errorEvent
     'http.post': {
       url, body, config, successEvent, errorEvent, alwaysEvent
     }
-  }
+  };
+}
+
+export function httpPut({ url, body, successEvent = [], errorEvent = [] }) {
+  return {
+    'http.put': {
+      url, body, successEvent, errorEvent
+    }
+  };
 }
 
 export default function registerHttpEffect(
