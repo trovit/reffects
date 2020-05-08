@@ -46,6 +46,7 @@
 For easy of use, we have implemented some common effects/coeffects that you may need in your day to day life as a developer. We have called them `batteries` (as in "batteries included").
 
 - [Cookies](./packages/batteries/docs/cookies.md)
+- [Global](./packages/batteries/docs/global.md)
 
 ## Tests
 
