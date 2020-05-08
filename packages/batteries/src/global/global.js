@@ -1,5 +1,7 @@
 import { coeffect, registerCoeffectHandler } from 'reffects';
 
+const COEFFECT_ID = 'globals';
+
 function getPathArray(path) {
   return Array.isArray(path) ? path : path.split('.');
 }
@@ -15,13 +17,13 @@ function getIn(obj, path, defaultValue = null) {
 }
 
 export function globalsGet(path) {
-  return coeffect('globals', path);
+  return coeffect(COEFFECT_ID, path);
 }
 
 export default function registeGlobalCoeffect(globalObject = window) {
-  registerCoeffectHandler('globals', function global(variableName) {
+  registerCoeffectHandler(COEFFECT_ID, function global(variableName) {
     return {
-      globals: {
+      [COEFFECT_ID]: {
         [variableName]: getIn(globalObject, variableName),
       },
     };
