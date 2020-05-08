@@ -1,5 +1,13 @@
 import { registerEffectHandler, dispatch as reffectsDispatch } from 'reffects';
 
+export function httpGet({ url, successEvent, errorEvent = []}) {
+  return {
+    'http.get': {
+      url, successEvent, errorEvent
+    }
+  }
+};
+
 export default function registerHttpEffect(
   httpClient,
   dispatch = reffectsDispatch
