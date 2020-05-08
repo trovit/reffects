@@ -1,16 +1,16 @@
 import { clearHandlers, getCoeffectHandler, coeffect } from 'reffects';
-import registerGetCookieCoeffect from './getCookie';
+import registerGetCookieCoeffect, { cookieGet } from './getCookie';
 
 afterEach(() => {
   clearHandlers();
   jest.clearAllMocks();
 });
 
-describe('cookie.get coeffect', () => {
+describe('cookie coeffect', () => {
   test('should extract keys from cookies', () => {
     const fakeKey = 'fakeCookieKey';
     const fakeValue = 'fakeCookieValue';
-    const coeffectDescription = coeffect('cookie.get', fakeKey);
+    const coeffectDescription = coeffect('cookie', fakeKey);
     const cookiesClient = { get: jest.fn() };
     cookiesClient.get.mockReturnValue(fakeValue);
     registerGetCookieCoeffect(cookiesClient);
@@ -26,7 +26,7 @@ describe('cookie.get coeffect', () => {
   test("should return undefined when a key doesn't exists", () => {
     const fakeKey = 'fakeCookieKey';
     const fakeValue = undefined;
-    const coeffectDescription = coeffect('cookie.get', fakeKey);
+    const coeffectDescription = coeffect('cookie', fakeKey);
     const cookiesClient = { get: jest.fn() };
     cookiesClient.get.mockReturnValue(fakeValue);
     registerGetCookieCoeffect(cookiesClient);
@@ -37,5 +37,12 @@ describe('cookie.get coeffect', () => {
         [fakeKey]: fakeValue,
       },
     });
+  });
+
+  test('should create a cookie coeffect using a builder', () => {
+    const fakeKey = 'fakeCookieKey';
+    const cookieGetCoeffect = cookieGet(fakeKey);
+
+    expect(cookieGetCoeffect).toEqual(coeffect('cookie', fakeKey));
   });
 });

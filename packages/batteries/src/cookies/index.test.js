@@ -1,7 +1,4 @@
-import registerCookiesBatteries, {
-  registerSetCookieEffect,
-  registerGetCookieCoeffect,
-} from './index';
+import registerCookiesBatteries from './index';
 import * as effect from './setCookie';
 import * as coeffect from './getCookie';
 import * as reffects from 'reffects';
