@@ -36,7 +36,8 @@ registerEventHandler(
 In this case, we are asking for the `apiUrl` value, but we could look for a more complex value, by specifying its path:
 
 ```js
-import { globals, state } from 'reffects-batteries';
+import { globals } from 'reffects-batteries';
+import { state } from 'reffects-store';
 
 registerEventHandler(
     'loadUsername',
