@@ -47,6 +47,7 @@ For easy of use, we have implemented some common effects/coeffects that you may 
 
 - [Cookies](./packages/batteries/docs/cookies.md)
 - [Global](./packages/batteries/docs/global.md)
+- [QueryParams](./packages/batteries/docs/queryParams.md)
 
 ## Tests
 
