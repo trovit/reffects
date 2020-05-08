@@ -1,4 +1,4 @@
-import registerToastEffect from './toast';
+import registerToastEffect, { toast } from './toast';
 import { store as storeModule } from 'reffects-store';
 import * as timerModule from '../infrastructure/timer';
 import { destroyAllMocks } from '../../test-helpers/fixtures';
@@ -70,6 +70,17 @@ describe('toast effect', () => {
       ], // using a real timer this one should be the last one
       [{ newValue: newToastId, path: ['toast', 'timeoutId'] }],
     ]);
+  });
+
+  test('should create a toast effect using a builder', () => {
+    const toastEffect = toast.show({ text: 'Hello', milliseconds: 100 });
+
+    expect(toastEffect).toEqual({
+      [effectId]: {
+        text: 'Hello',
+        milliseconds: 100
+      }
+    })
   });
 });
 

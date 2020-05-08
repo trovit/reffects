@@ -3,6 +3,7 @@ import { getEventHandler } from 'reffects';
 import { state } from "reffects-store";
 import { http } from "reffects-batteries";
 import { applyEventsFixture } from '../../../test-helpers/fixtures';
+import { toast } from "../../effects/toast";
 
 applyEventsFixture(registerTodoListEvents);
 
@@ -81,10 +82,10 @@ describe('events', () => {
     };
 
     expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
-      toast: {
+      ...toast.show({
         text: '"Lorem ipsum" was marked as undone.',
         milliseconds: 3000,
-      },
+      }),
       ...state.set({
         todos: [
           {
@@ -115,10 +116,10 @@ describe('events', () => {
     };
 
     expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
-      toast: {
+      ...toast.show({
         text: '"Lorem ipsum" was marked as done.',
         milliseconds: 3000,
-      },
+      }),
       ...state.set({
         todos: [
           {

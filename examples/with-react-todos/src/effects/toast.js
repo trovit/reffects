@@ -1,7 +1,19 @@
 import { registerEffectHandler } from 'reffects';
 
+const EFFECT_ID = 'toast';
+
+export const toast = {
+  show({ text, milliseconds }) {
+    return {
+      [EFFECT_ID]: {
+        text, milliseconds,
+      }
+    };
+  }
+}
+
 export default function registerToastEffect(store, timer) {
-  registerEffectHandler('toast', function toast({ text, milliseconds }) {
+  registerEffectHandler(EFFECT_ID, function toast({ text, milliseconds }) {
     const {
       toast: { visible: alreadyShown, timeoutId: toastTimeoutId },
     } = store.getState();
