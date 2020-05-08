@@ -27,28 +27,28 @@ a. `url`: the url used to make the `GET` request.
 
 b. `successEvent`: The event that will be dispatched when the request finishes successfully. Its payload will be the response data.
 
-### toast
+### `toast.show`
 
-The `toast` effect is used to display a toast.
+The `toast.show` effect is used to display a toast.
 
 Example:
 
 ```js
+import { toast } from "../../effects/toast";
+
 registerEventHandler(
     "displayError", 
     function displayError(coeffects, { message }) {
-        return {
-            toast: {
-                text: message,
-                milliseconds: 3000
-            }
-        };
-  }
-}
+        return toast.show({
+            text: message,
+            milliseconds: 3000
+        });
+    }
+);
 ```
-In the previous example, the event handler for `displayError` event returns an effects object containing a `toast` effect that will show a message during 3000 milliseconds. 
+In the previous example, the event handler for `displayError` event returns a `toast.show` effect that will show a message during 3000 milliseconds. 
 
-The value associated to the `toast` effect in the effects object is an object comprised of two properties:
+The parameters for the `toast.show` effect is an object comprised of two properties:
 
 1. `text`: the text that will be displayed by the toast.
 
