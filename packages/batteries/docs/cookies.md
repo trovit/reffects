@@ -16,9 +16,9 @@ registerCookiesBatteries({
 });
 ```
 
-### `cookie.set`
+### `cookies.set`
 
-The `cookie.set` effect stores a given cookie, defined by its name and its value.
+The `cookies.set` effect stores a given cookie, defined by its name and its value.
 
 Example:
 
@@ -34,9 +34,9 @@ registerEventHandler(
 ```
 
 
-### `cookie.get`
+### `cookies.get`
 
-`cookie.get` retrieves a cookie given its name when declaring the coeffect.
+`cookies.get` retrieves a cookie given its name when declaring the coeffect.
 
 Example:
 
