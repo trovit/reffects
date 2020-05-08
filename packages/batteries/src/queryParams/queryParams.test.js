@@ -1,18 +1,18 @@
 import { clearHandlers, getCoeffectHandler, coeffect } from 'reffects';
-import registerQueryParamsCoeffect from './queryParams';
+import registerQueryParamsCoeffect, { queryParamsGet } from './queryParams';
 
 afterEach(() => {
   clearHandlers();
   jest.clearAllMocks();
 });
 
-describe('queryParams.get', () => {
+describe('queryParams', () => {
   test('should extract query params from url', () => {
     const selectedQueryParams = ['peanuts', 'chesnuts', 'nuts', 'hazelnuts'];
     const fakeUrlSearch =
       '?peanuts=3&chesnuts=dil%C3%ACc%C3%ADous&nuts=cashew&nuts=pistachios';
     const coeffectDescription = coeffect(
-      'queryParams.get',
+      'queryParams',
       selectedQueryParams
     );
     registerQueryParamsCoeffect({ location: { search: fakeUrlSearch } });
@@ -28,5 +28,12 @@ describe('queryParams.get', () => {
         hazelnuts: null,
       },
     });
+  });
+
+  test('should create a queryParams coeffect using a builder', () => {
+    const selectedQueryParams = ['peanuts', 'chesnuts', 'nuts', 'hazelnuts'];
+    const queryParamsCoeffect = queryParamsGet(selectedQueryParams);
+
+    expect(queryParamsCoeffect).toEqual(coeffect('queryParams', selectedQueryParams));
   });
 });

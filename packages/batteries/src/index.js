@@ -7,6 +7,7 @@ import registerGlobalBatteries, { registerGlobalCoeffect, globals } from './glob
 import registerHttpBatteries from './http';
 import registerQueryParamsBatteries, {
   registerQueryParamsCoeffect,
+  queryParams,
 } from './queryParams';
 
 export {
@@ -20,4 +21,5 @@ export {
   registerQueryParamsBatteries,
   globals,
   cookies,
+  queryParams,
 };
