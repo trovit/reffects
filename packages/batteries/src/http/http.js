@@ -1,5 +1,37 @@
 import { registerEffectHandler, dispatch as reffectsDispatch } from 'reffects';
 
+export function httpGet({ url, successEvent, errorEvent = []}) {
+  return {
+    'http.get': {
+      url, successEvent, errorEvent
+    }
+  };
+}
+
+export function httpPost({ url, body, config = {}, successEvent = [], errorEvent = [], alwaysEvent = [] }) {
+  return {
+    'http.post': {
+      url, body, config, successEvent, errorEvent, alwaysEvent
+    }
+  };
+}
+
+export function httpPut({ url, body, successEvent = [], errorEvent = [] }) {
+  return {
+    'http.put': {
+      url, body, successEvent, errorEvent
+    }
+  };
+}
+
+export function httpPatch({ url, body, successEvent = [], errorEvent = [] }) {
+  return {
+    'http.patch': {
+      url, body, successEvent, errorEvent
+    }
+  };
+}
+
 export default function registerHttpEffect(
   httpClient,
   dispatch = reffectsDispatch

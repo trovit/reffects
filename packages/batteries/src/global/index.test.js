@@ -4,7 +4,7 @@ import * as coeffect from './global';
 
 describe('global battery', () => {
   test('effects and coeffects are registered at once when calling registerGlobalBatteries', () => {
-    const globalOject = {};
+    const globalObject = {};
     const registerGlobalCoeffectFn = jest.spyOn(coeffect, 'default');
     const registerEffectHandlerFn = jest.spyOn(
       reffects,
@@ -15,10 +15,10 @@ describe('global battery', () => {
       'registerCoeffectHandler'
     );
 
-    registerGlobalBatteries(globalOject);
+    registerGlobalBatteries(globalObject);
 
     expect(registerEffectHandlerFn).toHaveBeenCalledTimes(0);
     expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(1);
-    expect(registerGlobalCoeffectFn).toHaveBeenCalledWith(globalOject);
+    expect(registerGlobalCoeffectFn).toHaveBeenCalledWith(globalObject);
   });
 });
