@@ -1,7 +1,7 @@
 import { clearHandlers, getEffectHandler } from 'reffects';
 import { destroyAllMocks } from '../../test-helpers/fixtures';
 import { callsTo } from '../../test-helpers/mockHelpers';
-import registerHttpEffect, { httpGet } from './http';
+import registerHttpEffect, { httpGet, httpPost } from './http';
 
 describe('http effects', () => {
   afterEach(() => {
@@ -220,6 +220,27 @@ describe('http effects', () => {
       expect(callsTo(dispatchFake)).toEqual([
         [{ id: alwaysEventId, payload: ['arg1', 'arg2'] }],
       ]);
+    });
+
+    test('should create an http.post effect using a builder', () => {
+      const httpPostEffect = httpPost({
+        url: 'https://github.com/trovit/reffects',
+        body: {hello: 'world'},
+        config: {contentType: 'application/json'},
+        successEvent: ['callbackEvent', 'arg1'],
+        errorEvent: ['failureEvent', 'arg1']
+      });
+
+      expect(httpPostEffect).toEqual({
+        'http.post': {
+          url: 'https://github.com/trovit/reffects',
+          body: {hello: 'world'},
+          config: {contentType: 'application/json'},
+          successEvent: ['callbackEvent', 'arg1'],
+          errorEvent: ['failureEvent', 'arg1'],
+          alwaysEvent: []
+        }
+      });
     });
   });
 

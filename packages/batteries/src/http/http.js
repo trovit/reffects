@@ -6,7 +6,15 @@ export function httpGet({ url, successEvent, errorEvent = []}) {
       url, successEvent, errorEvent
     }
   }
-};
+}
+
+export function httpPost({ url, body, config = {}, successEvent = [], errorEvent = [], alwaysEvent = [] }) {
+  return {
+    'http.post': {
+      url, body, config, successEvent, errorEvent, alwaysEvent
+    }
+  }
+}
 
 export default function registerHttpEffect(
   httpClient,
