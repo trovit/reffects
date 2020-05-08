@@ -8,8 +8,8 @@
   <a href="https://img.shields.io/npm/v/reffects">
     <img src="https://badgen.net/npm/v/reffects">
   </a> 
-  <a href="https://travis-ci.com/trovit/reffects">
-    <img src="https://travis-ci.com/trovit/reffects.svg?branch=master">
+  <a href="https://github.com/trovit/reffects/actions">
+    <img src="https://github.com/trovit/reffects/workflows/CI/badge.svg?branch=master">
   </a> 
   <a href="https://coveralls.io/github/trovit/reffects?branch=master">
     <img src="https://coveralls.io/repos/github/trovit/reffects/badge.svg?branch=master">
