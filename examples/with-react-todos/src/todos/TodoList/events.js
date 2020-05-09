@@ -1,6 +1,7 @@
 import { registerEventHandler } from 'reffects';
 import { state } from "reffects-store";
 import { globals, http } from "reffects-batteries";
+import { toast } from "../../effects/toast";
 
 export default function registerTodoListEvents() {
   registerEventHandler(
@@ -58,10 +59,10 @@ export default function registerTodoListEvents() {
 
       return {
         ...state.set({ todos: newTodos }),
-        toast: {
+        ...toast.show({
           text: `"${text}" was marked as ${isDone ? 'undone' : 'done'}.`,
           milliseconds: 3000,
-        },
+        }),
       };
     },
     [state.get( { todos: 'todos' })]
