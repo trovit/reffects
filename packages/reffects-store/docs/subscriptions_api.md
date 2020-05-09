@@ -19,8 +19,8 @@ Example:
 
 ```js
 import React from "react";
-import { dispatch } from "reffects";
-import { subscribe } from "reffects-store";
+import { dispatch } from "packages/reffects/dist/reffects.es";
+import { subscribe } from "packages/reffects-store/dist/reffects-store.es";
 
 export function Counter({ count, onClickIncrement, onClickDecrement }) {
   return (

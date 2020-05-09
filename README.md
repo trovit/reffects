@@ -37,9 +37,9 @@
 
 ### Reffects store
 
-- [Store](./docs/reffects_store/store_api.md)
-- [Subscriptions](./docs/reffects_store/subscriptions_api.md)
-- [Built-in effects & coeffects](docs/reffects_store/built_in_effects_coeffects.md)
+- [Store](packages/reffects-store/docs/store_api.md)
+- [Subscriptions](packages/reffects-store/docs/subscriptions_api.md)
+- [Built-in effects & coeffects](packages/reffects-store/docs/built_in_effects_coeffects.md)
 
 ### Batteries
 
