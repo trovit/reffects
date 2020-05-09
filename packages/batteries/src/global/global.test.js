@@ -17,7 +17,7 @@ describe('globals', () => {
     const result = coeffectHandler(coeffectDescription.data);
 
     expect(result).toEqual({
-      global: {
+      globals: {
         [fakeVariable]: fakeValue,
       },
     });
@@ -36,7 +36,7 @@ describe('globals', () => {
     const result = coeffectHandler(coeffectDescription.data);
 
     expect(result).toEqual({
-      global: { [fakeVariablePath]: fakeValue },
+      globals: { [fakeVariablePath]: fakeValue },
     });
   });
 
