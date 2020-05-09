@@ -1,33 +1,8 @@
-## Custom effects in todos app.
+# Custom effects in todos app.
 
 These are the custom effects we have created for the *todos app*:
 
-## `get`
-The `get` effect is used in pure event handlers to make `GET` requests to given endpoints. 
-
-The value associated to the `get` effect id in the effects object is an object that configures how the effect will be processed. 
-
-Example:
-```js
-registerEventHandler(
-    "loadTodos",
-    function(coeffects, payload) {
-        return {
-            get: {
-                url: coeffects.serverUri + "/todos",
-                successEvent: ["loadTodosSucceeded"]
-            }
-        };
-    }
-);
-```
-In the example above, we use the `get` effect inside the event handler for the `loadTodos` event in order to retrieve data from an endpoint. For the *TODO app* example we have implemented only two common configuration options: 
-
-a. `url`: the url used to make the `GET` request.
-
-b. `successEvent`: The event that will be dispatched when the request finishes successfully. Its payload will be the response data.
-
-### toast
+## toast
 
 The `toast` effect is used to display a toast.
 
