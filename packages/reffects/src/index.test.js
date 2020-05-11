@@ -254,6 +254,15 @@ test('dispatchMany effect', () => {
   expect(secondEventCallsCounter).toEqual(1);
 });
 
+test('dispatchMany effect is created with a builder', () => {
+  expect(reffects.effects.dispatchMany([{ id: 'someEvent' }, { id: 'anotherEvent', payload: { a: 1 } }])).toEqual({
+    dispatchMany: [
+      { id: 'someEvent' },
+      { id: 'anotherEvent', payload: { a: 1 } },
+    ]
+  });
+});
+
 test('dispatchLater effect', async () => {
   jest.useFakeTimers();
 

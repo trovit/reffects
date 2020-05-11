@@ -180,6 +180,11 @@ const effects = {
         id: eventId, payload
       }
     };
+  },
+  dispatchMany(events) {
+    return {
+      dispatchMany: events
+    };
   }
 };
 
