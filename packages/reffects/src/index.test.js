@@ -297,6 +297,15 @@ test('dispatchLater effect', async () => {
   return expect(callsCounter).toEqual(1);
 });
 
+test('dispatchLater effect is created with a builder', () => {
+  expect(reffects.effects.dispatchLater({ id: 'someEvent', milliseconds: 200 })).toEqual({
+    dispatchLater: { id: 'someEvent', milliseconds: 200, payload: { } }
+  });
+  expect(reffects.effects.dispatchLater({ id: 'anotherEvent', milliseconds: 100, payload: { a: 1 } })).toEqual({
+    dispatchLater: { id: 'anotherEvent', milliseconds: 100, payload: { a: 1 } }
+  });
+});
+
 test('delegating events', () => {
   var callsCounter = 0;
   const expectedPayload = ['arg1', 'arg2'];

@@ -185,6 +185,13 @@ const effects = {
     return {
       dispatchMany: events
     };
+  },
+  dispatchLater({ id, milliseconds, payload = {} }) {
+    return {
+      dispatchLater: {
+        id, milliseconds, payload
+      }
+    };
   }
 };
 
