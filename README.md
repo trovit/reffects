@@ -26,29 +26,29 @@
 
 ### Reffects
 
-- [Events & event handlers](./docs/events_and_event_handlers.md)
-  - [Registering event handlers](./docs/event_handlers.md).
-  - [Testing event handlers](./docs/testing_event_handlers.md).
-- [Effects & Coeffects](./docs/effects_and_coeffects.md)
-  - [Built-in effects](./docs/built_in_effects.md)
-  - [Registering custom effect handlers](./docs/custom_effects.md)
-  - [Registering custom coeffect handlers](./docs/custom_coeffects.md)
-- [API](./docs/api.md)
+- [Events & event handlers](/packages/reffects/docs/events_and_event_handlers.md)
+  - [Registering event handlers](/packages/reffects/docs/event_handlers.md).
+  - [Testing event handlers](/packages/reffects/docs/testing_event_handlers.md).
+- [Effects & Coeffects](/packages/reffects/docs/effects_and_coeffects.md)
+  - [Built-in effects](/packages/reffects/docs/built_in_effects.md)
+  - [Registering custom effect handlers](/packages/reffects/docs/custom_effects.md)
+  - [Registering custom coeffect handlers](/packages/reffects/docs/custom_coeffects.md)
+- [API](/packages/reffects/docs/api.md)
 
 ### Reffects store
 
-- [Store](packages/reffects-store/docs/store_api.md)
-- [Subscriptions](packages/reffects-store/docs/subscriptions_api.md)
-- [Built-in effects & coeffects](packages/reffects-store/docs/built_in_effects_coeffects.md)
+- [Store](/packages/reffects-store/docs/store_api.md)
+- [Subscriptions](/packages/reffects-store/docs/subscriptions_api.md)
+- [Built-in effects & coeffects](/packages/reffects-store/docs/built_in_effects_coeffects.md)
 
 ### Batteries
 
 For easy of use, we have implemented some common effects/coeffects that you may need in your day to day life as a developer. We have called them `batteries` (as in "batteries included").
 
-- [Cookies](./packages/batteries/docs/cookies.md)
-- [Global](./packages/batteries/docs/global.md)
-- [http](./packages/batteries/docs/http.md)
-- [QueryParams](./packages/batteries/docs/queryParams.md)
+- [Cookies](/packages/batteries/docs/cookies.md)
+- [Global](/packages/batteries/docs/global.md)
+- [http](/packages/batteries/docs/http.md)
+- [QueryParams](/packages/batteries/docs/queryParams.md)
 
 ## Tests
 

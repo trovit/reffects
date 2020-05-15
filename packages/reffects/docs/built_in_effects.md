@@ -8,7 +8,7 @@ It receives two parameters: an `id` and an optional `payload`. The value associa
 In the following example, the event handler for the `"showAlertOnRim"` event handler returns an **effects object** containing a `dispatch` effect that describes the dispatch of a `"displayNotification"` event with a **payload** that will be the following object: `{id: alert.id, text: alert.message}`.
 
 ```js
-import { effects } from 'reffects';
+import { effects } from 'packages/reffects/dist/reffects.es';
 
 registerEventHandler(
   "showAlertOnRim",

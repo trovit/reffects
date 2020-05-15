@@ -13,6 +13,6 @@ They  **track your program’s side-causes**, (*what your program requires from 
 
 ## Related documents
 
-* [Built-in Effects in reffects](./built_in_effects.md)
-* [Registering custom effect handlers](./custom_effects.md)
-* [Registering custom coeffect handlers](./custom_coeffects.md)
+* [Built-in Effects in reffects](built_in_effects.md)
+* [Registering custom effect handlers](custom_effects.md)
+* [Registering custom coeffect handlers](custom_coeffects.md)
