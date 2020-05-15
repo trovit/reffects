@@ -50,8 +50,6 @@ For easy of use, we have implemented some common effects/coeffects that you may 
 - [http](/packages/batteries/docs/http.md)
 - [QueryParams](/packages/batteries/docs/queryParams.md)
 
-## Tests
+## Contributing
 
-To run the tests once: `npm run test`
-
-To run the tests everytime the code changes: `npm run test:watch`
+Checkout [our guide](/docs/contributing.md) in case you want to propose some changes to `reffects`.

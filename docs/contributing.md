@@ -5,7 +5,9 @@
 * [Bug issue template]
 * [Feature issue template]
 
-### 1. Setup
+After cloning `reffects`, run `npm install` to fetch all the dependencies. After that you'll have to do `npm run bootstrap` to link the internal dependencies between the submodules. Once done, you're good to go. Try running the tests with `npm test` to check everything's ok. You can even use `npm run test:watch` to run them in the background every time your code changes :wink:
+
+If you want to contribute to the project, follow these steps:
 
 * Fork this repository and clone the fork. 
 * Create a branch.
@@ -23,15 +25,6 @@ Add any "context" `(server/client/...)` to the commit message if you want. I'll 
 > * feat: adds new coeffect handler param
 > * docs: clarifies contributing file about testing 
  
-
-### 2. Testing
-
-To run the tests once: `npm run test`
-
-To run the tests everytime the code changes: `npm run test:watch`
-
-
-### 3. Release
 
 Once you're finished just push your changes and open a pull request. Get the [pull request template].
 
