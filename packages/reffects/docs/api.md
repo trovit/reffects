@@ -85,6 +85,8 @@ This function associates a given effect with its handler.
 
 It receives two parameters: the effect identifier which has to be a string and the effect handler which has to be a function.
 
+Remember the function should be pure, thus it should not do any side effect and just describe the effects.
+
 Example:
 ```js
 registerEffectHandler(
@@ -97,6 +99,21 @@ registerEffectHandler(
 ```
 
 This example registers an effect `"mutate"` that mutates a value at a given path in the application's state.
+
+This is how the `effect` could be used:
+
+```js
+registerEventHandler(
+  "someEvent", 
+  function someEventHandler(coeffects, payload) {
+    return {
+      mutate: [
+        { user: 'Foo' }
+      ]
+    };
+  }, 
+  [coeffect("apiUrl")]);
+```
 
 ## `registerCoeffectHandler`
 This function associates a given coeffect with its handler.
@@ -113,6 +130,25 @@ registerCoeffectHandler(
 
 This example registers a coeffect `"datetime"` that computes the current datetime
 and returns and object that associates its value to the coeffects identifier, `"datetime"`.
+
+This is how this coeffect might be used from an event handler:
+
+```js
+registerEventHandler(
+  "anEventHandlerUsingDateTimeCoeffect",
+  function(coeffects, payload) {
+    return {
+      toast: {
+        text: "Now is " + coeffects.datetime,
+        milliseconds: 100
+      }
+    };
+  },
+  [coeffect("datetime")]
+);
+```
+
+Because of how `reffects` is designed, coeffect handlers must be **synchronous operations**. If you need to get data using an **asynchronous operation** you must use a custom **effect** instead.
 
 ## `getCoeffectHandler`
 This function is used only in tests and gets coeffect handlers already registered in `reffects` given 

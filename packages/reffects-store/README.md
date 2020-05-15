@@ -6,5 +6,6 @@ This library is an implementation of a store for React including the subscriptio
 
 ## Documentation
 
-- [Store](/packages/reffects-store/docs/store_api.md)
-- [Subscriptions](/packages/reffects-store/docs/subscriptions_api.md)
+- [Store](./docs/store_api.md)
+- [Subscriptions](./docs/subscriptions_api.md)
+- [Built-in effects & coeffects](./docs/built_in_effects_coeffects.md)
