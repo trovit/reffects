@@ -199,6 +199,15 @@ test('dispatch effect', () => {
   expect(callsCounter).toEqual(1);
 });
 
+test('dispatch effect is created with a builder', () => {
+  expect(reffects.effects.dispatch('someEvent')).toEqual({
+    dispatch: { id: 'someEvent', payload: {} }
+  });
+  expect(reffects.effects.dispatch('anotherEvent', { a: 1 })).toEqual({
+    dispatch: { id: 'anotherEvent', payload: { a: 1} }
+  });
+});
+
 test('dispatchMany effect', () => {
   var firstEventCallsCounter = 0,
     secondEventCallsCounter = 0;
@@ -245,6 +254,15 @@ test('dispatchMany effect', () => {
   expect(secondEventCallsCounter).toEqual(1);
 });
 
+test('dispatchMany effect is created with a builder', () => {
+  expect(reffects.effects.dispatchMany([{ id: 'someEvent' }, { id: 'anotherEvent', payload: { a: 1 } }])).toEqual({
+    dispatchMany: [
+      { id: 'someEvent' },
+      { id: 'anotherEvent', payload: { a: 1 } },
+    ]
+  });
+});
+
 test('dispatchLater effect', async () => {
   jest.useFakeTimers();
 
@@ -277,6 +295,15 @@ test('dispatchLater effect', async () => {
   jest.runAllTimers();
 
   return expect(callsCounter).toEqual(1);
+});
+
+test('dispatchLater effect is created with a builder', () => {
+  expect(reffects.effects.dispatchLater({ id: 'someEvent', milliseconds: 200 })).toEqual({
+    dispatchLater: { id: 'someEvent', milliseconds: 200, payload: { } }
+  });
+  expect(reffects.effects.dispatchLater({ id: 'anotherEvent', milliseconds: 100, payload: { a: 1 } })).toEqual({
+    dispatchLater: { id: 'anotherEvent', milliseconds: 100, payload: { a: 1 } }
+  });
 });
 
 test('delegating events', () => {

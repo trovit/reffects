@@ -173,6 +173,28 @@ registerEffectHandler('dispatchLater', function dispatchLaterEffect(event) {
   dispatchLater(event);
 });
 
+const effects = {
+  dispatch(eventId, payload = {}) {
+    return {
+      dispatch: {
+        id: eventId, payload
+      }
+    };
+  },
+  dispatchMany(events) {
+    return {
+      dispatchMany: events
+    };
+  },
+  dispatchLater({ id, milliseconds, payload = {} }) {
+    return {
+      dispatchLater: {
+        id, milliseconds, payload
+      }
+    };
+  }
+};
+
 function getHandler(handlerType, handlerId) {
   const handler = handlers[handlerType][handlerId];
   if (!handler) {
@@ -271,6 +293,7 @@ export {
   registerCoeffectHandler,
   registerEffectHandler,
   registerEventsDelegation,
+  effects,
   coeffect,
   getEffectHandler,
   getCoeffectHandler,

@@ -1,47 +1,32 @@
 # Built-in effects in reffects
 
-## `"dispatch"`
-The `"dispatch"` effect is **used to describe that an event will be dispatched**.
+## `dispatch`
+The `dispatch` effect is **used to describe that an event will be dispatched**.
 
-The data associated to a `"dispatch"` effect is an **event object**.
+It receives two parameters: an `id` and an optional `payload`. The value associated with `id` is a string that identifies the event and the value associated with `payload` is the payload of the event which is optional and it's an empty object by default.
 
-The **event** object has two keys: `id` and `payload`. The value associated with `id` is a string that identifies the event and the value associated with `payload` is the payload of the event which is optional and it's an empty object by default. When the event has no payload it can also be represented by a string which would be its id.
-
-In the following example, the event handler for the `"showAlertOnRim"` event handler returns an **effects object** containing a `"dispatch"` effect that describes the dispatch of a `"displayNotification"` event with a **payload** that will be the following object: `{id: alert.id, text: alert.message}`.
+In the following example, the event handler for the `"showAlertOnRim"` event handler returns an **effects object** containing a `dispatch` effect that describes the dispatch of a `"displayNotification"` event with a **payload** that will be the following object: `{id: alert.id, text: alert.message}`.
 
 ```js
+import { effects } from 'reffects';
+
 registerEventHandler(
   "showAlertOnRim",
   function(coeffects, alert) {
-    return {
-      dispatch: {id: "displayNotification", payload: {id: alert.id, text: alert.message}}
-    };
+    return effects.dispatch("displayNotification", {id: alert.id, text: alert.message});
   }
 );
 ```
 
-In the following case the payload of the dispatched event, `::svg.fetch`, is empty:
+In the following case the payload of the dispatched event, `fetchSvg`, is empty:
 
 ```js
+import { effects } from 'reffects';
+
 registerEventHandler(
   "fetchData",
   function(coeffects) {
-    return {
-      dispatch: {id: "fetchSvg"}}
-    };
-  }
-);
-```
-
-An alternative way of writing it would be:
-
-```js
-registerEventHandler(
-  "fetchData",
-  function(coeffects) {
-    return {
-      dispatch: "fetchSvg"}
-    };
+    return effects.dispatch("fetchSvg");
   }
 );
 ```
@@ -49,59 +34,59 @@ registerEventHandler(
 ##  `"dispatchMany"`
 The `"dispatchMany"` effect is **used to describe the dispatch of a sequence of events in order**.
 
-The data associated to a `"dispatchMany"` effect is **an array of event objects**.
+It receives **an array of event objects**, each one with two keys: `id` and `payload`. The value associated with `id` is a string that identifies the event and the value associated with `payload` is the payload of the event which is optional and it's an empty object by default.
 
-The **event** object has two keys: `id` and `payload`. The value associated with `id` is a string that identifies the event and the value associated with `payload` is the payload of the event which is optional and it's an empty object by default. When the event has no payload it can also be represented by a string which would be its id.
-
-In the following example the event handler for the `"pageChanged"` event returns an **effects object** that includes a 
-`"dispatchMany"` effect  that describes the dispatch of a sequence of events:
+In the following example the event handler for the `"pageChanged"` event returns a `dispatchMany` effect that describes the dispatch of a sequence of events:
 1. A `"fetchMetadata"` event with a payload of `35` 
 2. A `"fetchSvg"` event with no payload.
 
 ```js
+import { effects } from 'reffects';
+
 registerEventHandler(
   "pageChanged",
   function(coeffects) {
-    return {
-      dispatchMany: [{id: "fetchMetadata", payload: 35}, "fetchSvg"]
-    };
+    return effects.dispatchMany([
+        { id: "fetchMetadata", payload: 35 },
+        { id: "fetchSvg" }
+    ]);
   }
 );
 ```
 
-## `"dispatchLater"`
-The `"dispatchLater"` effect is **used to describe the dispatch of an event that will happen after some milliseconds**.
+## `dispatchLater`
+The `dispatchLater` effect is **used to describe the dispatch of an event that will happen after some milliseconds**.
 
-The data associated to a `"dispatchLater"` effect is a **delayed event object**.
+It has three properties: `id`, `payload` and `milliseconds`. 
 
-A delayed event object has three keys: `id`, `payload` and `milliseconds`. 
+The value associated with the `id` key identifies the event, the value associated with the `payload` key is the payload of the event which is optional and it's an empty object by default, and the value associated with the `milliseconds` key is the number of milliseconds the dispatch will be delayed.
 
-The value associated with  the `id` key identifies the event, the value associated with the `payload` key is the payload of the event which is optional and it's an empty object by default, and the value associated with the `milliseconds` key is the number of milliseconds the dispatch will be delayed.
-
-In the following example the event handler for the `"removeCalendarWithDelay"` event returns an **effects object** that includes a `"dispatchLater"` effect which describes the dispatch of the `"removeCalendar"` that will happen after 200 milliseconds.
+In the following example the event handler for the `"removeCalendarWithDelay"` event returns a `dispatchLater` effect which describes the dispatch of the `"removeCalendar"` that will happen after 200 milliseconds.
 
 ```js
+import { effects } from 'reffects';
+
 registerEventHandler(
   "removeCalendarWithDelay",
   function(coeffects, message) {
-    return {
-      dispatchLater: {id: "removeCalendar", payload: message, milliseconds: 200}
-    };
+    return effects.dispatchLater(
+        {id: "removeCalendar", payload: message, milliseconds: 200}
+    );
   }
 );
 ```
 
-The `"updateTodosSucceeded"` event handler shown below is a very interesting case because when the condition in the `if` evaluates to `true`, it returns an **effects object** with a `"dispatchLater"` effect that describes the dispatch of itself after `retryTimeInMilliSeconds` milliseconds. This will produce a recursion until the condition in the `if` evaluates to `false`:
+The `"updateTodosSucceeded"` event handler shown below is a very interesting case because when the condition in the `if` evaluates to `true`, it returns a `dispatchLater` effect that describes the dispatch of itself after `retryTimeInMilliSeconds` milliseconds. This will produce a recursion until the condition in the `if` evaluates to `false`:
 
 ```js
+import { effects } from 'reffects';
+
 const retryTimeInMilliSeconds = 200;
 registerEventHandler(
   "updateTodosSucceeded",
   function(coeffects, [response]) {
     if(response.state !== "finished") {
-      return {
-        dispatchLater: {id: "updateTodos", milliseconds: retryTimeInMilliSeconds}
-      };
+      return effects.dispatchLater({id: "updateTodos", milliseconds: retryTimeInMilliSeconds});
     } else {
       // do sth else with the response
     }
