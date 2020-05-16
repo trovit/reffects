@@ -40,27 +40,33 @@ It receives three parameters:
 
 Example using no coeffects:
 ```js
+
+import { effects } from "reffects";
+
 registerEventHandler(
   "setSelectedChartsRange",
   function(coeffects, selectedChartsRange) {
-    return {dispatchMany: [{id: "modifyComboSelection", payload: selected-charts-range},
-                           {id: "loadChartData", payload: selected-charts-range},
-                           "idOfEventNotNeedingPayload"]};
+    return effects.dispatchMany([
+        {id: "modifyComboSelection", payload: selected-charts-range},
+        {id: "loadChartData", payload: selected-charts-range},
+        "idOfEventNotNeedingPayload"
+    ]);
   }
 );
 ```
 
 Example using some coeffects:
 ```js
+
+import { state } from "reffects-store";
+
 registerEventHandler(
   "loadTodos", 
   function loadTodos(coeffects, payload) {
-    return {
-      get: {
+    return state.set({
         url: coeffects.apiUrl,
         successEvent: ["loadTodosSucceeded"]
-      }
-    };
+    });
   }, 
   [coeffect("apiUrl")]);
 ```

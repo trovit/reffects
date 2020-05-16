@@ -6,6 +6,8 @@ The `state.set` effect is used to mutate a value located on the `app-state` at a
 Example:
 
 ```js
+import { state } from "reffects-store";
+
 registerEventHandler(
     "loadTodosSucceeded", 
     function loadTodosSucceeded(coeffects, [response]) {
@@ -14,16 +16,12 @@ registerEventHandler(
             text: 'Describe: ' + item.name,
             done: !!item.description
         }));
-        return {
-            'state.set': {"todos": todos}
-        };
+        return state.set({"todos": todos});
     }
 );
 ```
 
-In the example shown above, the event handler for `loadTodosSucceeded` event returns an effects object containing a `state.set` effect that will set the new value of a part of the application state located at the `"todos"` path. 
-
-Notice that the data associated to the `state.set` effect in the effects object is an object whose entries (key-value pairs) are mutations. Each mutation (key-value pair) is interpreted as: 
+In the example shown above, the event handler for `loadTodosSucceeded` event returns a `state.set` effect that will set the new value of a part of the application state located at the `"todos"` path. Each mutation (key-value pair) is interpreted as: 
 
 1. The key represents the **path** in the app state to get to the value we'd like to mutate. A path is represented by a string in which each part of the path is separated by a dot, like `'todos.status'`. In this example, the piece of state being mutated would be `appState.todos.status`.
 
@@ -59,6 +57,8 @@ You should never use the `getState` method of the `reffects-store` inside an eve
 Example:
 
 ```js
+import { state } from "reffects-store";
+
 registerEventHandler(
   "todoClicked", 
   function todoClicked(coeffects, { id, text, isDone }) {
@@ -69,15 +69,11 @@ registerEventHandler(
         }
         return todo;
     });
-    return {
-      'state.set': {
-        "todos": newTodos
-      }
-    };
+    return state.set({ "todos": newTodos });
   },
-  [coeffect('state.get', {todos: 'todos'})]);
+  [state.get({todos: 'todos'})]);
 ```
-In this example we used the third parameter of reffects [registerEventHandler](/docs/api.md#registereventhandler) function to declare the list of coeffects that the event handler of the `todoClicked` event will receive when called. In this case, it includes only the `state.get` coeffect. To declare it we're using the `coeffect` function which is a coeffects factory function, in `coeffect('state.get', {todos: 'todos'})`. This factory function receives an object whose entries (key-value pairs) represent *extractions*. Each extraction (key-value pair) is interpreted as:
+In this example we used the third parameter of reffects [registerEventHandler](/docs/api.md#registereventhandler) function to declare the list of coeffects that the event handler of the `todoClicked` event will receive when called. In this case, it includes only the `state.get` coeffect. To declare it we're using the `state.get` builder. This factory function receives an object whose entries (key-value pairs) represent *extractions*. Each extraction (key-value pair) is interpreted as:
 
 1. The key represents the **key** that the value will be associated to in the object associated to the `state` key in the coeffects object.
 
