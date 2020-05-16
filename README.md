@@ -30,6 +30,8 @@ This repository contains all the existing components of the reffects framework:
 - [Reffects store](/packages/reffects-store/README.md), an implementation of a store to use `reffects` inside a React application.
 - [Batteries](/packages/batteries/README.md), some common effects/coeffects that can be useful for starting your application.
 
+You can see an example of a small application using `reffects` in the [`with-react-todos`](/examples/with-react-todos/README.md) folder
+
 ## Contributing
 
 Checkout [our guide](/docs/contributing.md) in case you want to propose some changes to `reffects`.
