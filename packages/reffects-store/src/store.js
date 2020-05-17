@@ -40,15 +40,7 @@ export function subscribeListener(listener) {
 }
 
 export function unsubscribeListener(listener) {
-  const out = [];
-
-  listeners.forEach(function mayUnsubscribe(currentListener) {
-    if (currentListener !== listener) {
-      out.push(currentListener);
-    }
-  });
-
-  listeners = out;
+  listeners = listeners.filter(currentListener => currentListener !== listener);
 }
 
 export function initialize(initialState = {}) {
