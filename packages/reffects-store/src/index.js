@@ -9,6 +9,7 @@ if (devToolsOn) {
   window['__REFFECTS_DEV_TOOLS__'] = {
     ...window['__REFFECTS_DEV_TOOLS__'],
     getState: store.getState,
+    setState: store.setState,
     initialize: store.initialize,
   };
 }
