@@ -95,6 +95,22 @@ describe('http effects', () => {
         }
       });
     });
+
+    test('should create an http.get effect using a builder with events as objects', () => {
+      const httpGetEffect = httpGet({
+        url: 'https://github.com/trovit/reffects',
+        successEvent: { id: 'callbackEvent', payload: { arg1: 'arg1' } },
+        errorEvent: { id: 'failureEvent', payload: { arg1: 'arg1' } },
+      });
+
+      expect(httpGetEffect).toEqual({
+        'http.get': {
+          url: 'https://github.com/trovit/reffects',
+          successEvent: ['callbackEvent', { arg1: 'arg1' }],
+          errorEvent: ['failureEvent', { arg1: 'arg1' }]
+        }
+      });
+    });
   });
 
   describe('http.post', () => {
@@ -242,6 +258,27 @@ describe('http effects', () => {
         }
       });
     });
+
+    test('should create an http.post effect using a builder with events as objects', () => {
+      const httpPostEffect = httpPost({
+        url: 'https://github.com/trovit/reffects',
+        body: {hello: 'world'},
+        config: {contentType: 'application/json'},
+        successEvent: { id: 'callbackEvent', payload: { arg1: 'arg1' } },
+        errorEvent: { id: 'failureEvent', payload: { arg1: 'arg1' } }
+      });
+
+      expect(httpPostEffect).toEqual({
+        'http.post': {
+          url: 'https://github.com/trovit/reffects',
+          body: {hello: 'world'},
+          config: {contentType: 'application/json'},
+          successEvent: ['callbackEvent', { arg1: 'arg1' }],
+          errorEvent: ['failureEvent', { arg1: 'arg1' }],
+          alwaysEvent: []
+        }
+      });
+    });
   });
 
   describe('http.put', () => {
@@ -339,6 +376,23 @@ describe('http effects', () => {
         }
       });
     });
+
+    test('should create an http.put effect using a builder  with events as objects', () => {
+      const httpPutEffect = httpPut({
+        url: 'https://github.com/trovit/reffects',
+        body: {hello: 'world'},
+        successEvent: { id: 'callbackEvent', payload: { arg1: 'arg1' } }
+      });
+
+      expect(httpPutEffect).toEqual({
+        'http.put': {
+          url: 'https://github.com/trovit/reffects',
+          body: {hello: 'world'},
+          successEvent: ['callbackEvent', { arg1: 'arg1' }],
+          errorEvent: [],
+        }
+      });
+    });
   });
 
   describe('http.patch', () => {
@@ -432,6 +486,23 @@ describe('http effects', () => {
           url: 'https://github.com/trovit/reffects',
           body: {hello: 'world'},
           successEvent: ['callbackEvent', 'arg1'],
+          errorEvent: [],
+        }
+      });
+    });
+
+    test('should create an http.patch effect using a builder with events as objects', () => {
+      const httpPatchEffect = httpPatch({
+        url: 'https://github.com/trovit/reffects',
+        body: {hello: 'world'},
+        successEvent: { id: 'callbackEvent', payload: { arg1: 'arg1' } }
+      });
+
+      expect(httpPatchEffect).toEqual({
+        'http.patch': {
+          url: 'https://github.com/trovit/reffects',
+          body: {hello: 'world'},
+          successEvent: ['callbackEvent', { arg1: 'arg1' }],
           errorEvent: [],
         }
       });

@@ -1,9 +1,24 @@
 import { registerEffectHandler, dispatch as reffectsDispatch } from 'reffects';
 
+function adaptEvent(event) {
+  if (Array.isArray(event)) {
+    return event;
+  }
+  if (typeof event === 'string') {
+    return [event];
+  }
+  if (event.payload) {
+    return [event.id, event.payload];
+  }
+  return [event.id];
+}
+
 export function httpGet({ url, successEvent, errorEvent = []}) {
   return {
     'http.get': {
-      url, successEvent, errorEvent
+      url,
+      successEvent: adaptEvent(successEvent),
+      errorEvent: adaptEvent(errorEvent)
     }
   };
 }
@@ -11,7 +26,12 @@ export function httpGet({ url, successEvent, errorEvent = []}) {
 export function httpPost({ url, body, config = {}, successEvent = [], errorEvent = [], alwaysEvent = [] }) {
   return {
     'http.post': {
-      url, body, config, successEvent, errorEvent, alwaysEvent
+      url,
+      body,
+      config,
+      successEvent: adaptEvent(successEvent),
+      errorEvent: adaptEvent(errorEvent),
+      alwaysEvent: adaptEvent(alwaysEvent),
     }
   };
 }
@@ -19,7 +39,10 @@ export function httpPost({ url, body, config = {}, successEvent = [], errorEvent
 export function httpPut({ url, body, successEvent = [], errorEvent = [] }) {
   return {
     'http.put': {
-      url, body, successEvent, errorEvent
+      url,
+      body,
+      successEvent: adaptEvent(successEvent),
+      errorEvent: adaptEvent(errorEvent),
     }
   };
 }
@@ -27,7 +50,10 @@ export function httpPut({ url, body, successEvent = [], errorEvent = [] }) {
 export function httpPatch({ url, body, successEvent = [], errorEvent = [] }) {
   return {
     'http.patch': {
-      url, body, successEvent, errorEvent
+      url,
+      body,
+      successEvent: adaptEvent(successEvent),
+      errorEvent: adaptEvent(errorEvent),
     }
   };
 }

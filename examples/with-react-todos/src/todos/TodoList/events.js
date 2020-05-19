@@ -9,7 +9,7 @@ export default function registerTodoListEvents() {
     function loadTodos({ globals }, payload) {
       return http.get({
         url: globals.apiUrl,
-        successEvent: ['loadTodosSucceeded'],
+        successEvent: { id: 'loadTodosSucceeded' },
       });
     },
     [globals.get('apiUrl')]
