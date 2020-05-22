@@ -73,7 +73,7 @@ registerEventHandler(
   },
   [state.get({todos: 'todos'})]);
 ```
-In this example we used the third parameter of reffects [registerEventHandler](/docs/api.md#registereventhandler) function to declare the list of coeffects that the event handler of the `todoClicked` event will receive when called. In this case, it includes only the `state.get` coeffect. To declare it we're using the `state.get` builder. This factory function receives an object whose entries (key-value pairs) represent *extractions*. Each extraction (key-value pair) is interpreted as:
+In this example we used the third parameter of reffects [registerEventHandler](/packages/reffects/docs/api.md#registereventhandler) function to declare the list of coeffects that the event handler of the `todoClicked` event will receive when called. In this case, it includes only the `state.get` coeffect. To declare it we're using the `state.get` builder. This factory function receives an object whose entries (key-value pairs) represent *extractions*. Each extraction (key-value pair) is interpreted as:
 
 1. The key represents the **key** that the value will be associated to in the object associated to the `state` key in the coeffects object.
 
