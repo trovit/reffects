@@ -7,7 +7,7 @@
   "main": "src/index.js",
   "dependencies": {
     "react-scripts": "2.1.8",
-    "reffects": "github:trovit/reffects#0.1.17",
+    "reffects": "github:trovit/reffects#0.1.18",
     "reffects-batteries": "github:trovit/reffects-batteries#0.2.0",
     "reffects-store": "github:trovit/reffects-store#0.3.0",
     "reselect": "^4.0.0"
