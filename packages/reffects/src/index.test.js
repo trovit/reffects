@@ -420,3 +420,20 @@ test('an exception is thrown, when the coeffect received is missing a required c
     eventHandler({"mioko": {}}, passedPayload)
   ).toThrowError();
 });
+
+test('if coeffects is falsy should not do fallback to an empty object', () => {
+  const mokoCoeffectDescription = undefined;
+  const eventId = 'eventHandlerInWhichCoeffectsValuesAreInjected';
+  const dummyEventHandler = () => {};
+
+  reffects.registerEventHandler(
+      eventId,
+      dummyEventHandler,
+  );
+
+  const eventHandler = reffects.getEventHandler(eventId);
+
+  expect(() =>
+      eventHandler(mokoCoeffectDescription)
+  ).not.toThrowError();
+})

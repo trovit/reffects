@@ -130,7 +130,7 @@ function checkedEventHandler(handler, coeffectDescriptions) {
 
   return function(coeffects, payload) {
     const requiredIds = coeffectDescriptions.map((desc) => isString(desc) ? desc : desc["id"]);
-    const missingCoeffects = Object.keys(coeffects).filter(coeffectId => !requiredIds.includes(coeffectId));
+    const missingCoeffects = Object.keys(coeffects || {}).filter(coeffectId => !requiredIds.includes(coeffectId));
     if(missingCoeffects.length > 0) {
       throw new Error(`Missing coeffects ${missingCoeffects.join(',')}`);
     }
