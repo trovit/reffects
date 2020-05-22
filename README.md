@@ -24,6 +24,10 @@
 
 ## Documentation
 
+Reffects is a Javascript framework for developing SPAs using an event-driven unidirectional flow architecture. 
+
+It's based on ClojureScript's re-frame. It promotes a functional programming style with the use of the effects as data patterns in which event handlers are pure functions, and effects/coeffects to manage side effects/causes.
+
 This repository contains all the existing components of the reffects framework:
 
 - [Reffects](/packages/reffects/README.md), the core library for developing applications in a functional style with events, effects and coeffects.
