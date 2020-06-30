@@ -13,12 +13,13 @@ function adaptEvent(event) {
   return [event.id];
 }
 
-export function httpGet({ url, successEvent, errorEvent = []}) {
+export function httpGet({ url, successEvent, errorEvent = [], config}) {
   return {
     'http.get': {
       url,
       successEvent: adaptEvent(successEvent),
-      errorEvent: adaptEvent(errorEvent)
+      errorEvent: adaptEvent(errorEvent),
+      config,
     }
   };
 }
@@ -66,6 +67,7 @@ export default function registerHttpEffect(
     url,
     successEvent = [],
     errorEvent = [],
+    config = {},
   }) {
     httpClient.get({
       url,
@@ -75,6 +77,7 @@ export default function registerHttpEffect(
       errorFn(error) {
         dispatchEvent(errorEvent, error);
       },
+      config
     });
   });
 

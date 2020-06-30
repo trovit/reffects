@@ -13,6 +13,7 @@ describe('http effects', () => {
 
   describe('http.get', () => {
     const effectId = 'http.get';
+    const config = { headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9' } };
 
     test('request success', () => {
       const responseData = 'responseData';
@@ -34,12 +35,14 @@ describe('http effects', () => {
           eventRestOfPayload[0],
           eventRestOfPayload[1],
         ],
+        config
       });
 
       expect(fakeHttpClient.get).toHaveBeenCalledWith({
         url,
         successFn: expect.any(Function),
         errorFn: expect.any(Function),
+        config
       });
       expect(dispatchFake).toHaveBeenCalledTimes(1);
       expect(callsTo(dispatchFake)).toEqual([
@@ -67,12 +70,14 @@ describe('http effects', () => {
           eventRestOfPayload[0],
           eventRestOfPayload[1],
         ],
+        config
       });
 
       expect(fakeHttpClient.get).toHaveBeenCalledWith({
         url,
         successFn: expect.any(Function),
         errorFn: expect.any(Function),
+        config
       });
       expect(dispatchFake).toHaveBeenCalledTimes(1);
       expect(callsTo(dispatchFake)).toEqual([
@@ -80,18 +85,50 @@ describe('http effects', () => {
       ]);
     });
 
+    test('default config is empty object', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        get: jest.fn().mockImplementation(function get({ errorFn }) {
+          return errorFn(errorData);
+        }),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const url = 'fakeUrl';
+      const errorEventId = 'errorEventId';
+
+      httpEffectHandler({
+        url,
+        errorEvent: [
+          errorEventId,
+          eventRestOfPayload[0],
+          eventRestOfPayload[1],
+        ],
+      });
+
+      expect(fakeHttpClient.get).toHaveBeenCalledWith({
+        url,
+        successFn: expect.any(Function),
+        errorFn: expect.any(Function),
+        config: {}
+      });
+    });
+
     test('should create an http.get effect using a builder', () => {
       const httpGetEffect = httpGet({
         url: 'https://github.com/trovit/reffects',
         successEvent: ['callbackEvent', 'arg1'],
-        errorEvent: ['failureEvent', 'arg1']
+        errorEvent: ['failureEvent', 'arg1'],
+        config
       });
 
       expect(httpGetEffect).toEqual({
         'http.get': {
           url: 'https://github.com/trovit/reffects',
           successEvent: ['callbackEvent', 'arg1'],
-          errorEvent: ['failureEvent', 'arg1']
+          errorEvent: ['failureEvent', 'arg1'],
+          config
         }
       });
     });
@@ -101,13 +138,15 @@ describe('http effects', () => {
         url: 'https://github.com/trovit/reffects',
         successEvent: { id: 'callbackEvent', payload: { arg1: 'arg1' } },
         errorEvent: { id: 'failureEvent', payload: { arg1: 'arg1' } },
+        config
       });
 
       expect(httpGetEffect).toEqual({
         'http.get': {
           url: 'https://github.com/trovit/reffects',
           successEvent: ['callbackEvent', { arg1: 'arg1' }],
-          errorEvent: ['failureEvent', { arg1: 'arg1' }]
+          errorEvent: ['failureEvent', { arg1: 'arg1' }],
+          config
         }
       });
     });
