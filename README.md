@@ -30,7 +30,7 @@ It's based on ClojureScript's re-frame. It promotes a functional programming sty
 
 This repository contains all the existing components of the reffects framework:
 
-- [Reffects](/packages/reffects/README.md), the core library for developing applications in a functional style with events, effects and coeffects.
+- [Reffects](/packages/reffects/README.md), the core framework for developing applications in a functional style using events, effects and coeffects.
 - [Reffects store](/packages/reffects-store/README.md), an implementation of a store to use `reffects` inside a React application.
 - [Batteries](/packages/batteries/README.md), some common effects/coeffects that can be useful for starting your application.
 
