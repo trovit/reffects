@@ -1,4 +1,4 @@
-## `initialize`
+### `initialize`
 This function initializes the state of the store.
 
 It can receive one parameter: *an initial state* which is a JavaScript object. 
@@ -40,7 +40,7 @@ In this case the state of the store is set to the following object:
 {}
 ```
 
-## `getState`
+### `getState`
 This function gets the value of a piece of state at a given path.
 
 It accepts only one parameter: a *path*.
@@ -58,7 +58,7 @@ store.getState("a.b.d"); // {e: "h"}
 
 ```
 
-## `setState`
+### `setState`
 This function sets the value of a piece of state at a given path.
 
 It accepts only one parameter: an array of *mutations*.
