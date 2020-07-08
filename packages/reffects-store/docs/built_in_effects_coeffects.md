@@ -49,7 +49,7 @@ if the mutation of the value located at the path `'todos.status'` were expressed
 
 You should never use the `setState` method of the `reffects-store` inside an event handler or inside any function called from an event handler because that would make it impure and, as such, much more difficult to test.
 
-## `state.get`
+### `state.get`
 The `state.get` coeffect is used to retrieve values from the `app-state` (global state) given the paths in the state those values are located at, in a way that allows event handlers to use values from the global state while still being pure functions.
 
 You should never use the `getState` method of the `reffects-store` inside an event handler or inside any function called from an event handler because that would make it impure and, as such, much more difficult to test.
