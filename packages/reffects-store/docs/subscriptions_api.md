@@ -2,7 +2,7 @@
 
 You need to use the following function:
 
-## `subscribe`
+### `subscribe`
 This function subscribes a React component to given [reselect](https://github.com/reduxjs/reselect)’s selectors, so that it only renders when the values in the application state tracked by the given selectors change.
 
 The `subscribe` function gets as first parameter the component we want to subscribe to to the store.
