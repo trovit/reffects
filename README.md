@@ -2,7 +2,7 @@
    <img alt="reffects" src="./logo.png" height="85">
 </p>
 <h1 align="center">Reffects</h1>
-<p align="center">Synchronous event bus with effects and coeffects in JS</p>
+<p align="center">A Javascript framework for developing SPAs using an event-driven unidirectional-flow functional architecture.</p>
 
 <p align="center">
   <a href="https://img.shields.io/npm/v/reffects">
