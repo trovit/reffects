@@ -4,15 +4,15 @@ To use this battery, you'll need to provide a cookie client with the following A
 
 ```js
 registerCookiesBatteries({
-    /*
-    * Retrieves a cookie given a its name
-    */
-    get(key) {},
+  /*
+   * Retrieves a cookie given a its name
+   */
+  get(key) {},
 
-    /*
-    * Save a cookie, which has a format {key: 'foo', value: 'bar'}
-    */
-    set(cookie) {}
+  /*
+   * Save a cookie, which has a format {key: 'foo', value: 'bar'}
+   */
+  set(cookie) {},
 });
 ```
 
@@ -23,16 +23,15 @@ The `cookies.set` effect stores a given cookie, defined by its name and its valu
 Example:
 
 ```js
-import { cookies } from "reffects-batteries";
+import { cookies } from 'reffects-batteries';
 
 registerEventHandler(
-    "userAcceptedCookiesPolicy",
-    function userAcceptedCookiesPolicy(coeffects, payload) {
-        return cookies.set({"cookiesPolicy": "accepted"});
-    }
+  'userAcceptedCookiesPolicy',
+  function userAcceptedCookiesPolicy(coeffects, payload) {
+    return cookies.set({ cookiesPolicy: 'accepted' });
+  }
 );
 ```
-
 
 ### `cookies.get`
 
@@ -41,13 +40,34 @@ registerEventHandler(
 Example:
 
 ```js
-import { cookies } from "reffects-batteries";
+import { cookies } from 'reffects-batteries';
 
 registerEventHandler(
-    "webLoaded",
-    function webLoaded(coeffects, { cookie: { cookiesPolicy } }) {
-        // do something
-    },
-    [cookies.get('cookiesPolicy')]
+  'webLoaded',
+  function webLoaded(coeffects, { cookie: { cookiesPolicy } }) {
+    // do something
+  },
+  [cookies.get('cookiesPolicy')]
+);
+```
+
+### `cookies.remove`
+
+`cookies.remove` removes a cookie given its name, path and domain.
+
+Example:
+
+```js
+import { cookies } from 'reffects-batteries';
+
+registerEventHandler(
+  'userRevokedCookiesPolicy',
+  function userRevokedCookiesPolicy(coeffects, payload) {
+    return cookies.remove({
+      key: 'cookiesPolicy',
+      path: '/',
+      domain: '.domain.com',
+    });
+  }
 );
 ```
