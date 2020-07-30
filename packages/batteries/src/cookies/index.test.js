@@ -1,27 +1,31 @@
-import registerCookiesBatteries from './index';
-import * as effect from './setCookie';
-import * as coeffect from './getCookie';
+import registerCookiesBatteries, { cookies } from './index';
+import * as setCookieEffect from './setCookie';
+import * as removeCookieEffect from './removeCookie';
+import * as getCookieCoeffect from './getCookie';
 import * as reffects from 'reffects';
 
 describe('cookies battery', () => {
+  test('cookie builders are defined', () => {
+    expect(cookies.set).toBeDefined();
+    expect(cookies.get).toBeDefined();
+    expect(cookies.remove).toBeDefined();
+  });
+
   test('effects and coeffects are registered at once when calling registerStateBatteries', () => {
     const cookieClient = {};
-    const registerCookieEffectFn = jest.spyOn(effect, 'default');
-    const registerCookieCoeffectFn = jest.spyOn(coeffect, 'default');
-    const registerEffectHandlerFn = jest.spyOn(
-      reffects,
-      'registerEffectHandler'
+    const registerSetCookieEffectFn = jest.spyOn(setCookieEffect, 'default');
+    const registerRemoveCookieEffectFn = jest.spyOn(
+      removeCookieEffect,
+      'default'
     );
-    const registerCoeffectHandlerFn = jest.spyOn(
-      reffects,
-      'registerCoeffectHandler'
+    const registerGetCookieCoeffectFn = jest.spyOn(
+      getCookieCoeffect,
+      'default'
     );
-
     registerCookiesBatteries(cookieClient);
 
-    expect(registerEffectHandlerFn).toHaveBeenCalledTimes(1);
-    expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(1);
-    expect(registerCookieEffectFn).toHaveBeenCalledWith(cookieClient);
-    expect(registerCookieCoeffectFn).toHaveBeenCalledWith(cookieClient);
+    expect(registerSetCookieEffectFn).toHaveBeenCalledWith(cookieClient);
+    expect(registerRemoveCookieEffectFn).toHaveBeenCalledWith(cookieClient);
+    expect(registerGetCookieCoeffectFn).toHaveBeenCalledWith(cookieClient);
   });
 });
