@@ -103,6 +103,38 @@ it("shouldn't update the component using it when the state is the same", () => {
   expect(ComponentUsingSelector).toHaveCommittedTimes(1);
 });
 
+it('renders the component once despite of the times useSelector is called in a component', () => {
+  const initialProps = { a: 1, b: 'koko', c: [1] };
+  const store = storeModule;
+  store.initialize(initialProps);
+  const ComponentUsingSelector = withProfiler(() => {
+    const a = useSelector(state => state.a);
+    const b = useSelector(state => state.b);
+    const c = useSelector(state => state.c);
+
+    return (
+      <div>
+        {a}
+        {b}
+        {c}
+      </div>
+    );
+  });
+
+  const wrapper = mount(<ComponentUsingSelector />);
+  expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('1koko1');
+
+  act(() => {
+    store.setState({ path: ['a'], newValue: 2 });
+    store.setState({ path: ['b'], newValue: 'loko' });
+    store.setState({ path: ['c'], newValue: [2] });
+  });
+  wrapper.update();
+
+  expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('2loko2');
+  expect(ComponentUsingSelector).toHaveCommittedTimes(2);
+});
+
 function extractTextFrom(wrapper, component) {
   return wrapper
     .find(component)
