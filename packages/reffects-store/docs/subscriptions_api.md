@@ -1,9 +1,12 @@
 # Subscribing React components to changes in store's state
 
-You need to use the following function:
+You need have to ways to subscribe a component to the state:
+
+1. [subscribe](#subscribe)
+2. [useSubscribe](#useSubscribe)
 
 ### `subscribe`
-This function subscribes a React component to given [reselect](https://github.com/reduxjs/reselect)’s selectors, so that it only renders when the values in the application state tracked by the given selectors change.
+This function subscribes a React component to given [reselect](https://github.com/reduxjs/reselect)'s selectors, so that it only renders when the values in the application state tracked by the given selectors change.
 
 The `subscribe` function gets as first parameter the component we want to subscribe to to the store.
 
@@ -49,4 +52,38 @@ export default subscribe(
     onClickDecrement: dispatch("DECREMENT_COUNTER")
   }
 );
+```
+
+### `useSubscribe`
+
+This is a custom React hook that you can use in functional components 
+that expect a selector function as argument. As the `subscribe` function
+will force the render of the component when the subscribed part of the state changes.
+
+Example:
+
+```js
+import React from "react";
+import { dispatch } from "packages/reffects/dist/reffects.es";
+import { useSelector } from "packages/reffects-store/dist/reffects-store.es";
+
+export default function Counter({ 
+    onClickIncrement = () => dispatch("INCREMENT_COUNTER"), 
+    onClickDecrement = () => dispatch("DECREMENT_COUNTER")
+}) {
+  const count = useSelector(countSelector);
+
+  return (
+    <>
+      <span>{count}</span>
+      <button onClick={onClickIncrement}>+</button>
+      <button onClick={onClickDecrement}>-</button>
+    </>
+  );
+}
+
+// Example of a simple selector
+function countSelector(state) {
+  return state.count;
+}
 ```
