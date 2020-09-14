@@ -1,0 +1,59 @@
+body {
+  font-family: monospace, sans-serif;
+  color: black;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.App ul {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  padding: 0;
+}
+
+.App ul li {
+  display: inline-flex;
+  align-items: center;
+  list-style-type: none;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.App ul li:before {
+  margin-left: -20px;
+  margin-right: 10px;
+}
+
+.App ul li.done:before {
+  content: '\2705';
+}
+
+.App ul li.undone:before {
+  content: '\2B1C';
+}
+
+.App button {
+  padding: 1rem;
+  margin-left: 1rem;
+  color: white;
+  background: rebeccapurple;
+  font-family: monospace, sans-serif;
+  font-size: 1rem;
+  border: 2px solid purple;
+  cursor: pointer;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  padding: 1rem;
+  color: white;
+  background: rebeccapurple;
+}
