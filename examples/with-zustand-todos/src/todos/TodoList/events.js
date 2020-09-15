@@ -1,5 +1,5 @@
 import { registerEventHandler } from 'reffects';
-import { state } from "reffects-store";
+import { state } from "../../effects/state";
 import { globals, http } from "reffects-batteries";
 import { toast } from "../../effects/toast";
 import { todoSelector } from '../selectors';

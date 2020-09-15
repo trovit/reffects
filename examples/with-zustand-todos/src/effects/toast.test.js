@@ -1,5 +1,5 @@
 import registerToastEffect, { toast } from './toast';
-import { store as storeModule } from 'reffects-store';
+import { store as storeModule } from './state';
 import * as timerModule from '../infrastructure/timer';
 import { destroyAllMocks } from '../../test-helpers/fixtures';
 import { callsTo } from '../../test-helpers/mockHelpers';
