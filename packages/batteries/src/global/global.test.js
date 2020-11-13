@@ -40,6 +40,24 @@ describe('globals', () => {
     });
   });
 
+  test('should extract a nested global variable by path renaming it', () => {
+    const fakeVariableName = 'readVariable';
+    const fakeVariablePath = 'fake.path';
+    const fakeValue = 'fakeValue';
+    const global = {
+      fake: { path: fakeValue },
+    };
+    const coeffectDescription = coeffect('globals', {[fakeVariableName]: fakeVariablePath});
+    registeGlobalCoeffect(global);
+    const coeffectHandler = getCoeffectHandler(coeffectDescription.id);
+
+    const result = coeffectHandler(coeffectDescription.data);
+
+    expect(result).toEqual({
+      globals: { [fakeVariableName]: fakeValue },
+    });
+  });
+
   test('should create a globals coeffect using a builder', () => {
     const fakeVariablePath = 'fake.path';
     const globalsGetCoeffect = globalsGet(fakeVariablePath);

@@ -22,10 +22,12 @@ export function globalsGet(path) {
 
 export default function registeGlobalCoeffect(globalObject = window) {
   registerCoeffectHandler(COEFFECT_ID, function global(variableName) {
+    const valuesToRetrieve = typeof variableName === 'string' ? { [variableName]: variableName } : variableName;
+    const values = Object.fromEntries(
+        Object.entries(valuesToRetrieve).map(([name, path]) => [name, getIn(globalObject, path)])
+    )
     return {
-      [COEFFECT_ID]: {
-        [variableName]: getIn(globalObject, variableName),
-      },
+      [COEFFECT_ID]: values,
     };
   });
 }
