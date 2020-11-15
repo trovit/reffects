@@ -1,4 +1,4 @@
-import resolve from 'rollup-plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
@@ -14,7 +14,7 @@ export default [
     output: { file: 'dist/reffects-store.js', format: 'cjs', indent: false },
     external,
     plugins: [
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -26,7 +26,7 @@ export default [
     output: { file: 'dist/reffects-store.es.js', format: 'es', indent: false },
     external,
     plugins: [
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -53,7 +53,7 @@ export default [
           warnings: false,
         },
       }),
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -73,7 +73,7 @@ export default [
       },
     },
     plugins: [
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -101,7 +101,7 @@ export default [
           warnings: false,
         },
       }),
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],

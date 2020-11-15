@@ -1,5 +1,5 @@
 import { terser } from 'rollup-plugin-terser';
-import resolve from 'rollup-plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import pkg from './package.json';
 
 const external = Object.keys(pkg.peerDependencies);
@@ -11,7 +11,7 @@ export default [
     output: { file: 'dist/reffects-batteries.js', format: 'cjs', indent: false },
     external,
     plugins: [
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -23,7 +23,7 @@ export default [
     output: { file: 'dist/reffects-batteries.es.js', format: 'es', indent: false },
     external, 
     plugins: [
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -50,7 +50,7 @@ export default [
           warnings: false,
         },
       }),
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -71,7 +71,7 @@ export default [
       },
     },
     plugins: [
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
@@ -100,7 +100,7 @@ export default [
           warnings: false,
         },
       }),
-      resolve({
+      nodeResolve({
         extensions: ['.js'],
       }),
     ],
