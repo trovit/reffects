@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.18.4",
+    "lerna": "^3.22.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
