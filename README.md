@@ -38,4 +38,4 @@ You can see an example of a small application using `reffects` in the [`with-rea
 
 ## Contributing
 
-Checkout [our guide](/docs/contributing.md) in case you want to propose some changes to `reffects`.
+Checkout [our guide](/CONTRIBUTING.md) in case you want to propose some changes to `reffects`.
