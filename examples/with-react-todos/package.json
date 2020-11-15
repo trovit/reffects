@@ -12,9 +12,6 @@
     "reffects-store": "github:trovit/reffects-store#0.4.0",
     "reselect": "^4.0.0"
   },
-  "devDependencies": {
-    "typescript": "3.3.3"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
