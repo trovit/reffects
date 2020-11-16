@@ -201,7 +201,7 @@ function coeffect(id, data) {
   if (!data) {
     return id;
   }
-  return { id: id, data: data };
+  return { id, data };
 }
 
 function setHandler(handlerType, handlerId, handler) {
