@@ -335,7 +335,7 @@ test('delegating events', () => {
 });
 
 test('creating coeffects sugar', () => {
-  expect(reffects.coeffect('apiUrl')).toEqual('apiUrl');
+  expect(reffects.coeffect('apiUrl')).toEqual({id: 'apiUrl'});
   expect(reffects.coeffect('apiUrl', { someData: 'koko' })).toEqual({
     id: 'apiUrl',
     data: { someData: 'koko' },

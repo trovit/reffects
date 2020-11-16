@@ -198,9 +198,6 @@ function getHandler(handlerType, handlerId) {
 }
 
 function coeffect(id, data) {
-  if (!data) {
-    return id;
-  }
   return { id, data };
 }
 
