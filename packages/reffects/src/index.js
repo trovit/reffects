@@ -161,17 +161,11 @@ function registerEventsDelegation(originalEvents, targetEvent) {
   });
 }
 
-registerEffectHandler('dispatch', function dispatchEffect(event) {
-  dispatch(event);
-});
+registerEffectHandler('dispatch', dispatch);
 
-registerEffectHandler('dispatchMany', function dispatchManyEffect(events) {
-  dispatchMany(events);
-});
+registerEffectHandler('dispatchMany', dispatchMany);
 
-registerEffectHandler('dispatchLater', function dispatchLaterEffect(event) {
-  dispatchLater(event);
-});
+registerEffectHandler('dispatchLater', dispatchLater);
 
 const effects = {
   dispatch(eventId, payload = {}) {
