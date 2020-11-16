@@ -13,7 +13,7 @@ If you want to contribute to the project, follow these steps:
 * Commit changes. Preferably use this nomenclature:
   * `fix`: when fixing a bug
   * `feat`: when adding an enhancement to the code 
-  * `refactor`: when improving the code eithout adding a feature or fixing something
+  * `refactor`: when improving the code without adding a feature or fixing something
   * `chore`: for tooling changes
   * `docs`: for documentation improves
   
