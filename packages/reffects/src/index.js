@@ -1,7 +1,12 @@
-var verbosityOn = process.env.NODE_ENV === 'development';
+import { logger } from './logger/logger'
+const verbosityOn = process.env.NODE_ENV === 'development';
+const devToolsOn = process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
 
-var devToolsOn =
-  process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
+const {
+  logEvent,
+  logCoeffect,
+  logEffect
+} = logger(verbosityOn, devToolsOn);
 
 const devOrTest = () => {
   return process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test';
@@ -15,46 +20,6 @@ const initialHandlers = {
 
 let handlers = { ...initialHandlers };
 let coeffectsByEvent = {};
-
-function logEvent({ id, payload }) {
-  if (verbosityOn) {
-    console.groupCollapsed(`Dispatching event: ${id}`);
-    console.info('EventId:', id);
-    if (!payload) {
-      console.info('Payload:', `The ${id} event has no payload.`);
-    } else {
-      console.info('Payload:', payload);
-    }
-    console.groupEnd();
-  }
-}
-
-function logCoeffect({ id, data }, value) {
-  if (verbosityOn) {
-    console.groupCollapsed(`Extracting values of coeffect: ${id}`);
-    console.info('Coeffect id:', id);
-    if (!data) {
-      console.info('Coeffect data:', `The ${id} coeffect needs no data`);
-    } else {
-      console.info('Coeffect data:', data);
-    }
-    console.info('Extracted value:', value);
-    console.groupEnd();
-  }
-}
-
-function logEffect(effectId, effectData) {
-  if (verbosityOn) {
-    console.groupCollapsed(`Applying effect: ${effectId}`);
-    console.info('Effect id:', effectId);
-    if (!effectData) {
-      console.info('Effect data:', `The ${effectId} effect needs no data`);
-    } else {
-      console.info('Effect data:', effectData);
-    }
-    console.groupEnd();
-  }
-}
 
 function normalizeCoeffectDescription(coeffectDescription) {
   if (isString(coeffectDescription)) {
