@@ -12,7 +12,7 @@ export default () => {
         },
         logCoeffect({ id, data }, value) {
             devTools.send({
-                type: `EFFECT - ${id}`,
+                type: `COEFFECT - ${id}`,
                 id,
                 data,
                 value
