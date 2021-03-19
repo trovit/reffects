@@ -8,7 +8,7 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && npm run build",
-    "release": "lerna publish",
+    "release": "npm run boostrap && lerna publish",
     "build": "lerna run build --scope=reffects*",
     "test": "lerna run test --stream"
   }
