@@ -1,7 +1,7 @@
 import { clearHandlers, getEffectHandler } from 'reffects';
 import { destroyAllMocks } from '../../test-helpers/fixtures';
 import { callsTo } from '../../test-helpers/mockHelpers';
-import registerHttpEffect, {httpGet, httpPost, httpPut, httpPatch, httpDelete} from './http';
+import registerHttpEffect, { httpGet, httpPost, httpPut, httpPatch, httpDelete } from './http';
 
 describe('http effects', () => {
   afterEach(() => {
