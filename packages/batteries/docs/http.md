@@ -134,3 +134,31 @@ registerEventHandler(
 );
 ```
 
+### `http.delete`
+
+The `http.delete` effect does a `DELETE` request to the server. The builder accepts these parameters:
+
+- A `url` string.
+- A `successEvent` array, as in `http.get`.
+- An `errorEvent` array, as in `http.get`.
+
+Example:
+
+```js
+import { globals, http } from "reffects-batteries";
+
+registerEventHandler(
+    'loadTodos',
+    function loadTodos({ globals }, payload) {
+      const { todoId } = payload;
+      
+
+      return http.delete({
+        url: `${globals.apiUrl}/todos/${todoId}`,
+        successEvent: ['loadTodosSucceeded'],
+        errorEvent: ['loadTodosFailed']
+      });
+    },
+    [globals.get('apiUrl')]
+);
+```
