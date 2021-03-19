@@ -162,3 +162,30 @@ registerEventHandler(
     [globals.get('apiUrl')]
 );
 ```
+
+## Objects and strings as events
+
+Alternativelly to passing an array as an event as we descrive in the above examples, you may also want to pass an object or string as you would do in other **reffects** interfaces like `dispatch`:
+
+### Object
+
+```js
+...
+    return http.delete({
+        url: `${globals.apiUrl}/todos/${todoId}`,
+        successEvent: {id: 'loadTodosSucceeded', payload},
+        errorEvent: {id: 'loadTodosFailed', payload}
+    });
+...
+```
+
+### String
+```js
+...
+    return http.delete({
+        url: `${globals.apiUrl}/todos/${todoId}`,
+        successEvent: 'loadTodosSucceeded',
+        errorEvent: 'loadTodosFailed'
+    });
+...
+```
