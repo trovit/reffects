@@ -59,6 +59,17 @@ export function httpPatch({ url, body, successEvent = [], errorEvent = [] }) {
   };
 }
 
+export function httpDelete({ url, body, successEvent = [], errorEvent = [] }) {
+  return {
+    'http.delete': {
+      url,
+      body,
+      successEvent: adaptEvent(successEvent),
+      errorEvent: adaptEvent(errorEvent),
+    }
+  };
+}
+
 export default function registerHttpEffect(
   httpClient,
   dispatch = reffectsDispatch
@@ -130,6 +141,24 @@ export default function registerHttpEffect(
     errorEvent = [],
   }) {
     httpClient.patch({
+      url,
+      body,
+      successFn(response) {
+        dispatchEvent(successEvent, response);
+      },
+      errorFn(error) {
+        dispatchEvent(errorEvent, error);
+      },
+    });
+  });
+
+  registerEffectHandler('http.delete', function patchEffect({
+    url,
+    body,
+    successEvent = [],
+    errorEvent = [],
+  }) {
+    httpClient.delete({
       url,
       body,
       successFn(response) {

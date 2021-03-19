@@ -1,7 +1,7 @@
 import { clearHandlers, getEffectHandler } from 'reffects';
 import { destroyAllMocks } from '../../test-helpers/fixtures';
 import { callsTo } from '../../test-helpers/mockHelpers';
-import registerHttpEffect, { httpGet, httpPost, httpPut, httpPatch } from './http';
+import registerHttpEffect, {httpGet, httpPost, httpPut, httpPatch, httpDelete} from './http';
 
 describe('http effects', () => {
   afterEach(() => {
@@ -539,6 +539,120 @@ describe('http effects', () => {
 
       expect(httpPatchEffect).toEqual({
         'http.patch': {
+          url: 'https://github.com/trovit/reffects',
+          body: {hello: 'world'},
+          successEvent: ['callbackEvent', { arg1: 'arg1' }],
+          errorEvent: [],
+        }
+      });
+    });
+  });
+
+  describe('http.delete', () => {
+    const effectId = 'http.delete';
+
+    test('request success', () => {
+      const responseData = 'responseData';
+      const fakeHttpClient = {
+        delete: jest.fn().mockImplementation(function deleteFn({ successFn }) {
+          return successFn(responseData);
+        }),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const successEventId = 'successEventId';
+      const body = {
+        param: 'peanut',
+      };
+      const url = 'fakeUrl';
+
+      httpEffectHandler({
+        url,
+        body,
+        successEvent: [
+          successEventId,
+          eventRestOfPayload[0],
+          eventRestOfPayload[1],
+        ],
+      });
+
+      expect(fakeHttpClient.delete).toHaveBeenCalledWith({
+        url,
+        body,
+        successFn: expect.any(Function),
+        errorFn: expect.any(Function),
+      });
+      expect(dispatchFake).toHaveBeenCalledTimes(1);
+      expect(callsTo(dispatchFake)).toEqual([
+        [{ id: successEventId, payload: ['responseData', 'arg1', 'arg2'] }],
+      ]);
+    });
+
+    test('request error', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        delete: jest.fn().mockImplementation(function deleteFn({ errorFn }) {
+          return errorFn(errorData);
+        }),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const errorEventId = 'errorEventId';
+      const body = {
+        param: 'peanut',
+      };
+      const url = 'fakeUrl';
+
+      httpEffectHandler({
+        url,
+        body,
+        errorEvent: [
+          errorEventId,
+          eventRestOfPayload[0],
+          eventRestOfPayload[1],
+        ],
+      });
+
+      expect(fakeHttpClient.delete).toHaveBeenCalledWith({
+        url,
+        body,
+        successFn: expect.any(Function),
+        errorFn: expect.any(Function),
+      });
+      expect(dispatchFake).toHaveBeenCalledTimes(1);
+      expect(callsTo(dispatchFake)).toEqual([
+        [{ id: errorEventId, payload: ['errorData', 'arg1', 'arg2'] }],
+      ]);
+    });
+
+    test('should create an http.delete effect using a builder', () => {
+      const httpDeleteEffect = httpDelete({
+        url: 'https://github.com/trovit/reffects',
+        body: {hello: 'world'},
+        successEvent: ['callbackEvent', 'arg1']
+      });
+
+      expect(httpDeleteEffect).toEqual({
+        'http.delete': {
+          url: 'https://github.com/trovit/reffects',
+          body: {hello: 'world'},
+          successEvent: ['callbackEvent', 'arg1'],
+          errorEvent: [],
+        }
+      });
+    });
+
+    test('should create an http.delete effect using a builder with events as objects', () => {
+      const httpDeleteEffect = httpDelete({
+        url: 'https://github.com/trovit/reffects',
+        body: {hello: 'world'},
+        successEvent: { id: 'callbackEvent', payload: { arg1: 'arg1' } }
+      });
+
+      expect(httpDeleteEffect).toEqual({
+        'http.delete': {
           url: 'https://github.com/trovit/reffects',
           body: {hello: 'world'},
           successEvent: ['callbackEvent', { arg1: 'arg1' }],
