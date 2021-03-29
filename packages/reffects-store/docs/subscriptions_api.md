@@ -54,7 +54,7 @@ export default subscribe(
 );
 ```
 
-### `useSubscribe`
+### `useSelector`
 
 This is a custom React hook that you can use in functional components 
 that expect a selector function as argument. As the `subscribe` function
