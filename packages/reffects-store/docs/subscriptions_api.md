@@ -3,7 +3,7 @@
 You need have to ways to subscribe a component to the state:
 
 1. [subscribe](#subscribe)
-2. [useSubscribe](#useSubscribe)
+2. [useSelector](#useSelector)
 
 ### `subscribe`
 This function subscribes a React component to given [reselect](https://github.com/reduxjs/reselect)'s selectors, so that it only renders when the values in the application state tracked by the given selectors change.
