@@ -85,6 +85,21 @@ describe('http effects', () => {
       ]);
     });
 
+    test('do nothing if request fails and errorEvent is not defined', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        get: jest.fn().mockImplementation(({errorFn}) => errorFn(errorData)),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const url = 'fakeUrl';
+
+      httpEffectHandler({ url });
+
+      expect(dispatchFake).not.toHaveBeenCalled();
+    });
+
     test('default config is empty object', () => {
       const errorData = 'errorData';
       const fakeHttpClient = {
@@ -277,6 +292,21 @@ describe('http effects', () => {
       ]);
     });
 
+    test('do nothing if request fails and errorEvent is not defined', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        post: jest.fn().mockImplementation(({errorFn}) => errorFn(errorData)),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const url = 'fakeUrl';
+
+      httpEffectHandler({ url });
+
+      expect(dispatchFake).not.toHaveBeenCalled();
+    });
+
     test('should create an http.post effect using a builder', () => {
       const httpPostEffect = httpPost({
         url: 'https://github.com/trovit/reffects',
@@ -399,6 +429,21 @@ describe('http effects', () => {
       ]);
     });
 
+    test('do nothing if request fails and errorEvent is not defined', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        put: jest.fn().mockImplementation(({errorFn}) => errorFn(errorData)),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const url = 'fakeUrl';
+
+      httpEffectHandler({ url });
+
+      expect(dispatchFake).not.toHaveBeenCalled();
+    });
+
     test('should create an http.put effect using a builder', () => {
       const httpPutEffect = httpPut({
         url: 'https://github.com/trovit/reffects',
@@ -513,6 +558,21 @@ describe('http effects', () => {
       ]);
     });
 
+    test('do nothing if request fails and errorEvent is not defined', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        patch: jest.fn().mockImplementation(({errorFn}) => errorFn(errorData)),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const url = 'fakeUrl';
+
+      httpEffectHandler({ url });
+
+      expect(dispatchFake).not.toHaveBeenCalled();
+    });
+
     test('should create an http.patch effect using a builder', () => {
       const httpPatchEffect = httpPatch({
         url: 'https://github.com/trovit/reffects',
@@ -625,6 +685,21 @@ describe('http effects', () => {
       expect(callsTo(dispatchFake)).toEqual([
         [{ id: errorEventId, payload: ['errorData', 'arg1', 'arg2'] }],
       ]);
+    });
+
+    test('do nothing if request fails and errorEvent is not defined', () => {
+      const errorData = 'errorData';
+      const fakeHttpClient = {
+        delete: jest.fn().mockImplementation(({errorFn}) => errorFn(errorData)),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const url = 'fakeUrl';
+
+      httpEffectHandler({ url });
+
+      expect(dispatchFake).not.toHaveBeenCalled();
     });
 
     test('should create an http.delete effect using a builder', () => {

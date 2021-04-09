@@ -171,10 +171,14 @@ export default function registerHttpEffect(
   });
 
   function dispatchEvent(event, ...data) {
-    if (!event) {
+    if (eventIsUndefined(event)) {
       return;
     }
     const [id, ...rest] = event;
     dispatch({ id, payload: data.concat(rest) });
+  }
+
+  function eventIsUndefined(event) {
+    return !event || (Array.isArray(event) && event.length === 0)
   }
 }
