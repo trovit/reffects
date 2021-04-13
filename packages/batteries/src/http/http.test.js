@@ -85,6 +85,21 @@ describe('http effects', () => {
       ]);
     });
 
+    test('fail when successEvent is not defined', () => {
+      const responseData = 'responseData';
+      const fakeHttpClient = {
+        get: jest.fn().mockImplementation(({successFn}) => successFn(responseData)),
+      };
+      const dispatchFake = jest.fn();
+      registerHttpEffect(fakeHttpClient, dispatchFake);
+      const httpEffectHandler = getEffectHandler(effectId);
+      const url = 'fakeUrl';
+
+      expect(() => {
+        httpEffectHandler({ url });
+      }).toThrowError('Missing successEvent');
+    });
+
     test('do nothing if request fails and errorEvent is not defined', () => {
       const errorData = 'errorData';
       const fakeHttpClient = {
