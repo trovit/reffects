@@ -76,18 +76,14 @@ export default function registerHttpEffect(
 ) {
   registerEffectHandler('http.get', function getEffect({
     url,
-    successEvent = [],
+    successEvent,
     errorEvent = [],
     config = {},
   }) {
     httpClient.get({
       url,
-      successFn(response) {
-        dispatchEvent(successEvent, response);
-      },
-      errorFn(error) {
-        dispatchEvent(errorEvent, error);
-      },
+      successFn: dispatchMandatoryEvent('successEvent', successEvent),
+      errorFn: dispatchOptionalEvent(errorEvent),
       config
     });
   });
@@ -104,15 +100,9 @@ export default function registerHttpEffect(
       url,
       body,
       config,
-      successFn(response) {
-        dispatchEvent(successEvent, response);
-      },
-      errorFn(error) {
-        dispatchEvent(errorEvent, error);
-      },
-      alwaysFn() {
-        dispatchEvent(alwaysEvent);
-      },
+      successFn: dispatchOptionalEvent(successEvent),
+      errorFn: dispatchOptionalEvent(errorEvent),
+      alwaysFn: dispatchOptionalEvent(alwaysEvent),
     });
   });
 
@@ -125,12 +115,8 @@ export default function registerHttpEffect(
     httpClient.put({
       url,
       body,
-      successFn(response) {
-        dispatchEvent(successEvent, response);
-      },
-      errorFn(error) {
-        dispatchEvent(errorEvent, error);
-      },
+      successFn: dispatchOptionalEvent(successEvent),
+      errorFn: dispatchOptionalEvent(errorEvent),
     });
   });
 
@@ -143,12 +129,8 @@ export default function registerHttpEffect(
     httpClient.patch({
       url,
       body,
-      successFn(response) {
-        dispatchEvent(successEvent, response);
-      },
-      errorFn(error) {
-        dispatchEvent(errorEvent, error);
-      },
+      successFn: dispatchOptionalEvent(successEvent),
+      errorFn: dispatchOptionalEvent(errorEvent),
     });
   });
 
@@ -161,20 +143,35 @@ export default function registerHttpEffect(
     httpClient.delete({
       url,
       body,
-      successFn(response) {
-        dispatchEvent(successEvent, response);
-      },
-      errorFn(error) {
-        dispatchEvent(errorEvent, error);
-      },
+      successFn: dispatchOptionalEvent(successEvent),
+      errorFn: dispatchOptionalEvent(errorEvent),
     });
   });
 
-  function dispatchEvent(event, ...data) {
-    if (!event) {
-      return;
-    }
+  function dispatchMandatoryEvent(name, event) {
+    return (...data) => {
+      if (eventIsUndefined(event)) {
+        throw new Error(`Missing ${name}`);
+      }
+      dispatchEvent(event, data);
+    };
+  }
+
+  function dispatchOptionalEvent(event) {
+    return (...data) => {
+      if (eventIsUndefined(event)) {
+        return;
+      }
+      dispatchEvent(event, data);
+    };
+  }
+
+  function dispatchEvent(event, data) {
     const [id, ...rest] = event;
-    dispatch({ id, payload: data.concat(rest) });
+    dispatch({id, payload: data.concat(rest)});
+  }
+
+  function eventIsUndefined(event) {
+    return !event || (Array.isArray(event) && event.length === 0)
   }
 }
