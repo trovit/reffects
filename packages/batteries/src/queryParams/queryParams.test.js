@@ -25,7 +25,6 @@ describe('queryParams', () => {
         peanuts: '3',
         chesnuts: 'dilìcíous',
         nuts: ['cashew', 'pistachios'],
-        hazelnuts: null,
       },
     });
   });
