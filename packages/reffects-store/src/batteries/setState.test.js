@@ -1,7 +1,7 @@
 import { getEffectHandler } from 'reffects';
 import registerSetStateEffect, { stateSet } from './setState';
-import { applyEventsFixture } from '../test-helpers/fixtures';
-import { callsTo } from '../test-helpers/mockHelpers';
+import { applyEventsFixture } from '../../../../test-helpers/fixtures';
+import { callsTo } from '../../../../test-helpers/mockHelpers';
 
 const store = { setState: jest.fn() };
 applyEventsFixture(() => registerSetStateEffect(store));
