@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze'
 import * as store from './store';
 
 afterEach(() => {
@@ -143,10 +144,10 @@ describe('mutating values in the store', () => {
 });
 
 describe('resetting the state', () => {
-  test('replacing it with a new value', () => {
-    const initialState = { koko: 'loko' }
+  test('replacing it with a new value without mutating the original state', () => {
+    const initialState = deepFreeze({ koko: 'loko' })
     const newValue = { new: 'state object' }
-    
+
     store.initialize(initialState);
 
     store.reset(newValue);
