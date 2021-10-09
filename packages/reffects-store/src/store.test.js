@@ -142,6 +142,19 @@ describe('mutating values in the store', () => {
   });
 });
 
+describe('resetting the state', () => {
+  test('replacing it with a new value', () => {
+    const initialState = { koko: 'loko' }
+    const newValue = { new: 'state object' }
+    
+    store.initialize(initialState);
+
+    store.reset(newValue);
+
+    expect(store.getState()).toBe(newValue);
+  });
+});
+
 describe('subscriptions to store changes', () => {
   test('subscribing a listener to store changes', () => {
     const newValue = 'lolo';
