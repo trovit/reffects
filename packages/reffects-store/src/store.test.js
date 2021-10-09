@@ -157,7 +157,7 @@ describe('resetting the state', () => {
 });
 
 describe('subscriptions to store changes', () => {
-  test('subscribing a listener to store changes', () => {
+  test('subscribing a listener to store mutations', () => {
     const newValue = 'lolo';
     const path = ['koko'];
     store.initialize({ koko: 'loko' });
@@ -167,6 +167,22 @@ describe('subscriptions to store changes', () => {
 
     store.subscribeListener(fn);
     store.setState({ path, newValue });
+
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  test('subscribing a listener to store resets', () => {
+    const initialState = deepFreeze({ koko: 'loko' })
+    const newValue = { new: 'state object' }
+
+    store.initialize(initialState);
+
+    const fn = jest.fn(newState =>
+      expect(newState).toBe(newValue)
+    );
+
+    store.subscribeListener(fn);
+    store.reset(newValue);
 
     expect(fn).toHaveBeenCalledTimes(1);
   });
