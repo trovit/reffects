@@ -12,6 +12,7 @@ if (devToolsOn) {
     getState: store.getState,
     setState: store.setState,
     initialize: store.initialize,
+    reset: store.reset,
   };
 }
 
