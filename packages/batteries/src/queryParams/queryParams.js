@@ -19,7 +19,7 @@ export default function registerQueryParamsCoeffect(globalObject) {
           });
 
         if (queryParamValue.length === 0) {
-          return Object.assign({}, queryParamValues, { [queryParam]: null });
+          return queryParamValues;
         }
 
         if (queryParamValue.length === 1) {
