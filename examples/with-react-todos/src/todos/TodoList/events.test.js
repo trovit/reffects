@@ -59,10 +59,11 @@ describe('events', () => {
   });
 
   test('filterTodos', () => {
-    const givenCoeffects = {};
     const filterTodos = getEventHandler('filterTodos');
 
-    expect(filterTodos(givenCoeffects, 'codorniz')).toEqual(state.set({ visibilityFilter: 'codorniz' }));
+    const result = filterTodos(undefined, 'codorniz')
+
+    expect(result).toEqual(state.deepSet({ visibilityFilter: 'codorniz' }));
   });
 
   test('todoClicked when todo is done', () => {
