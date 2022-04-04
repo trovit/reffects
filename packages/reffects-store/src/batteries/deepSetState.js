@@ -7,7 +7,7 @@ export default function registerDeepSetStateEffect(store) {
   registerEffectHandler(DEEP_SET_STATE_EFFECT_ID, function deepSetStateEffect(
     deepPartialState
   ) {
-    const state = store.get();
+    const state = store.getState();
     store.reset(deepmerge(state, deepPartialState));
   });
 }
