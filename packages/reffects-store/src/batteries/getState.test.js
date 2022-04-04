@@ -1,5 +1,5 @@
 import { clearHandlers, coeffect, getCoeffectHandler } from 'reffects';
-import registerStateCoeffect, { stateGet } from './state';
+import registerStateCoeffect, { stateGet } from './getState';
 import { destroyAllMocks } from '../../../../test-helpers/fixtures';
 import { callsTo } from '../../../../test-helpers/mockHelpers';
 

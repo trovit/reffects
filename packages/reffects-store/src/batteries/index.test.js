@@ -4,8 +4,9 @@ import registerStateBatteries, {
   registerStateCoeffect,
   state,
 } from './index';
-import * as effect from './setState';
-import * as coeffect from './state';
+import * as setStateEffect from './setState';
+import * as mutateStateEffect from './mutateState';
+import * as getStateCoeffect from './getState';
 
 describe('state battery', () => {
   test('effects and coeffects registrars can be used separatedly', () => {
@@ -16,8 +17,9 @@ describe('state battery', () => {
 
   test('effects and coeffects are registered at once when calling registerStateBatteries', () => {
     const store = {};
-    const registerStateEffectFn = jest.spyOn(effect, 'default');
-    const registerStateCoeffectFn = jest.spyOn(coeffect, 'default');
+    const registerStateSetEffectFn = jest.spyOn(setStateEffect, 'default');
+    const registerStateMutateEffectFn = jest.spyOn(mutateStateEffect, 'default');
+    const registerStateGetCoeffectFn = jest.spyOn(getStateCoeffect, 'default');
     const registerEffectHandlerFn = jest.spyOn(
       reffects,
       'registerEffectHandler'
@@ -29,9 +31,10 @@ describe('state battery', () => {
 
     registerStateBatteries(store);
 
-    expect(registerEffectHandlerFn).toHaveBeenCalledTimes(1);
+    expect(registerEffectHandlerFn).toHaveBeenCalledTimes(2);
     expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(1);
-    expect(registerStateEffectFn).toHaveBeenCalledWith(store);
-    expect(registerStateCoeffectFn).toHaveBeenCalledWith(store);
+    expect(registerStateSetEffectFn).toHaveBeenCalledWith(store);
+    expect(registerStateMutateEffectFn).toHaveBeenCalledWith(store);
+    expect(registerStateGetCoeffectFn).toHaveBeenCalledWith(store);
   });
 });
