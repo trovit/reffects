@@ -63,4 +63,5 @@ export default {
   getState,
   setState,
   initialize,
+  reset
 };
