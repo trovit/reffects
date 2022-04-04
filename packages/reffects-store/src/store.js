@@ -35,6 +35,14 @@ export function setState(mutations) {
   });
 }
 
+export function reset (newState) {
+  state = newState
+
+  listeners.forEach(function execute(currentListener) {
+    currentListener(state);
+  });
+}
+
 export function subscribeListener(listener) {
   listeners.push(listener);
 }

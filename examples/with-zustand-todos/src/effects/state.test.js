@@ -1,6 +1,6 @@
 import { clearHandlers, coeffect, getCoeffectHandler, getEffectHandler } from 'reffects';
-import { applyEventsFixture } from '../../test-helpers/fixtures';
-import { callsTo } from '../../test-helpers/mockHelpers';
+import { applyEventsFixture } from '../../../../test-helpers/fixtures';
+import { callsTo } from '../../../../test-helpers/mockHelpers';
 import { registerStateBatteries, state } from './state';
 
 const store = { setState: jest.fn() };

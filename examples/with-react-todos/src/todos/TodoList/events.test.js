@@ -2,7 +2,7 @@ import registerTodoListEvents from './events';
 import { getEventHandler } from 'reffects';
 import { state } from "reffects-store";
 import { http } from "reffects-batteries";
-import { applyEventsFixture } from '../../../test-helpers/fixtures';
+import { applyEventsFixture } from '../../../../../test-helpers/fixtures';
 import { toast } from "../../effects/toast";
 
 applyEventsFixture(registerTodoListEvents);
