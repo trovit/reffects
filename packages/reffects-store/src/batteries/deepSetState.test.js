@@ -13,7 +13,7 @@ describe('state.deepSet', () => {
     registerDeepSetStateEffect(store);
     const handler = getEffectHandler(DEEP_SET_STATE_EFFECT_ID);
     const currentState = deepFreeze({ a: { b: 1 } });
-    when(store.getStat).mockReturnValue(currentState);
+    when(store.getState).mockReturnValue(currentState);
     const aDeepPartialState = deepFreeze({ a: { c: 2 } });
 
     handler(aDeepPartialState);
