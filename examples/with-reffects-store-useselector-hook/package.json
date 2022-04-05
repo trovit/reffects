@@ -1,15 +1,15 @@
 {
   "name": "example-with-reffects-store-useselector-hook",
-  "version": "0.3.1",
+  "version": "1.5.0-alpha.0",
   "description": "",
   "private": true,
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "react-scripts": "2.1.8",
-    "reffects": "github:trovit/reffects#0.3.1",
-    "reffects-batteries": "github:trovit/reffects-batteries#0.7.0",
-    "reffects-store": "github:trovit/reffects-store#0.5.1",
+    "reffects": "github:trovit/reffects#1.5.0-alpha.0",
+    "reffects-batteries": "github:trovit/reffects-batteries#1.5.0-alpha.0",
+    "reffects-store": "github:trovit/reffects-store#1.5.0-alpha.0",
     "reselect": "^4.0.0"
   },
   "scripts": {
