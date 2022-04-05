@@ -1,6 +1,6 @@
 {
   "name": "reffects-store",
-  "version": "1.5.0-alpha.0",
+  "version": "1.5.1-alpha.0",
   "description": "Reffects implementation of store for React including the subscription/connection module for your components.",
   "source": "src/index.js",
   "module": "dist/reffects-store.es.js",
