@@ -8,7 +8,11 @@ export default function registerDeepSetStateEffect(store) {
     deepPartialState
   ) {
     const state = store.getState();
-    store.reset(deepmerge(state, deepPartialState));
+    store.reset(
+      deepmerge(state, deepPartialState, {
+        arrayMerge: (_, sourceArray) => sourceArray,
+      })
+    );
   });
 }
 
