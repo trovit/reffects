@@ -1,9 +1,10 @@
-import registerTodoListEvents from './events';
 import { getEventHandler } from 'reffects';
 import { state } from "reffects-store";
 import { http } from "reffects-batteries";
 import { applyEventsFixture } from '../../../../../test-helpers/fixtures';
 import { toast } from "../../effects/toast";
+import { toggleTodoReducer } from './mutations'
+import registerTodoListEvents from './events';
 
 applyEventsFixture(registerTodoListEvents);
 
@@ -58,10 +59,11 @@ describe('events', () => {
   });
 
   test('filterTodos', () => {
-    const givenCoeffects = {};
     const filterTodos = getEventHandler('filterTodos');
 
-    expect(filterTodos(givenCoeffects, 'codorniz')).toEqual(state.set({ visibilityFilter: 'codorniz' }));
+    const result = filterTodos(undefined, 'codorniz')
+
+    expect(result).toEqual(state.deepSet({ visibilityFilter: 'codorniz' }));
   });
 
   test('todoClicked when todo is done', () => {
@@ -69,66 +71,32 @@ describe('events', () => {
     const todoClicked = getEventHandler('todoClicked');
     const isDone = true;
     const text = 'Lorem ipsum';
-    const givenCoeffects = {
-      state: {
-        todos: [
-          {
-            id: id,
-            text: 'Describe: Kevin Bacon',
-            done: true,
-          },
-        ],
-      },
-    };
 
-    expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
+    const result = todoClicked(undefined, { id, isDone, text })
+
+    expect(result).toEqual({
       ...toast.show({
         text: '"Lorem ipsum" was marked as undone.',
         milliseconds: 3000,
       }),
-      ...state.set({
-        todos: [
-          {
-            id: 1,
-            text: 'Describe: Kevin Bacon',
-            done: false,
-          },
-        ],
-      }),
+      ...state.mutate(toggleTodoReducer, id),
     });
   });
 
-  test('todoClicked when todo is undone', () => {
+  test('todoClicked when todo is not done', () => {
     const id = 1;
     const todoClicked = getEventHandler('todoClicked');
     const isDone = false;
     const text = 'Lorem ipsum';
-    const givenCoeffects = {
-      state: {
-        todos: [
-          {
-            id: id,
-            text: 'Describe: Kevin Bacon',
-            done: false,
-          },
-        ],
-      },
-    };
 
-    expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
+    const result = todoClicked(undefined, { id, isDone, text })
+
+    expect(result).toEqual({
       ...toast.show({
         text: '"Lorem ipsum" was marked as done.',
         milliseconds: 3000,
       }),
-      ...state.set({
-        todos: [
-          {
-            id: 1,
-            text: 'Describe: Kevin Bacon',
-            done: true,
-          },
-        ],
-      }),
+      ...state.mutate(toggleTodoReducer, id),
     });
   });
 });
