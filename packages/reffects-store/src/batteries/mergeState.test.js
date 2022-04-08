@@ -1,17 +1,17 @@
 import { getEffectHandler } from 'reffects';
 import { when } from 'jest-when';
 import deepFreeze from 'deep-freeze';
-import registerDeepSetStateEffect, {
-  DEEP_SET_STATE_EFFECT_ID,
-  stateDeepSet,
-} from './deepSetState';
+import registerMergeStateEffect, {
+  MERGE_STATE_EFFECT_ID,
+  stateMerge,
+} from './mergeState';
 
 const store = { getState: jest.fn(), reset: jest.fn() };
-registerDeepSetStateEffect(store);
+registerMergeStateEffect(store);
 
-describe('state.deepSet', () => {
+describe('state.merge', () => {
   test('should deeply merge the state in the store with the provided partial state', () => {
-    const handler = getEffectHandler(DEEP_SET_STATE_EFFECT_ID);
+    const handler = getEffectHandler(MERGE_STATE_EFFECT_ID);
     const currentState = deepFreeze({ a: { b: 1 } });
     when(store.getState).mockReturnValue(currentState);
     const aDeepPartialState = deepFreeze({ a: { c: 2 } });
@@ -21,8 +21,8 @@ describe('state.deepSet', () => {
     expect(store.reset).toHaveBeenCalledWith({ a: { b: 1, c: 2 } });
   });
 
-  test('should replace whole array of a partial deep state', () => {
-    const handler = getEffectHandler(DEEP_SET_STATE_EFFECT_ID);
+  test('should replace whole array when merging a partial deep state', () => {
+    const handler = getEffectHandler(MERGE_STATE_EFFECT_ID);
     const currentState = deepFreeze({
       anArrayThatWouldNotBeMutated: [1, 2, 3],
       anArrayThatWillBeMutated: ['a', 'b', 'c'],
@@ -51,11 +51,11 @@ describe('state.deepSet', () => {
     });
   });
 
-  test('should create a state.deepSet effect using a builder', () => {
-    const effect = stateDeepSet({ a: 1 });
+  test('should create a state.merge effect using a builder', () => {
+    const effect = stateMerge({ a: 1 });
 
     expect(effect).toEqual({
-      'state.deepSet': { a: 1 },
+      'state.merge': { a: 1 },
     });
   });
 });

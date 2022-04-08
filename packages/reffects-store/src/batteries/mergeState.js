@@ -1,10 +1,10 @@
 import { registerEffectHandler } from 'reffects';
 import deepmerge from 'deepmerge';
 
-export const DEEP_SET_STATE_EFFECT_ID = 'state.deepSet';
+export const MERGE_STATE_EFFECT_ID = 'state.merge';
 
-export default function registerDeepSetStateEffect(store) {
-  registerEffectHandler(DEEP_SET_STATE_EFFECT_ID, function deepSetStateEffect(
+export default function registerMergeStateEffect(store) {
+  registerEffectHandler(MERGE_STATE_EFFECT_ID, function mergeStateEffect(
     deepPartialState
   ) {
     const state = store.getState();
@@ -16,8 +16,8 @@ export default function registerDeepSetStateEffect(store) {
   });
 }
 
-export function stateDeepSet(deepPartialState) {
+export function stateMerge(deepPartialState) {
   return {
-    'state.deepSet': deepPartialState,
+    [MERGE_STATE_EFFECT_ID]: deepPartialState,
   };
 }

@@ -1,8 +1,8 @@
 import stateGetCoeffect, { stateGet } from './getState';
 import stateSetEffect, { stateSet } from './setState';
 import stateMutateEffect, { mutateState } from './mutateState';
+import stateMergeEffect, { stateMerge } from './mergeState';
 import defaultStore from '../store';
-import stateDeepSetEffect, { stateDeepSet } from './deepSetState';
 
 /**
  * TODO: deprecate effect stand-alone registers, the preference is to register a
@@ -14,13 +14,13 @@ export const registerStateCoeffect = stateGetCoeffect;
 export const state = {
   get: stateGet,
   set: stateSet,
-  deepSet: stateDeepSet,
+  merge: stateMerge,
   mutate: mutateState,
 };
 
 export default function registerStateBatteries(store = defaultStore) {
   stateGetCoeffect(store);
   stateSetEffect(store);
-  stateDeepSetEffect(store);
+  stateMergeEffect(store);
   stateMutateEffect(store);
 }

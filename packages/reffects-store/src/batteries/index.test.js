@@ -5,7 +5,7 @@ import registerStateBatteries, {
   state,
 } from './index';
 import * as setStateEffect from './setState';
-import * as deepSetStateEffect from './deepSetState';
+import * as mergeStateEffect from './mergeState';
 import * as mutateStateEffect from './mutateState';
 import * as getStateCoeffect from './getState';
 
@@ -19,8 +19,8 @@ describe('state battery', () => {
   test('effects and coeffects are registered at once when calling registerStateBatteries', () => {
     const store = {};
     const registerStateSetEffectFn = jest.spyOn(setStateEffect, 'default');
-    const registerStateDeepSetEffectFn = jest.spyOn(
-      deepSetStateEffect,
+    const registerStateMergeEffectFn = jest.spyOn(
+      mergeStateEffect,
       'default'
     );
     const registerStateMutateEffectFn = jest.spyOn(
@@ -42,7 +42,7 @@ describe('state battery', () => {
     expect(registerEffectHandlerFn).toHaveBeenCalledTimes(3);
     expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(1);
     expect(registerStateSetEffectFn).toHaveBeenCalledWith(store);
-    expect(registerStateDeepSetEffectFn).toHaveBeenCalledWith(store);
+    expect(registerStateMergeEffectFn).toHaveBeenCalledWith(store);
     expect(registerStateMutateEffectFn).toHaveBeenCalledWith(store);
     expect(registerStateGetCoeffectFn).toHaveBeenCalledWith(store);
   });
