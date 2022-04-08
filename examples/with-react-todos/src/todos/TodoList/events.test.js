@@ -63,7 +63,7 @@ describe('events', () => {
 
     const result = filterTodos(undefined, 'codorniz')
 
-    expect(result).toEqual(state.deepSet({ visibilityFilter: 'codorniz' }));
+    expect(result).toEqual(state.merge({ visibilityFilter: 'codorniz' }));
   });
 
   test('todoClicked when todo is done', () => {

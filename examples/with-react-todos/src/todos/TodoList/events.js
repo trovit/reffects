@@ -31,7 +31,7 @@ export default function registerTodoListEvents() {
   });
 
   registerEventHandler('filterTodos', function filterTodos(_, activeFilter) {
-    return state.deepSet({ visibilityFilter: activeFilter });
+    return state.merge({ visibilityFilter: activeFilter });
   });
 
   registerEventHandler(
