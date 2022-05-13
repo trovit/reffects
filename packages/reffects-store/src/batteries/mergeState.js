@@ -1,5 +1,6 @@
 import { registerEffectHandler } from 'reffects';
 import deepmerge from 'deepmerge';
+import isPlainObject from 'lodash.isplainobject';
 
 export const MERGE_STATE_EFFECT_ID = 'state.merge';
 
@@ -11,6 +12,7 @@ export default function registerMergeStateEffect(store) {
     store.reset(
       deepmerge(state, deepPartialState, {
         arrayMerge: (_, sourceArray) => sourceArray,
+        isMergeableObject: isPlainObject,
       })
     );
   });

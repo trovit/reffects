@@ -51,6 +51,35 @@ describe('state.merge', () => {
     });
   });
 
+  test('should preserve blobs existing in merged data structures', () => {
+    const handler = getEffectHandler(MERGE_STATE_EFFECT_ID);
+    const aBlob = new Blob();
+    const aFile = new File([], 'name');
+    const currentState = deepFreeze({
+      anObject: {
+        someAttribute: 'a value',
+        someBlob: aBlob,
+        someFile: aFile,
+      },
+    });
+    when(store.getState).mockReturnValue(currentState);
+    const aDeepPartialState = deepFreeze({
+      anObject: {
+        someAttribute: 'new value',
+      },
+    });
+
+    handler(aDeepPartialState);
+
+    expect(store.reset).toHaveBeenCalledWith({
+      anObject: {
+        someAttribute: 'new value',
+        someBlob: aBlob,
+        someFile: aFile,
+      },
+    });
+  });
+
   test('should create a state.merge effect using a builder', () => {
     const effect = stateMerge({ a: 1 });
 
