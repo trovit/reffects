@@ -1,6 +1,7 @@
 import store from './store';
 import subscribe from './subscription';
 import useSelector from './subscription/useSelector';
+import subscribeEvent from './subscription/subscribeEvent';
 import registerStateBatteries, { state } from './batteries';
 
 const devToolsOn =
@@ -16,4 +17,11 @@ if (devToolsOn) {
   };
 }
 
-export { store, subscribe, useSelector, registerStateBatteries, state };
+export {
+  store,
+  subscribe,
+  useSelector,
+  subscribeEvent,
+  registerStateBatteries,
+  state,
+};
