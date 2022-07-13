@@ -55,7 +55,7 @@
   "peerDependencies": {
     "react": "^16",
     "react-dom": "^16",
-    "reffects": "^0.1.0"
+    "reffects": "^1.5.2"
   },
   "dependencies": {
     "deepmerge": "^4.2.2",

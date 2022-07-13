@@ -26,7 +26,7 @@
     "test:ci": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "peerDependencies": {
-    "reffects": "^0.1.0"
+    "reffects": "^1.5.2"
   },
   "jest": {
     "watchPathIgnorePatterns": [
