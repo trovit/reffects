@@ -15,16 +15,9 @@ function subscribe(
       let currentMappedProps = mapStateToProps(store.getState(), props);
 
       function update() {
-        let shouldForceUpdate = false;
         const nextMappedProps = mapStateToProps(store.getState(), props);
 
-        // Compares the current derived state props against the current state props
-        for (const i in nextMappedProps) {
-          if (isEqual(nextMappedProps[i], currentMappedProps[i]) === false) {
-            shouldForceUpdate = true;
-          }
-        }
-        if (shouldForceUpdate) {
+        if (!isEqual(nextMappedProps, currentMappedProps)) {
           currentMappedProps = nextMappedProps;
           forceUpdate();
         }
