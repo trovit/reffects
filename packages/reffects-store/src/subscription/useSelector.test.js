@@ -98,6 +98,28 @@ describe('useSelector hook', () => {
     expect(ComponentUsingSelector).toHaveCommittedTimes(1);
   });
 
+  it("shouldn't update the component using it when the state is the same with an array", () => {
+    const initialProps = { a: [1, 2] };
+    const store = storeModule;
+    store.initialize(initialProps);
+    const ComponentUsingSelector = withProfiler(() => {
+      const a = useSelector(state => state.a);
+      return <div>{JSON.stringify(a)}</div>;
+    });
+
+    const wrapper = mount(<ComponentUsingSelector />);
+    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('[1,2]');
+
+    act(() => {
+      store.setState({ path: ['a'], newValue: [1, 2] });
+      store.setState({ path: ['koko'], newValue: 'loko' });
+    });
+    wrapper.update();
+
+    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('[1,2]');
+    expect(ComponentUsingSelector).toHaveCommittedTimes(1);
+  });
+
   it('should render the component once despite of the times useSelector is called in a component', () => {
     const initialProps = { a: 1, b: 'koko', c: [1] };
     const store = storeModule;
