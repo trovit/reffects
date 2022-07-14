@@ -72,47 +72,33 @@ describe('useSelector hook', () => {
     expect(ComponentUsingSelector).toHaveCommittedTimes(3);
   });
 
-  it("shouldn't update the component using it when the state is the same", () => {
-    const initialProps = { a: 1 };
-    const store = storeModule;
-    store.initialize(initialProps);
-    const ComponentUsingSelector = withProfiler(() => {
-      const a = useSelector(state => state.a);
-      return <div>{a}</div>;
-    });
+  it.each([
+    ['primitive', 1, '1'],
+    ['array', [1, 2], '[1,2]'],
+    ['object', { b: 2 }, '{"b":2}'],
+  ])(
+    "shouldn't update the component using it when the state is the same using %s",
+    (_, value, expected) => {
+      const initialProps = { a: value };
+      const store = storeModule;
+      store.initialize(initialProps);
+      const ComponentUsingSelector = withProfiler(() => {
+        const a = useSelector(state => state.a);
+        return <div>{JSON.stringify(a)}</div>;
+      });
 
-    const { getByText } = render(<ComponentUsingSelector />);
-    expect(getByText('1')).toBeInTheDocument();
+      const { getByText } = render(<ComponentUsingSelector />);
+      expect(getByText(expected)).toBeInTheDocument();
 
-    act(() => {
-      store.setState({ path: ['a'], newValue: 1 });
-      store.setState({ path: ['koko'], newValue: 'loko' });
-    });
+      act(() => {
+        store.setState({ path: ['a'], newValue: value });
+        store.setState({ path: ['koko'], newValue: 'loko' });
+      });
 
-    expect(getByText('1')).toBeInTheDocument();
-    expect(ComponentUsingSelector).toHaveCommittedTimes(1);
-  });
-
-  it("shouldn't update the component using it when the state is the same with an array", () => {
-    const initialProps = { a: [1, 2] };
-    const store = storeModule;
-    store.initialize(initialProps);
-    const ComponentUsingSelector = withProfiler(() => {
-      const a = useSelector(state => state.a);
-      return <div>{JSON.stringify(a)}</div>;
-    });
-
-    const { getByText } = render(<ComponentUsingSelector />);
-    expect(getByText('[1,2]')).toBeInTheDocument();
-
-    act(() => {
-      store.setState({ path: ['a'], newValue: [1, 2] });
-      store.setState({ path: ['koko'], newValue: 'loko' });
-    });
-
-    expect(getByText('[1,2]')).toBeInTheDocument();
-    expect(ComponentUsingSelector).toHaveCommittedTimes(1);
-  });
+      expect(getByText(expected)).toBeInTheDocument();
+      expect(ComponentUsingSelector).toHaveCommittedTimes(1);
+    }
+  );
 
   it('should render the component once despite of the times useSelector is called in a component', () => {
     const initialProps = { a: 1, b: 'koko', c: [1] };
