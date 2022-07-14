@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
-import { mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render } from '@testing-library/react';
 import useForceUpdate from './utils';
-
-configure({ adapter: new Adapter() });
 
 describe('useForceUpdate', () => {
   const forceUpdates = [];
@@ -22,12 +19,12 @@ describe('useForceUpdate', () => {
   });
 
   it('should accept no parameters', () => {
-    mount(<TestComponent />);
+    render(<TestComponent />);
     expect(forceUpdates[0].length).toEqual(0);
   });
 
   it('should maintain the same reference', () => {
-    mount(<TestComponent />);
+    render(<TestComponent />);
     act(() => {
       forceUpdates[0]();
     });
@@ -35,7 +32,7 @@ describe('useForceUpdate', () => {
   });
 
   it('should return undefined', () => {
-    mount(<TestComponent />);
+    render(<TestComponent />);
     act(() => {
       expect(forceUpdates[0]()).toBe(undefined);
     });
@@ -43,7 +40,7 @@ describe('useForceUpdate', () => {
 
   it('should update the component', () => {
     expect(renders).toEqual(0);
-    mount(<TestComponent />);
+    render(<TestComponent />);
     expect(renders).toEqual(1);
     act(() => {
       forceUpdates[0]();
