@@ -1,12 +1,10 @@
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import { withProfiler } from 'jest-react-profiler';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+import { render } from '@testing-library/react';
 import subscribe from '.';
 import * as storeModule from '../store';
-
-configure({ adapter: new Adapter() });
+import '@testing-library/jest-dom';
 
 describe('subscriptions', () => {
   afterEach(() => {
@@ -14,8 +12,8 @@ describe('subscriptions', () => {
     jest.clearAllMocks();
   });
 
-  function Child() {
-    return <div />;
+  function Child(props) {
+    return <div>{JSON.stringify(props)}</div>;
   }
 
   it('should pass mapped state as props', () => {
@@ -25,12 +23,9 @@ describe('subscriptions', () => {
       subscribe(Child, state => ({ a: state.a }), null, store)
     );
 
-    const wrapper = mount(<SubscribedChild />);
-    const child = wrapper.find(Child).first();
+    const { getByText } = render(<SubscribedChild />);
 
-    expect(child.props()).toEqual({
-      a: 'b',
-    });
+    expect(getByText(JSON.stringify({ a: 'b' }))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(1);
   });
 
@@ -41,12 +36,9 @@ describe('subscriptions', () => {
       subscribe(Child, state => ({ a: state.a }))
     );
 
-    const wrapper = mount(<SubscribedChild />);
-    const child = wrapper.find(Child).first();
+    const { getByText } = render(<SubscribedChild />);
 
-    expect(child.props()).toEqual({
-      a: 'b',
-    });
+    expect(getByText(JSON.stringify({ a: 'b' }))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(1);
   });
 
@@ -61,7 +53,7 @@ describe('subscriptions', () => {
 
     expect(store.subscribeListener).not.toHaveBeenCalled();
 
-    const mountedProvider = mount(<SubscribedChild />);
+    const { unmount } = render(<SubscribedChild />);
 
     expect(store.subscribeListener).toBeCalledWith(expect.any(Function));
 
@@ -70,7 +62,7 @@ describe('subscriptions', () => {
     });
 
     expect(store.unsubscribeListener).not.toHaveBeenCalled();
-    mountedProvider.unmount();
+    unmount();
     expect(store.unsubscribeListener).toBeCalled();
     expect(SubscribedChild).toHaveCommittedTimes(2);
   });
@@ -85,15 +77,14 @@ describe('subscriptions', () => {
       subscribe(Child, state => ({ a: state.a }), null, store)
     );
 
-    const wrapper = mount(<SubscribedChild />);
-    expect(wrapper.find(Child).props()).toMatchObject(initialProps);
+    const { getByText } = render(<SubscribedChild />);
+    expect(getByText(JSON.stringify(initialProps))).toBeInTheDocument();
 
     act(() => {
       store.setState({ path: ['a'], newValue: 'b' });
     });
-    wrapper.update();
 
-    expect(wrapper.find(Child).props()).toMatchObject(expectedProps);
+    expect(getByText(JSON.stringify(expectedProps))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(2);
   });
 
@@ -107,22 +98,18 @@ describe('subscriptions', () => {
       subscribe(Child, state => ({ a: state.a }), null, store)
     );
 
-    const wrapper = mount(<SubscribedChild />);
-    expect(wrapper.find(Child).props()).toMatchObject(initialProps);
+    const { getByText } = render(<SubscribedChild />);
+    expect(getByText(JSON.stringify(initialProps))).toBeInTheDocument();
 
     act(() => {
       store.setState({ path: ['a'], newValue: 'b' });
     });
 
-    wrapper.update();
-
     act(() => {
       store.setState({ path: ['a'], newValue: 'a' });
     });
 
-    wrapper.update();
-
-    expect(wrapper.find(Child).props()).toMatchObject(expectedProps);
+    expect(getByText(JSON.stringify(expectedProps))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(3);
   });
 
@@ -140,9 +127,8 @@ describe('subscriptions', () => {
       subscribe(Child, state => ({ a: state.a }), null, store)
     );
 
-    const wrapper = mount(<SubscribedChild />);
-
-    expect(wrapper.find(Child).props()).toMatchObject(initialProps);
+    const { getByText } = render(<SubscribedChild />);
+    expect(getByText(JSON.stringify(initialProps))).toBeInTheDocument();
 
     act(() => {
       store.setState({
@@ -154,9 +140,8 @@ describe('subscriptions', () => {
       });
       store.setState({ path: ['koko'], newValue: 'loko' });
     });
-    wrapper.update();
 
-    expect(wrapper.find(Child).props()).toEqual(initialProps);
+    expect(getByText(JSON.stringify(initialProps))).toBeInTheDocument();
 
     act(() => {
       store.setState({
@@ -165,17 +150,16 @@ describe('subscriptions', () => {
       });
       store.setState({ path: ['koko'], newValue: 'loko' });
     });
-    wrapper.update();
 
-    expect(wrapper.find(Child).props()).toEqual(initialProps);
+    expect(getByText(JSON.stringify(initialProps))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(1);
   });
 
   it('should change subscribed component props when the parent pass new props', () => {
     const store = storeModule;
     store.initialize({ a: null });
-    const initialExpectedProps = { a: null, b: 'a' };
-    const finalExpectedProps = { a: null, b: 'koko' };
+    const initialExpectedProps = { b: 'a', a: null };
+    const finalExpectedProps = { b: 'koko', a: null };
 
     const SubscribedChild = withProfiler(
       subscribe(
@@ -190,15 +174,12 @@ describe('subscriptions', () => {
       return <SubscribedChild b={b} />;
     }
 
-    const wrapper = mount(<Parent b={'a'} />);
-    expect(wrapper.find(Child).props()).toMatchObject(initialExpectedProps);
+    const { rerender, getByText } = render(<Parent b={'a'} />);
+    expect(getByText(JSON.stringify(initialExpectedProps))).toBeInTheDocument();
 
-    act(() => {
-      wrapper.setProps({ b: 'koko' });
-    });
-    wrapper.update();
+    rerender(<Parent b={'koko'} />);
 
-    expect(wrapper.find(Child).props()).toMatchObject(finalExpectedProps);
+    expect(getByText(JSON.stringify(finalExpectedProps))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(2);
   });
 
@@ -210,25 +191,36 @@ describe('subscriptions', () => {
     const SubscribedChild = withProfiler(
       subscribe(Child, state => ({ a: state.a }), null, store)
     );
-    function Parent() {
-      return <SubscribedChild />;
+    function Parent(props) {
+      return (
+        <>
+          <div>Parent props {JSON.stringify(props)}</div>
+          <SubscribedChild />
+        </>
+      );
     }
     const SubscribedParent = withProfiler(
       subscribe(Parent, state => ({ a: state.a }), null, store)
     );
 
-    const wrapper = mount(<SubscribedParent />);
-    expect(wrapper.find(Parent).props()).toMatchObject(initialProps);
-    expect(wrapper.find(Child).props()).toMatchObject(initialProps);
+    const { container } = render(<SubscribedParent />);
+    expect(container.children[0].textContent).toStrictEqual(
+      `Parent props ${JSON.stringify(initialProps)}`
+    );
+    expect(container.children[1].textContent).toStrictEqual(
+      JSON.stringify(initialProps)
+    );
 
     act(() => {
       store.setState({ path: ['a'], newValue: 'loko' });
     });
 
-    wrapper.update();
-
-    expect(wrapper.find(Parent).props()).toMatchObject(expectedProps);
-    expect(wrapper.find(Child).props()).toMatchObject(expectedProps);
+    expect(container.children[0].textContent).toStrictEqual(
+      `Parent props ${JSON.stringify(expectedProps)}`
+    );
+    expect(container.children[1].textContent).toStrictEqual(
+      JSON.stringify(expectedProps)
+    );
     expect(SubscribedParent).toHaveCommittedTimes(2);
     expect(SubscribedChild).toHaveCommittedTimes(2);
   });
@@ -239,10 +231,9 @@ describe('subscriptions', () => {
     const SubscribedChild = withProfiler(
       subscribe(Child, () => {}, { a: 'loko' })
     );
-    const wrapper = mount(<SubscribedChild />);
-    const props = wrapper.find(Child).props();
+    const { getByText } = render(<SubscribedChild />);
 
-    expect(props).toMatchObject(expectedProps);
+    expect(getByText(JSON.stringify(expectedProps))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(1);
   });
 
@@ -261,25 +252,21 @@ describe('subscriptions', () => {
         store
       )
     );
-    const wrapper = mount(<SubscribedChild a={'loko'} />);
-    const props = wrapper.find(Child).props();
+    const { getByText } = render(<SubscribedChild a={'loko'} />);
 
-    expect(props).toMatchObject(expectedProps);
+    expect(getByText(JSON.stringify(expectedProps))).toBeInTheDocument();
     expect(SubscribedChild).toHaveCommittedTimes(1);
   });
 
   it('should force update when will receive props', () => {
     const store = storeModule;
-    let prop = 0;
     store.initialize({});
     const spy = jest.fn();
     const SubscribedChild = withProfiler(subscribe(Child, spy, store));
 
-    const wrapper = mount(<SubscribedChild a={prop} />);
+    const { rerender } = render(<SubscribedChild a={0} />);
 
-    prop = 1;
-
-    wrapper.setProps({ a: prop });
+    rerender(<SubscribedChild a={1} />);
 
     expect(spy).toHaveBeenCalledTimes(4);
     expect(SubscribedChild).toHaveCommittedTimes(2);

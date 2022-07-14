@@ -1,12 +1,10 @@
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import { withProfiler } from 'jest-react-profiler';
 import React from 'react';
+import { render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import * as storeModule from '../store';
 import useSelector from './useSelector';
-
-configure({ adapter: new Adapter() });
+import '@testing-library/jest-dom';
 
 describe('useSelector hook', () => {
   afterEach(() => {
@@ -22,9 +20,9 @@ describe('useSelector hook', () => {
       return <div>{a}</div>;
     });
 
-    const wrapper = mount(<ComponentUsingSelector />);
+    const { getByText } = render(<ComponentUsingSelector />);
 
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toEqual('b');
+    expect(getByText('b')).toBeInTheDocument();
     expect(ComponentUsingSelector).toHaveCommittedTimes(1);
   });
 
@@ -40,10 +38,10 @@ describe('useSelector hook', () => {
 
     expect(store.subscribeListener).not.toHaveBeenCalled();
 
-    const mountedProvider = mount(<ComponentUsingSelector />);
+    const { unmount } = render(<ComponentUsingSelector />);
 
     expect(store.unsubscribeListener).not.toHaveBeenCalled();
-    mountedProvider.unmount();
+    unmount();
     expect(store.unsubscribeListener).toBeCalled();
     expect(ComponentUsingSelector).toHaveCommittedTimes(1);
   });
@@ -57,68 +55,50 @@ describe('useSelector hook', () => {
       return <div>{a}</div>;
     });
 
-    const wrapper = mount(<ComponentUsingSelector />);
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('a');
+    const { getByText } = render(<ComponentUsingSelector />);
+    expect(getByText('a')).toBeInTheDocument();
 
     act(() => {
       store.setState({ path: ['a'], newValue: 'b' });
     });
-    wrapper.update();
 
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('b');
+    expect(getByText('b')).toBeInTheDocument();
 
     act(() => {
       store.setState({ path: ['a'], newValue: 'a' });
     });
-    wrapper.update();
 
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('a');
+    expect(getByText('a')).toBeInTheDocument();
     expect(ComponentUsingSelector).toHaveCommittedTimes(3);
   });
 
-  it("shouldn't update the component using it when the state is the same", () => {
-    const initialProps = { a: 1 };
-    const store = storeModule;
-    store.initialize(initialProps);
-    const ComponentUsingSelector = withProfiler(() => {
-      const a = useSelector(state => state.a);
-      return <div>{a}</div>;
-    });
+  it.each([
+    ['primitive', 1, '1'],
+    ['array', [1, 2], '[1,2]'],
+    ['object', { b: 2 }, '{"b":2}'],
+  ])(
+    "shouldn't update the component using it when the state is the same using %s",
+    (_, value, expected) => {
+      const initialProps = { a: value };
+      const store = storeModule;
+      store.initialize(initialProps);
+      const ComponentUsingSelector = withProfiler(() => {
+        const a = useSelector(state => state.a);
+        return <div>{JSON.stringify(a)}</div>;
+      });
 
-    const wrapper = mount(<ComponentUsingSelector />);
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('1');
+      const { getByText } = render(<ComponentUsingSelector />);
+      expect(getByText(expected)).toBeInTheDocument();
 
-    act(() => {
-      store.setState({ path: ['a'], newValue: 1 });
-      store.setState({ path: ['koko'], newValue: 'loko' });
-    });
-    wrapper.update();
+      act(() => {
+        store.setState({ path: ['a'], newValue: value });
+        store.setState({ path: ['koko'], newValue: 'loko' });
+      });
 
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('1');
-    expect(ComponentUsingSelector).toHaveCommittedTimes(1);
-  });
-
-  it("shouldn't update the component using it when the state is the same with an array", () => {
-    const initialProps = { a: [1, 2] };
-    const store = storeModule;
-    store.initialize(initialProps);
-    const ComponentUsingSelector = withProfiler(() => {
-      const a = useSelector(state => state.a);
-      return <div>{JSON.stringify(a)}</div>;
-    });
-
-    const wrapper = mount(<ComponentUsingSelector />);
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('[1,2]');
-
-    act(() => {
-      store.setState({ path: ['a'], newValue: [1, 2] });
-      store.setState({ path: ['koko'], newValue: 'loko' });
-    });
-    wrapper.update();
-
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('[1,2]');
-    expect(ComponentUsingSelector).toHaveCommittedTimes(1);
-  });
+      expect(getByText(expected)).toBeInTheDocument();
+      expect(ComponentUsingSelector).toHaveCommittedTimes(1);
+    }
+  );
 
   it('should render the component once despite of the times useSelector is called in a component', () => {
     const initialProps = { a: 1, b: 'koko', c: [1] };
@@ -138,24 +118,16 @@ describe('useSelector hook', () => {
       );
     });
 
-    const wrapper = mount(<ComponentUsingSelector />);
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('1koko1');
+    const { getByText } = render(<ComponentUsingSelector />);
+    expect(getByText('1koko1')).toBeInTheDocument();
 
     act(() => {
       store.setState({ path: ['a'], newValue: 2 });
       store.setState({ path: ['b'], newValue: 'loko' });
       store.setState({ path: ['c'], newValue: [2] });
     });
-    wrapper.update();
 
-    expect(extractTextFrom(wrapper, ComponentUsingSelector)).toBe('2loko2');
+    expect(getByText('2loko2')).toBeInTheDocument();
     expect(ComponentUsingSelector).toHaveCommittedTimes(2);
   });
-
-  function extractTextFrom(wrapper, component) {
-    return wrapper
-      .find(component)
-      .first()
-      .text();
-  }
 });
