@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import isEqual from 'lodash.isequal';
 import * as store from '../store';
 import useForceUpdate from './utils';
-import isEqual from "lodash.isequal";
 
 export default function useSelector(selector) {
   const forceUpdate = useForceUpdate();
@@ -26,5 +26,5 @@ export default function useSelector(selector) {
     return () => store.unsubscribeListener(update);
   }, []);
 
-  return selector(store.getState());
+  return currentSelectedState;
 }
