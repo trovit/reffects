@@ -306,6 +306,10 @@ test('dispatchLater effect is created with a builder', () => {
   });
 });
 
+test('no effect created with a builder', () => {
+  expect(reffects.effects.none()).toStrictEqual({});
+});
+
 test('delegating events', () => {
   var callsCounter = 0;
   const expectedPayload = ['arg1', 'arg2'];
