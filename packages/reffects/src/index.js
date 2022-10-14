@@ -168,10 +168,11 @@ registerEffectHandler('dispatchMany', dispatchMany);
 registerEffectHandler('dispatchLater', dispatchLater);
 
 const effects = {
-  dispatch(eventId, payload = {}) {
+  dispatch(event, payload = {}) {
     return {
       dispatch: {
-        id: eventId, payload
+        id: event.id ?? event,
+        payload: event.payload ?? payload
       }
     };
   },

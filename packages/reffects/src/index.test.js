@@ -203,6 +203,12 @@ test('dispatch effect is created with a builder', () => {
   expect(reffects.effects.dispatch('someEvent')).toEqual({
     dispatch: { id: 'someEvent', payload: {} }
   });
+  expect(reffects.effects.dispatch({id: 'eventWithPayload', payload: {a: 1}})).toEqual({
+    dispatch: { id: 'eventWithPayload', payload: {a: 1} }
+  });
+  expect(reffects.effects.dispatch({id: 'event'})).toEqual({
+    dispatch: { id: 'event', payload: {} }
+  });
   expect(reffects.effects.dispatch('anotherEvent', { a: 1 })).toEqual({
     dispatch: { id: 'anotherEvent', payload: { a: 1} }
   });
