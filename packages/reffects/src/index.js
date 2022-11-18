@@ -1,3 +1,11 @@
+window['__REFFECTS_DEV_TOOLS__'] = {
+  ...window['__REFFECTS_DEV_TOOLS__'],
+  toggleVerbosity () {
+    verbosityOn = !verbosityOn;
+    console.log('Verbosity ' + verbosityOn ? 'on' : 'off')
+  },
+};
+
 var verbosityOn = process.env.NODE_ENV === 'development';
 
 var devToolsOn =
