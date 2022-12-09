@@ -1,15 +1,15 @@
 {
   "name": "example-with-react-todos",
-  "version": "1.5.4",
+  "version": "1.5.4-alpha.0",
   "description": "",
   "private": true,
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "react-scripts": "2.1.8",
-    "reffects": "github:trovit/reffects#1.6.0",
-    "reffects-batteries": "github:trovit/reffects-batteries#1.5.3",
-    "reffects-store": "github:trovit/reffects-store#1.5.4",
+    "reffects": "github:trovit/reffects#1.5.3-alpha.0",
+    "reffects-batteries": "github:trovit/reffects-batteries#1.5.3-alpha.0",
+    "reffects-store": "github:trovit/reffects-store#1.5.4-alpha.0",
     "reselect": "^4.0.0"
   },
   "scripts": {
