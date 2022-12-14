@@ -179,8 +179,8 @@ const effects = {
   dispatch(event, payload = {}) {
     return {
       dispatch: {
-        id: event.id ?? event,
-        payload: event.payload ?? payload
+        id: event.id == null ? event : event.id,
+        payload: event.payload == null ? payload : event.payload,
       }
     };
   },
