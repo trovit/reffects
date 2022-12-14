@@ -1,6 +1,6 @@
 {
   "name": "reffects-batteries",
-  "version": "1.5.4-alpha.0",
+  "version": "1.5.5-alpha.0",
   "description": "",
   "source": "src/index.js",
   "module": "dist/reffects-batteries.es.js",
@@ -14,7 +14,7 @@
     "babel-jest": "^26.6.3",
     "coveralls": "^3.1.0",
     "jest": "^26.6.3",
-    "reffects": "^1.6.0-alpha.0",
+    "reffects": "^1.6.1-alpha.0",
     "rollup": "^2.33.2",
     "rollup-plugin-terser": "^5.3.1"
   },
