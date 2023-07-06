@@ -3,12 +3,13 @@ import subscribe from './subscription';
 import useSelector from './subscription/useSelector';
 import registerStateBatteries, { state } from './batteries';
 
+const globalObject = globalThis || window;
 const devToolsOn =
-  process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
+  process.env.NODE_ENV === 'development' && typeof globalObject !== 'undefined';
 
 if (devToolsOn) {
-  window['__REFFECTS_DEV_TOOLS__'] = {
-    ...window['__REFFECTS_DEV_TOOLS__'],
+  globalObject['__REFFECTS_DEV_TOOLS__'] = {
+    ...globalObject['__REFFECTS_DEV_TOOLS__'],
     getState: store.getState,
     setState: store.setState,
     initialize: store.initialize,

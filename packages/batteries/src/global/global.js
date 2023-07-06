@@ -20,7 +20,7 @@ export function globalsGet(path) {
   return coeffect(COEFFECT_ID, path);
 }
 
-export default function registeGlobalCoeffect(globalObject = window) {
+export default function registeGlobalCoeffect(globalObject = globalThis || window) {
   registerCoeffectHandler(COEFFECT_ID, function global(variableName) {
     const valuesToRetrieve = typeof variableName === 'string' ? { [variableName]: variableName } : variableName;
     const values = Object.fromEntries(
