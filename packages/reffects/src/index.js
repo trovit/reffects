@@ -1,5 +1,6 @@
-window['__REFFECTS_DEV_TOOLS__'] = {
-  ...window['__REFFECTS_DEV_TOOLS__'],
+const globalObject = globalThis || window;
+globalObject['__REFFECTS_DEV_TOOLS__'] = {
+  ...globalObject['__REFFECTS_DEV_TOOLS__'],
   toggleVerbosity () {
     verbosityOn = !verbosityOn;
     console.log('Verbosity ' + verbosityOn ? 'on' : 'off')
@@ -9,7 +10,7 @@ window['__REFFECTS_DEV_TOOLS__'] = {
 var verbosityOn = process.env.NODE_ENV === 'development';
 
 var devToolsOn =
-  process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
+  process.env.NODE_ENV === 'development' && typeof globalObject !== 'undefined';
 
 const devOrTest = () => {
   return process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test';
@@ -278,8 +279,8 @@ function checkElementValidity(element, elementType) {
 }
 
 if (devToolsOn) {
-  window['__REFFECTS_DEV_TOOLS__'] = {
-    ...window['__REFFECTS_DEV_TOOLS__'],
+  globalObject['__REFFECTS_DEV_TOOLS__'] = {
+    ...globalObject['__REFFECTS_DEV_TOOLS__'],
     dispatch,
     dispatchMany,
   };
