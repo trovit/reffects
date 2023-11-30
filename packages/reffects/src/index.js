@@ -196,6 +196,9 @@ const effects = {
         id, milliseconds, payload
       }
     };
+  },
+  none() {
+    return {};
   }
 };
 
