@@ -71,32 +71,66 @@ describe('events', () => {
     const todoClicked = getEventHandler('todoClicked');
     const isDone = true;
     const text = 'Lorem ipsum';
+    const givenCoeffects = {
+      state: {
+        todos: [
+          {
+            id: id,
+            text: 'Describe: Kevin Bacon',
+            done: true,
+          },
+        ],
+      },
+    };
 
-    const result = todoClicked(undefined, { id, isDone, text })
-
-    expect(result).toEqual({
+    expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
       ...toast.show({
         text: '"Lorem ipsum" was marked as undone.',
         milliseconds: 3000,
       }),
-      ...state.mutate(toggleTodoReducer, id),
+      ...state.set({
+        todos: [
+          {
+            id: 1,
+            text: 'Describe: Kevin Bacon',
+            done: false,
+          },
+        ],
+      }),
     });
   });
 
-  test('todoClicked when todo is not done', () => {
+  test('todoClicked when todo is undone', () => {
     const id = 1;
     const todoClicked = getEventHandler('todoClicked');
     const isDone = false;
     const text = 'Lorem ipsum';
+    const givenCoeffects = {
+      state: {
+        todos: [
+          {
+            id: id,
+            text: 'Describe: Kevin Bacon',
+            done: false,
+          },
+        ],
+      },
+    };
 
-    const result = todoClicked(undefined, { id, isDone, text })
-
-    expect(result).toEqual({
+    expect(todoClicked(givenCoeffects, { id, isDone, text })).toEqual({
       ...toast.show({
         text: '"Lorem ipsum" was marked as done.',
         milliseconds: 3000,
       }),
-      ...state.mutate(toggleTodoReducer, id),
+      ...state.set({
+        todos: [
+          {
+            id: 1,
+            text: 'Describe: Kevin Bacon',
+            done: true,
+          },
+        ],
+      }),
     });
   });
 });
