@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^5.6.1"
+    "lerna": "^6.6.2"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && npm run build",
