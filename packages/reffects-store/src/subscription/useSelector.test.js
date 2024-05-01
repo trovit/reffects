@@ -1,7 +1,7 @@
-import { withProfiler } from 'jest-react-profiler';
 import React from 'react';
 import { render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import withProfiler from './rendererProfiler';
 import * as storeModule from '../store';
 import useSelector from './useSelector';
 import '@testing-library/jest-dom';
@@ -73,12 +73,12 @@ describe('useSelector hook', () => {
   });
 
   it.each([
-    ['primitive', 1, '1'],
-    ['array', [1, 2], '[1,2]'],
-    ['object', { b: 2 }, '{"b":2}'],
+    ['primitive', 1, 1, '1'],
+    ['array', [1, 2], [1, 2], '[1,2]'],
+    ['object', { b: 2 }, { b: 2 }, '{"b":2}'],
   ])(
     "shouldn't update the component using it when the state is the same using %s",
-    (_, value, expected) => {
+    (_, value, newValue, expected) => {
       const initialProps = { a: value };
       const store = storeModule;
       store.initialize(initialProps);
@@ -91,7 +91,7 @@ describe('useSelector hook', () => {
       expect(getByText(expected)).toBeInTheDocument();
 
       act(() => {
-        store.setState({ path: ['a'], newValue: value });
+        store.setState({ path: ['a'], newValue });
         store.setState({ path: ['koko'], newValue: 'loko' });
       });
 
