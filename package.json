@@ -2,10 +2,10 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^8.1.2"
+    "lerna": "^6.6.2"
   },
   "scripts": {
-    "bootstrap": "npm run build",
+    "bootstrap": "lerna bootstrap && npm run build",
     "release": "npm run bootstrap && lerna publish",
     "build": "lerna run build --scope=reffects*",
     "test": "lerna run test --stream"
