@@ -52,8 +52,8 @@
     "lint": "eslint src"
   },
   "peerDependencies": {
-    "react": "^16",
-    "react-dom": "^16",
+    "react": ">=16",
+    "react-dom": ">=16",
     "reffects": "*"
   },
   "dependencies": {
