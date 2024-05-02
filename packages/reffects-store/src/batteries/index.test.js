@@ -6,7 +6,6 @@ import registerStateBatteries, {
 } from './index';
 import * as setStateEffect from './setState';
 import * as mergeStateEffect from './mergeState';
-import * as mutateStateEffect from './mutateState';
 import * as getStateCoeffect from './getState';
 
 describe('state battery', () => {
@@ -21,10 +20,6 @@ describe('state battery', () => {
     const registerStateSetEffectFn = jest.spyOn(setStateEffect, 'default');
     const registerStateMergeEffectFn = jest.spyOn(
       mergeStateEffect,
-      'default'
-    );
-    const registerStateMutateEffectFn = jest.spyOn(
-      mutateStateEffect,
       'default'
     );
     const registerStateGetCoeffectFn = jest.spyOn(getStateCoeffect, 'default');
@@ -43,7 +38,6 @@ describe('state battery', () => {
     expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(1);
     expect(registerStateSetEffectFn).toHaveBeenCalledWith(store);
     expect(registerStateMergeEffectFn).toHaveBeenCalledWith(store);
-    expect(registerStateMutateEffectFn).toHaveBeenCalledWith(store);
     expect(registerStateGetCoeffectFn).toHaveBeenCalledWith(store);
   });
 });

@@ -1,6 +1,5 @@
 import stateGetCoeffect, { stateGet } from './getState';
 import stateSetEffect, { stateSet } from './setState';
-import stateMutateEffect, { mutateState } from './mutateState';
 import stateMergeEffect, { stateMerge } from './mergeState';
 import defaultStore from '../store';
 
@@ -15,12 +14,10 @@ export const state = {
   get: stateGet,
   set: stateSet,
   merge: stateMerge,
-  mutate: mutateState,
 };
 
 export default function registerStateBatteries(store = defaultStore) {
   stateGetCoeffect(store);
   stateSetEffect(store);
   stateMergeEffect(store);
-  stateMutateEffect(store);
 }
