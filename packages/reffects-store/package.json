@@ -1,6 +1,6 @@
 {
   "name": "reffects-store",
-  "version": "1.6.0-alpha.0",
+  "version": "1.6.1-alpha.0",
   "description": "Reffects implementation of store for React including the subscription/connection module for your components.",
   "source": "src/index.js",
   "module": "dist/reffects-store.es.js",
@@ -38,7 +38,7 @@
     "jest": "^26.6.3",
     "jest-when": "^3.4.1",
     "prettier": "^1.16.4",
-    "reffects": "^1.7.0-alpha.0",
+    "reffects": "^1.7.1-alpha.0",
     "rollup": "^2.33.2",
     "rollup-plugin-terser": "^5.3.1"
   },

@@ -1,6 +1,6 @@
 {
   "name": "example-with-zustand",
-  "version": "1.5.6-alpha.0",
+  "version": "1.5.7-alpha.0",
   "description": "",
   "private": true,
   "keywords": [],
@@ -9,8 +9,8 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "2.1.8",
-    "reffects": "github:trovit/reffects#1.7.0-alpha.0",
-    "reffects-batteries": "github:trovit/reffects-batteries#1.6.0-alpha.0",
+    "reffects": "github:trovit/reffects#1.7.1-alpha.0",
+    "reffects-batteries": "github:trovit/reffects-batteries#1.6.1-alpha.0",
     "reselect": "^4.0.0",
     "zustand": "^3.1.2"
   },
