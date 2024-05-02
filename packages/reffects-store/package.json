@@ -63,5 +63,6 @@
   },
   "jest": {
     "resetMocks": true
-  }
+  },
+  "gitHead": "ab74e82b7c5f92549c0c9c65b032fa5f5c204152"
 }
