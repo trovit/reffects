@@ -34,7 +34,7 @@ describe('state battery', () => {
 
     registerStateBatteries(store);
 
-    expect(registerEffectHandlerFn).toHaveBeenCalledTimes(3);
+    expect(registerEffectHandlerFn).toHaveBeenCalledTimes(2);
     expect(registerCoeffectHandlerFn).toHaveBeenCalledTimes(1);
     expect(registerStateSetEffectFn).toHaveBeenCalledWith(store);
     expect(registerStateMergeEffectFn).toHaveBeenCalledWith(store);
