@@ -1,6 +1,6 @@
 {
   "name": "example-with-reffects-store-useselector-hook",
-  "version": "1.5.8-alpha.0",
+  "version": "1.5.9-alpha.0",
   "description": "",
   "private": true,
   "keywords": [],
@@ -11,7 +11,7 @@
     "react-scripts": "2.1.8",
     "reffects": "github:trovit/reffects#1.7.1-alpha.0",
     "reffects-batteries": "github:trovit/reffects-batteries#1.6.1-alpha.0",
-    "reffects-store": "github:trovit/reffects-store#1.6.1-alpha.0",
+    "reffects-store": "github:trovit/reffects-store#1.6.2-alpha.0",
     "reselect": "^4.0.0"
   },
   "scripts": {
