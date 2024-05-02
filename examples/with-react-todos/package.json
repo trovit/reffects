@@ -1,17 +1,17 @@
 {
   "name": "example-with-react-todos",
-  "version": "1.5.6-alpha.0",
+  "version": "1.5.7-alpha.0",
   "description": "",
   "private": true,
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "react-scripts": "2.1.8",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "reffects": "github:trovit/reffects#1.6.1-alpha.0",
-    "reffects-batteries": "github:trovit/reffects-batteries#1.5.5-alpha.0",
-    "reffects-store": "github:trovit/reffects-store#1.5.6-alpha.0",
+    "react-scripts": "2.1.8",
+    "reffects": "github:trovit/reffects#1.7.0-alpha.0",
+    "reffects-batteries": "github:trovit/reffects-batteries#1.6.0-alpha.0",
+    "reffects-store": "github:trovit/reffects-store#1.6.0-alpha.0",
     "reselect": "^4.0.0"
   },
   "scripts": {
